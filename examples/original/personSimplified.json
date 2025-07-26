@@ -365,12 +365,12 @@
     "propertyAssignments": {},
     "type": "Package",
     "id": "99z7l44dhmdfxxgef",
-    "name": "default-name",
+    "name": "personSimplifiedPackage",
     "description": null
   },
   "diagrams": null,
   "type": "Project",
   "id": "99z7l44dhmdfxxgee",
-  "name": "default-name",
+  "name": "personSimplifiedVpp",
   "description": null
 }
