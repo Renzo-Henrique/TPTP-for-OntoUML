@@ -1,0 +1,33 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.pnpm-debug.log*
+
+# TypeScript
+dist/
+*.tsbuildinfo
+
+# VSCode
+.vscode/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Testes (caso use algum framework)
+coverage/
+*.log
+
+# Ambientes locais
+.env
+.env.*
+
+# Arquivos temporários
+tmp/
+temp/
+
+# MacOS Trash
+.Trashes

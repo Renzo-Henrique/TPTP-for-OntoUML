@@ -1,10 +1,14 @@
 {
   "name": "tptp-for-ontouml",
-  "version": "1.0.0",
-  "description": "Pacote npm para fazer verificações em TPTP de modelos OntoUML ",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "Verifica modelos OntoUML em formato JSON convertendo para TPTP e usando provadores automáticos.",
+  "main": "dist/index.js",
+  "types": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "postinstall": "node scripts/postinstall.js",
+    "clean": "rm -rf ./node_modules"
   },
   "repository": {
     "type": "git",
@@ -17,8 +21,14 @@
   ],
   "author": "Renzo Henrique Guzzo Leão",
   "license": "GPL-2.0",
-  "bugs": {
-    "url": "https://github.com/Renzo-Henrique/TPTP-for-OntoUML/issues"
+  "engines": {
+    "npm": ">= 7.7.0",
+    "node": ">=16"
   },
-  "homepage": "https://github.com/Renzo-Henrique/TPTP-for-OntoUML#readme"
+  "dependencies": {
+    "ontouml-js": "github:matheuslenke/ontouml-js#feature/include-types-in-build"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  }
 }
