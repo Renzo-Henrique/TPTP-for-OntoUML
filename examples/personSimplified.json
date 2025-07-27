@@ -17,7 +17,7 @@
             "order": "1",
             "propertyAssignments": {},
             "type": "Class",
-            "id": "99z7l44dhmdfxxgeh",
+            "id": "98z17wbmdm9sowt",
             "name": "number",
             "description": null
           },
@@ -35,7 +35,7 @@
             "order": "1",
             "propertyAssignments": {},
             "type": "Class",
-            "id": "99z7l44dhmdfxxgei",
+            "id": "98z17wbmdm9sowu",
             "name": "string",
             "description": null
           },
@@ -53,7 +53,7 @@
             "order": "1",
             "propertyAssignments": {},
             "type": "Class",
-            "id": "99z7l44dhmdfxxgej",
+            "id": "98z17wbmdm9sowv",
             "name": "boolean",
             "description": null
           },
@@ -71,7 +71,7 @@
             "order": "1",
             "propertyAssignments": {},
             "type": "Class",
-            "id": "99z7l44dhmdfxxgek",
+            "id": "98z17wbmdm9soww",
             "name": "date",
             "description": null
           },
@@ -89,7 +89,7 @@
             "order": "1",
             "propertyAssignments": {},
             "type": "Class",
-            "id": "99z7l44dhmdfxxgel",
+            "id": "98z17wbmdm9sowx",
             "name": "time",
             "description": null
           },
@@ -107,7 +107,7 @@
             "order": "1",
             "propertyAssignments": {},
             "type": "Class",
-            "id": "99z7l44dhmdfxxgem",
+            "id": "98z17wbmdm9sowy",
             "name": "datetime",
             "description": null
           },
@@ -125,14 +125,14 @@
             "order": "1",
             "propertyAssignments": {},
             "type": "Class",
-            "id": "99z7l44dhmdfxxgen",
+            "id": "98z17wbmdm9sowz",
             "name": "undefined",
             "description": null
           }
         ],
         "propertyAssignments": {},
         "type": "Package",
-        "id": "99z7l44dhmdfxxgeg",
+        "id": "98z17wbmdm9sows",
         "name": "Tonto.BasicDataTypes",
         "description": null
       },
@@ -152,15 +152,13 @@
             "order": "1",
             "propertyAssignments": {},
             "type": "Class",
-            "id": "99z7l44dhmdfxxgep",
+            "id": "98z17wbmdm9sox1",
             "name": "Person",
             "description": null
           },
           {
             "stereotype": "phase",
-            "restrictedTo": [
-              "functional-complex"
-            ],
+            "restrictedTo": null,
             "properties": null,
             "literals": null,
             "isAbstract": false,
@@ -170,15 +168,13 @@
             "order": "1",
             "propertyAssignments": {},
             "type": "Class",
-            "id": "99z7l44dhmdfxxgeq",
+            "id": "98z17wbmdm9sox2",
             "name": "Child",
             "description": null
           },
           {
             "stereotype": "phase",
-            "restrictedTo": [
-              "functional-complex"
-            ],
+            "restrictedTo": null,
             "properties": null,
             "literals": null,
             "isAbstract": false,
@@ -188,15 +184,13 @@
             "order": "1",
             "propertyAssignments": {},
             "type": "Class",
-            "id": "99z7l44dhmdfxxger",
+            "id": "98z17wbmdm9sox3",
             "name": "Teenager",
             "description": null
           },
           {
             "stereotype": "phase",
-            "restrictedTo": [
-              "functional-complex"
-            ],
+            "restrictedTo": null,
             "properties": null,
             "literals": null,
             "isAbstract": false,
@@ -206,8 +200,8 @@
             "order": "1",
             "propertyAssignments": {},
             "type": "Class",
-            "id": "99z7l44dhmdfxxges",
-            "name": "YoungAdult",
+            "id": "98z17wbmdm9sox4",
+            "name": "Adult",
             "description": null
           },
           {
@@ -224,7 +218,7 @@
             "order": "1",
             "propertyAssignments": {},
             "type": "Class",
-            "id": "99z7l44dhmdfxxget",
+            "id": "98z17wbmdm9sox5",
             "name": "UniversityStudent",
             "description": null
           },
@@ -242,7 +236,7 @@
             "order": "1",
             "propertyAssignments": {},
             "type": "Class",
-            "id": "99z7l44dhmdfxxgeu",
+            "id": "98z17wbmdm9sox6",
             "name": "FormerStudent",
             "description": null
           },
@@ -260,117 +254,141 @@
             "order": "1",
             "propertyAssignments": {},
             "type": "Class",
-            "id": "99z7l44dhmdfxxgev",
+            "id": "98z17wbmdm9sox7",
             "name": "ActiveStudent",
             "description": null
           },
           {
             "general": {
               "type": "Class",
-              "id": "99z7l44dhmdfxxgep"
+              "id": "98z17wbmdm9sox1"
             },
             "specific": {
               "type": "Class",
-              "id": "99z7l44dhmdfxxgeq"
+              "id": "98z17wbmdm9sox2"
             },
             "propertyAssignments": {},
             "type": "Generalization",
-            "id": "99z7l44dhmdfxxgew",
+            "id": "98z17wbmdm9sox8",
             "name": null,
             "description": null
           },
           {
             "general": {
               "type": "Class",
-              "id": "99z7l44dhmdfxxgep"
+              "id": "98z17wbmdm9sox1"
             },
             "specific": {
               "type": "Class",
-              "id": "99z7l44dhmdfxxger"
+              "id": "98z17wbmdm9sox3"
             },
             "propertyAssignments": {},
             "type": "Generalization",
-            "id": "99z7l44dhmdfxxgex",
+            "id": "98z17wbmdm9sox9",
             "name": null,
             "description": null
           },
           {
             "general": {
               "type": "Class",
-              "id": "99z7l44dhmdfxxgep"
+              "id": "98z17wbmdm9sox1"
             },
             "specific": {
               "type": "Class",
-              "id": "99z7l44dhmdfxxges"
+              "id": "98z17wbmdm9sox4"
             },
             "propertyAssignments": {},
             "type": "Generalization",
-            "id": "99z7l44dhmdfxxgey",
+            "id": "98z17wbmdm9soxa",
+            "name": null,
+            "description": null
+          },
+          {
+            "isDisjoint": true,
+            "isComplete": false,
+            "categorizer": null,
+            "generalizations": [
+              {
+                "type": "Generalization",
+                "id": "98z17wbmdm9sox8"
+              },
+              {
+                "type": "Generalization",
+                "id": "98z17wbmdm9sox9"
+              },
+              {
+                "type": "Generalization",
+                "id": "98z17wbmdm9soxa"
+              }
+            ],
+            "propertyAssignments": {},
+            "type": "GeneralizationSet",
+            "id": "98z17wbmdm9soxb",
+            "name": "PhasesOfPerson",
+            "description": null
+          },
+          {
+            "general": {
+              "type": "Class",
+              "id": "98z17wbmdm9sox1"
+            },
+            "specific": {
+              "type": "Class",
+              "id": "98z17wbmdm9sox5"
+            },
+            "propertyAssignments": {},
+            "type": "Generalization",
+            "id": "98z17wbmdm9soxc",
             "name": null,
             "description": null
           },
           {
             "general": {
               "type": "Class",
-              "id": "99z7l44dhmdfxxgep"
+              "id": "98z17wbmdm9sox5"
             },
             "specific": {
               "type": "Class",
-              "id": "99z7l44dhmdfxxget"
+              "id": "98z17wbmdm9sox6"
             },
             "propertyAssignments": {},
             "type": "Generalization",
-            "id": "99z7l44dhmdfxxgez",
+            "id": "98z17wbmdm9soxd",
             "name": null,
             "description": null
           },
           {
             "general": {
               "type": "Class",
-              "id": "99z7l44dhmdfxxget"
+              "id": "98z17wbmdm9sox5"
             },
             "specific": {
               "type": "Class",
-              "id": "99z7l44dhmdfxxgeu"
+              "id": "98z17wbmdm9sox7"
             },
             "propertyAssignments": {},
             "type": "Generalization",
-            "id": "99z7l44dhmdfxxgf0",
-            "name": null,
-            "description": null
-          },
-          {
-            "general": {
-              "type": "Class",
-              "id": "99z7l44dhmdfxxget"
-            },
-            "specific": {
-              "type": "Class",
-              "id": "99z7l44dhmdfxxgev"
-            },
-            "propertyAssignments": {},
-            "type": "Generalization",
-            "id": "99z7l44dhmdfxxgf1",
+            "id": "98z17wbmdm9soxe",
             "name": null,
             "description": null
           }
         ],
         "propertyAssignments": {},
         "type": "Package",
-        "id": "99z7l44dhmdfxxgeo",
+        "id": "98z17wbmdm9sox0",
         "name": "PersonSimplified",
         "description": null
       }
     ],
     "propertyAssignments": {},
     "type": "Package",
-    "id": "99z7l44dhmdfxxgef",
-    "name": "personSimplifiedPackage",
+    "id": "98z17wbmdm9sowr",
+    "name": "personSimplified-model",
     "description": null
   },
   "diagrams": null,
   "type": "Project",
-  "id": "99z7l44dhmdfxxgee",
-  "name": "personSimplifiedVpp",
+  "id": "98z17wbmdm9sowq",
+  "name": "personSimplified-project",
   "description": null
 }
