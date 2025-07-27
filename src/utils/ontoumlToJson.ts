@@ -4,23 +4,22 @@ import path from 'path';
 import { Project, serializationUtils} from 'ontouml-js';
 //import * as Ontouml from 'ontouml-js';
 
+const excludedNames = [
+  'number',
+  'string',
+  'boolean',
+  'date',
+  'time',
+  'datetime',
+  'undefined'
+];
+
 export function loadProjectFromJson(filePath: string): Project {
   const absolutePath = path.resolve(filePath);
 
   if (!fs.existsSync(absolutePath)) {
     throw new Error(`Arquivo não encontrado: ${absolutePath}`);
   }
-
-  //console.log(Object.getOwnPropertyNames(Ontouml));
-  //console.log(Ontouml.serializationUtils); // deve mostrar undefined ou o objeto
-
-
-  //const data = fs.readFileSync(absolutePath, 'utf-8');
-
-  //const data = fs.readFileSync(opts.fileName, { encoding: "utf8" });
-
-  //const project: Project = serializationUtils.parse(data, true) as Project;
-  
   let data: any;
   try {
     data = fs.readFileSync(absolutePath, { encoding: "utf8" });
@@ -35,4 +34,14 @@ export function loadProjectFromJson(filePath: string): Project {
   } catch (err) {
     throw new Error(`Erro ao criar Project do ontouml-js: ${err}`);
   }
+}
+
+export function getAllClassNames(project: Project): string[] {
+  const classes = project.getAllClasses();
+
+  const classNames = classes
+    .map((c) => c.getName().toLowerCase())
+    .filter((name) => !excludedNames.includes(name.toLowerCase()));
+
+  return classNames;
 }

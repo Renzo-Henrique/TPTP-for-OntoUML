@@ -31,3 +31,5 @@ temp/
 
 # MacOS Trash
 .Trashes
+
+/examples/generated/*.p
