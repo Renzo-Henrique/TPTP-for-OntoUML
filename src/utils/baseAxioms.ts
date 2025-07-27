@@ -16,15 +16,23 @@ fof(ax_entity_different_than_world, axiom, (
   ![X, W]: ( exists(X, W)  => (X != W & entity(X) & world(W)))
 )).`;
 
-export function existenceOfSortalInstances(names: string[]): string {
-  const filtered = names.filter(name => name.trim() !== '');
+function checkEmpty(strs: string[]):boolean{
+  return strs.filter(name => name.trim() !== '').length === 0;
+}
 
-  if (filtered.length === 0) {
-    console.error('Erro: A ontologia não possui sortal para ser instanciada');
+function checkEmptyForError(strs: string[], errorMessage: string): void{
+
+  if(checkEmpty(strs)) {
+    console.error(errorMessage);
     process.exit(1);
   }
+}
 
-  const result = filtered
+export function existenceOfSortalInstancesAxiom(names: string[]): string {
+  const errorMessage = 'Erro: A ontologia não possui sortal para ser instanciada'
+  checkEmptyForError(names, errorMessage);
+
+  const result = names
     .map(content => `${content}(X,W)`)
     .join(' | ');
 
@@ -32,3 +40,54 @@ export function existenceOfSortalInstances(names: string[]): string {
   ![X, W]: ( exists(X, W) => (${result}))
 )).`;
 }
+
+export function existenceOfRigidSortalClassesAxiom(names: string[]): string {
+  const errorMessage = 'Erro: function-- rigidSortalExistenceClass';
+  checkEmptyForError(names, errorMessage);
+
+  return names
+    .map(content => existenceOfRigidSortalClassAxiom(content))
+    .join('\n');
+}
+
+function existenceOfRigidSortalClassAxiom(name: string): string{
+  return `fof(ax_rigid_sortal_ex_${name}, axiom, (
+  ![X, W1]: (${name}(X, W1) => ( 
+              (exists(X, W1) &
+            ![W2]: ((exists(X, W2) & W1 != W2) => (${name}(X, W2)))
+    )
+  )
+))).`
+}
+
+export function existenceOfAntiRigidSortalClassesAxiom(names: string[]): string {
+  if(checkEmpty(names)) return '';
+  return names
+    .map(content => existenceOfAntiRigidSortalClassAxiom(content))
+    .join('\n');
+}
+
+function existenceOfAntiRigidSortalClassAxiom(name: string): string{
+  return `fof(ax_antirigid_ex_${name}, axiom, (
+  ![X, W1]: (${name}(X, W1) => (
+            ?[W2]: (exists(X, W2) & W1 != W2 & (~${name}(X, W2)))
+    )
+  )
+)).`
+}
+
+export function existenceOfAtLeastOneOfEachClasses(names: string[]): string {
+  if(checkEmpty(names)) return '';
+  return names
+    .map(content => existenceOfAtLeastOneOfClass(content))
+    .join('\n');
+}
+
+function existenceOfAtLeastOneOfClass(name: string): string{
+  return `fof(ax_exists_at_least_one_of_${name}, axiom,(
+  ?[X, W]: (exists(X, W) & ${name}(X, W))
+)).`
+}
+
+
+
