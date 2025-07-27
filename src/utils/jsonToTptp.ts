@@ -3,7 +3,8 @@ import {lowerFirst, camelCase} from 'lodash';
 import path from 'path';
 import { Project, Class } from 'ontouml-js';
 import {worldAndEntity, existenceOfSortalInstancesAxiom, 
-    existenceOfRigidSortalClassesAxiom, existenceOfAntiRigidSortalClassesAxiom} from './baseAxioms'
+    existenceOfRigidSortalClassesAxioms, existenceOfAntiRigidSortalClassesAxioms,
+    generalizationOfClassesAxioms} from './baseAxioms'
 /**
  * Gera um arquivo .p com a representação TPTP do modelo OntoUML.
  * O arquivo será salvo na pasta:
@@ -50,16 +51,18 @@ export function generateTptpFromProject(filePath: string, project: Project): voi
     formulaComment = `% TODAS AS COISAS QUE SAO INSTANCIAS DE UM SORTAL EM ALGUM MUNDO`;
     formulaComment += `\n% CONTINUAM SENDO INSTÂNCIAS DO MESMO SORTAL EM TODOS OS MUNDOS NO QUAL EXISTAM`;
     formulas.push(formulaComment);
-    formulas.push(existenceOfRigidSortalClassesAxiom(rigidSortals));
+    formulas.push(existenceOfRigidSortalClassesAxioms(rigidSortals));
 
     formulaComment = `% TODAS AS COISAS QUE SAO INSTANCIAS DE UM TIPO-ANTI-RIGIDO EM ALGUM MUNDO`;
     formulaComment += `\n% PODEM NÃO SE-LO EM OUTRO MUNDO`;
     formulas.push(formulaComment);
-    formulas.push(existenceOfAntiRigidSortalClassesAxiom(antiRigidSortals));
+    formulas.push(existenceOfAntiRigidSortalClassesAxioms(antiRigidSortals));
 
 
-    formulaComment = `Especializações`;
+    formulaComment = `%%%%%%\n%%%%%%\n%%%%%%\n%Especializações`;
     formulas.push(formulaComment);
+    formulas.push(getGeneralizationAxioms(project));
+    
     //formulas.push(specializationOfClassesAxiom(antiRigidSortals));
 
     //formulaComment = `%% NAO TENHO CERTEZA SE ISSO É NECESSÁRIO/CORRETO!?!? É PRA SIMULAÇÃO DE MUNDOS?`;
@@ -136,4 +139,16 @@ function printAllClasses(project: Project): void{
     .join('\n');
 
     console.log(consoleOutput);
+}
+
+function getGeneralizationAxioms(project: Project): string{
+    project.getClassById
+    // [general, specific]
+    const generalizations: [string, string][] = project.getAllGeneralizations()
+        .map(content => 
+            [project.getClassById(content.general.id).getName(), 
+                project.getClassById(content.specific.id).getName()]);
+    
+    
+    return generalizationOfClassesAxioms(generalizations);
 }

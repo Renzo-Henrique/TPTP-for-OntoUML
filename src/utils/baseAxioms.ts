@@ -16,13 +16,10 @@ fof(ax_entity_different_than_world, axiom, (
   ![X, W]: ( exists(X, W)  => (X != W & entity(X) & world(W)))
 )).`;
 
-function checkEmpty(strs: string[]):boolean{
-  return strs.filter(name => name.trim() !== '').length === 0;
-}
 
 function checkEmptyForError(strs: string[], errorMessage: string): void{
 
-  if(checkEmpty(strs)) {
+  if(strs.length === 0) {
     console.error(errorMessage);
     process.exit(1);
   }
@@ -41,7 +38,7 @@ export function existenceOfSortalInstancesAxiom(names: string[]): string {
 )).`;
 }
 
-export function existenceOfRigidSortalClassesAxiom(names: string[]): string {
+export function existenceOfRigidSortalClassesAxioms(names: string[]): string {
   const errorMessage = 'Erro: function-- rigidSortalExistenceClass';
   checkEmptyForError(names, errorMessage);
 
@@ -60,8 +57,8 @@ function existenceOfRigidSortalClassAxiom(name: string): string{
 ))).`
 }
 
-export function existenceOfAntiRigidSortalClassesAxiom(names: string[]): string {
-  if(checkEmpty(names)) return '';
+export function existenceOfAntiRigidSortalClassesAxioms(names: string[]): string {
+  if(names.length === 0) return '';
   return names
     .map(content => existenceOfAntiRigidSortalClassAxiom(content))
     .join('\n');
@@ -76,16 +73,32 @@ function existenceOfAntiRigidSortalClassAxiom(name: string): string{
 )).`
 }
 
-export function existenceOfAtLeastOneOfEachClasses(names: string[]): string {
-  if(checkEmpty(names)) return '';
+export function existenceOfAtLeastOneOfEachClassAxioms(names: string[]): string {
+  const errorMessage = 'Erro: Pelo menos uma classe deveria existir ';
+  checkEmptyForError(names, errorMessage);
+
   return names
-    .map(content => existenceOfAtLeastOneOfClass(content))
+    .map(content => existenceOfAtLeastOneOfClassAxiom(content))
     .join('\n');
 }
 
-function existenceOfAtLeastOneOfClass(name: string): string{
+function existenceOfAtLeastOneOfClassAxiom(name: string): string{
   return `fof(ax_exists_at_least_one_of_${name}, axiom,(
   ?[X, W]: (exists(X, W) & ${name}(X, W))
+)).`
+}
+
+
+export function generalizationOfClassesAxioms(names: [string,string][]): string {
+  if(names.length === 0) return '';
+  return names
+    .map(content => generalizationOfClassAxiom(content[0], content[1]))
+    .join('\n');
+}
+
+function generalizationOfClassAxiom(general: string, specific: string): string{
+  return `fof(ax_especialization_of_created_class_${specific}, axiom, (
+  ![X, W]: (${specific}(X, W)  => ${general}(X, W))
 )).`
 }
 
