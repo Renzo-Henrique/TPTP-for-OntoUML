@@ -1,5 +1,6 @@
-import { Project, Class} from 'ontouml-js';
-import {checkEmptyForError, stereotypesWithoutDatatype} from './utils'
+import { Project, Class, ClassStereotype, stereotypeUtils } from 'ontouml-js';
+import {checkEmptyForError} from './utils'
+import * as newStereotypes from './newStereotypes'
 
 export function existenceOfSortalInstancesAxiom(project: Project): string {
 
@@ -17,8 +18,8 @@ export function existenceOfSortalInstancesAxiom(project: Project): string {
 
 export function existenceOfRigidSortalClassesAxioms(project: Project): string {
   const errorMessage = 'Erro: A ontologia não possui rigid sortals';
-  const rigidSortal: Class[] = project.getClassesWithKindStereotype().concat(project.getClassesWithSubkindStereotype());
-
+  //const rigidSortal: Class[] = project.getClassesWithKindStereotype().concat(project.getClassesWithSubkindStereotype());
+  const rigidSortal: Class[] = project.getAllClassesByStereotype(newStereotypes.RigidSortalStereotypes);
   checkEmptyForError(rigidSortal, errorMessage);
 
   return rigidSortal
@@ -26,18 +27,22 @@ export function existenceOfRigidSortalClassesAxioms(project: Project): string {
     .join('\n');
 }
 
-export function existenceOfRigidSortalClassAxiom(projectClass: Class): string{
-  return `fof(ax_rigid_sortal_ex_${projectClass.getName()}, axiom, (
-  ![X, W1]: (${projectClass.getName()}(X, W1) => ( 
+export function existenceOfRigidSortalClassAxiom(rigidSortalClass: Class): string{
+    if(! newStereotypes.isRigidSortalStereotype(rigidSortalClass.stereotype)){
+        console.error('Erro: Essa função só pode ser usada para o esteriótipo rigidSortal');
+        process.exit(1);
+    }
+  return `fof(ax_rigid_sortal_ex_${rigidSortalClass.getName()}, axiom, (
+  ![X, W1]: (${rigidSortalClass.getName()}(X, W1) => ( 
               (exists(X, W1) &
-            ![W2]: ((exists(X, W2) & W1 != W2) => (${projectClass.getName()}(X, W2)))
+            ![W2]: ((exists(X, W2) & W1 != W2) => (${rigidSortalClass.getName()}(X, W2)))
     )
   )
 ))).`
 }
 
 export function existenceOfAntiRigidSortalClassesAxioms(project: Project): string {
-  const phaseAxioms = project.getClassesWithPhaseStereotype()
+  /*const phaseAxioms = project.getClassesWithPhaseStereotype()
                   .map(content => existenceOfAntiRigidSortalClassAxiom(content))
                   .join('\n');
 
@@ -45,13 +50,21 @@ export function existenceOfAntiRigidSortalClassesAxioms(project: Project): strin
                   .map(content => existenceOfAntiRigidSortalClassAxiom(content))
                   .join('\n');
 
-  return phaseAxioms + roleAxioms;
+  return phaseAxioms + roleAxioms;*/
+
+  return project.getAllClassesByStereotype(newStereotypes.AntiRigidSortalStereotypes)
+    .map(content => existenceOfAntiRigidSortalClassAxiom(content))
+    .join('\n');
 }
 
-export function existenceOfAntiRigidSortalClassAxiom(projectClass: Class): string{
-  return `fof(ax_antirigid_ex_${projectClass.getName()}, axiom, (
-  ![X, W1]: (${projectClass.getName()}(X, W1) => (
-            ?[W2]: (exists(X, W2) & W1 != W2 & (~${projectClass.getName()}(X, W2)))
+export function existenceOfAntiRigidSortalClassAxiom(antiRigidSortalClass: Class): string{
+    if(! newStereotypes.isAntiRigidSortalStereotype(antiRigidSortalClass.stereotype)){
+        console.error('Erro: Essa função só pode ser usada para o esteriótipo rigidSortal');
+        process.exit(1);
+    }
+  return `fof(ax_antirigid_ex_${antiRigidSortalClass.getName()}, axiom, (
+  ![X, W1]: (${antiRigidSortalClass.getName()}(X, W1) => (
+            ?[W2]: (exists(X, W2) & W1 != W2 & (~${antiRigidSortalClass.getName()}(X, W2)))
     )
   )
 )).`
@@ -59,9 +72,9 @@ export function existenceOfAntiRigidSortalClassAxiom(projectClass: Class): strin
 
 export function existenceOfAtLeastOneOfEachClassAxioms(project: Project): string {
   const errorMessage = 'Erro: Pelo menos uma classe deveria existir ';
-  checkEmptyForError(project.getAllClassesByStereotype(stereotypesWithoutDatatype), errorMessage);
+  checkEmptyForError(project.getAllClassesByStereotype(newStereotypes.AvailableInAxiomsClassStereotypes), errorMessage);
   //return '';
-  return project.getAllClassesByStereotype(stereotypesWithoutDatatype)
+  return project.getAllClassesByStereotype(newStereotypes.AvailableInAxiomsClassStereotypes)
     .map(content => existenceOfAtLeastOneOfClassAxiom(content))
     .join('\n');
 }

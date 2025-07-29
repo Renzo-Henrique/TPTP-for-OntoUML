@@ -1,4 +1,4 @@
-import { Project, ClassStereotype } from 'ontouml-js';
+import { Project} from 'ontouml-js';
 import {camelCase} from 'lodash';
 
 export const worldAndEntity = `%%%%%%%%%%%%%%%%%%
@@ -20,9 +20,7 @@ fof(ax_entity_different_than_world, axiom, (
 )).`;
 
 
-export const stereotypesWithoutDatatype = Object.values(ClassStereotype).filter(
-  value => value !== ClassStereotype.DATATYPE
-);
+
 
 export function checkEmptyForError(elements: any[], errorMessage: string): void{
 
@@ -31,6 +29,7 @@ export function checkEmptyForError(elements: any[], errorMessage: string): void{
     process.exit(1);
   }
 }
+
 
 export function refactorNames(project: Project): void {
   const classes = project.getAllClasses();

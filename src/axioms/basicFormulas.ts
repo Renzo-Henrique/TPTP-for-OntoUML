@@ -4,40 +4,37 @@ export function getDisjunctionsOfClassesFormula(classes: Class[], tabs: string, 
   const disjunctions: string[] = [];
   for (let i = 0; i < classes.length; i++) {
       for (let j = i + 1; j < classes.length; j++) {
-        const a = classes[i].getName();
-        const b = classes[j].getName();
+        const a = classes[i];
+        const b = classes[j];
 
-
-        i > 0 || j > 1 ?  disjunctions.push(`${tabs}~ (${a}(${entity}, ${world}) & ${b}(${entity}, ${world}))`) : 
-                          disjunctions.push(`~ (${a}(${entity}, ${world}) & ${b}(${entity}, ${world}))`);
-
-        
-        
+        const disjunctionFormula = '~' + getAndFromClassesFormula([a,b], entity, world);
+        i > 0 || j > 1 ?  disjunctions.push(tabs + disjunctionFormula) : 
+                          disjunctions.push(disjunctionFormula);  
       }
     }
   
     return disjunctions
       .map(content => content)
-      .join('& \n');;
+      .join(' & \n');;
 }
 
 export function getOrFromClassesFormula(classes: Class[], entity:string, world:string): string{
-  return '(' + classes
+  return '( ' + classes
   .map(content =>`${content.getName()}(${entity}, ${world})`)
-  .join(' | ') + ')';
+  .join(' | ') + ' )';
+}
+
+export function getAndFromClassesFormula(classes: Class[], entity:string, world:string): string{
+  return '( ' + classes
+  .map(content =>`${content.getName()}(${entity}, ${world})`)
+  .join(' & ') + ' )';
 }
 
 export function getCombinationOfClassesFormula(classes: Class[], tabs: string, entity:string, world:string): string{
-  const combinationOfClasses = getCombinations(classes);
+    const combinationOfClasses = getCombinations(classes);
 
-  return combinationOfClasses
-    .map(content => '(' +content
-      .map(content2 => `${content2.getName()}(${entity}, ${world}) `)
-      .join('& ') 
-      
-      + ')'
-
-    )
+    return combinationOfClasses
+    .map(content => getAndFromClassesFormula(content, entity, world))
     .join(' | \n' + tabs) + '\n';
 }
 

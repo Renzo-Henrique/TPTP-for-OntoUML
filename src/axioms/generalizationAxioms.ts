@@ -1,5 +1,5 @@
 import { Project, Class, Generalization, GeneralizationSet} from 'ontouml-js';
-import {getDisjunctionsOfClassesFormula, getOrFromClassesFormula, getCombinationOfClassesFormula} from './basicFormulas'
+import {getDisjunctionsOfClassesFormula, getOrFromClassesFormula, getCombinationOfClassesFormula, getAndFromClassesFormula} from './basicFormulas'
 
 export function generalizationAllAxioms(project: Project): string {
   return project.getAllGeneralizations()
@@ -7,7 +7,7 @@ export function generalizationAllAxioms(project: Project): string {
     .join('\n');
 }
 
-function generalizationAxiom(generalization: Generalization): string{
+export function generalizationAxiom(generalization: Generalization): string{
   return `fof(ax_especialization_of_created_class_${generalization.specific.getName()}, axiom, (
   ![X, W]: (${generalization.specific.getName()}(X, W)  => ${generalization.general.getName()}(X, W))
 )).`
@@ -49,10 +49,7 @@ export function generalizationSetAxiom(generalizationSet: GeneralizationSet): st
 
   function incompleteGeneralizationSetAxiom(): string{
     const comment = `% Incomplete set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
-    const additionalTabs = '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t';
-    const incompleteAxiom = generalizationSet.getSpecificClasses()
-      .map(content => `${content.getName()}(X, W)`)
-      .join(` &\n${additionalTabs}`);
+    const incompleteAxiom = getAndFromClassesFormula(generalizationSet.getSpecificClasses(), 'X', 'W');
 
 
     return comment + `fof(ax_generalization_set_incomplete_${generalizationSet.getName()}, axiom, (

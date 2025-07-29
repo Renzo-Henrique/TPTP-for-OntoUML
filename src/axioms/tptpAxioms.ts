@@ -1,14 +1,12 @@
-import { Project, Class} from 'ontouml-js';
-import {worldAndEntity, stereotypesWithoutDatatype} from './utils'
+import { Project} from 'ontouml-js';
+import {worldAndEntity, refactorNames} from './utils'
 //import {getDisjunctionsOfClassesFormula, getOrFromClassesFormula, getCombinationOfClassesFormula} from './basicFormulas'
 import {generalizationAllAxioms, generalizationSetAllAxioms} from './generalizationAxioms'
-import { refactorNames, printAllClasses, checkEmptyForError } from './utils';
 import {existenceOfSortalInstancesAxiom, existenceOfRigidSortalClassesAxioms, existenceOfAntiRigidSortalClassesAxioms, existenceOfAtLeastOneOfEachClassAxioms} from './taxonomyAxioms'
 
 
 export function generateTptpAxioms(project: Project): string[]{
-  printAllClasses(project);
-  //----------
+  
   refactorNames(project);
   const formulas: string[] = [];
 
