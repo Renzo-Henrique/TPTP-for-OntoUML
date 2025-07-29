@@ -4,13 +4,14 @@ import { generateTptpFromProject } from './utils/jsonToTptp';
 
 async function main() {
   try {
-    const modelPath = path.resolve(__dirname, '/home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/personSimplified.json'); // ajuste o caminho do seu JSON
+    const file_path = '/home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/json/personSimplified.json';
+    const modelPath = path.resolve(__dirname, file_path); // ajuste o caminho do seu JSON
     const project = loadProjectFromJson(modelPath);
     //console.log('Projeto OntoUML carregado com sucesso:');
     //console.log('Nome do projeto:', project.name);
     // Você pode fazer mais inspeções aqui, por exemplo, listar elementos do projeto
     //console.log(getAllClassNames(project));
-    generateTptpFromProject('/home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/personSimplified.json',project);
+    generateTptpFromProject(file_path,project);
   } catch (err) {
     console.error('Erro ao carregar o projeto:', err);
   }
