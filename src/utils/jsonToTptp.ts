@@ -2,7 +2,7 @@ import fs from 'fs';
 
 import path from 'path';
 import { Project} from 'ontouml-js';
-import {generateTptpAxioms} from './tptpAxioms'
+import {generateTptpAxioms} from '../axioms/tptpAxioms'
 /**
  * Gera um arquivo .p com a representação TPTP do modelo OntoUML.
  * O arquivo será salvo na pasta:

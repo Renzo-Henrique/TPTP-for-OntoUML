@@ -1,0 +1,35 @@
+package Customer
+
+kind Person
+
+subkind Woman
+subkind Man
+
+disjoint genset PersonByGender {
+    general Person
+    specifics Woman, Man
+}
+
+
+
+
+category Company
+kind ForProfitCompany
+kind NonProfitCompany
+
+disjoint genset TypesOfCompanyByPurpose {
+    general Company
+    specifics ForProfitCompany, NonProfitCompany
+}
+
+role IndividualCustomer specializes Person
+roleMixin CorporateCustomer specializes Company
+
+roleMixin Customer
+
+disjoint complete genset CustomerTypes {
+    general Customer
+    specifics IndividualCustomer, CorporateCustomer
+}
+
+
