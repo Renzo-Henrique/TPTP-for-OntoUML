@@ -92,7 +92,7 @@ export function generateTptpAxioms(project: Project): string[]{
 
   formulaComment = `%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%\n%%% Genset\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`;
   formulas.push(formulaComment);
-  formulas.push(generalizationSetAxioms(project));
+  formulas.push(generalizationSetAllAxioms(project));
 
   
   formulaComment = `\n\n%% NAO TENHO CERTEZA SE ISSO É NECESSÁRIO/CORRETO!?!? É PRA SIMULAÇÃO DE MUNDOS?`;
@@ -100,8 +100,6 @@ export function generateTptpAxioms(project: Project): string[]{
   formulas.push(formulaComment);
   formulas.push(existenceOfAtLeastOneOfEachClassAxioms(project));
   
-      
-
   return formulas;
 }
 
@@ -203,9 +201,67 @@ function existenceOfAtLeastOneOfClassAxiom(projectClass: Class): string{
 /////////////
 /////////////
 /////////////
+function getDisjunctionsOfClassesFormula(classes: Class[], tabs: string, entity:string, world:string): string{
+  const disjunctions: string[] = [];
+  for (let i = 0; i < classes.length; i++) {
+      for (let j = i + 1; j < classes.length; j++) {
+        const a = classes[i].getName();
+        const b = classes[j].getName();
 
 
-function generalizationSetAxioms(project: Project): string {
+        i > 0 || j > 1 ?  disjunctions.push(`${tabs}~ (${a}(${entity}, ${world}) & ${b}(${entity}, ${world}))`) : 
+                          disjunctions.push(`~ (${a}(${entity}, ${world}) & ${b}(${entity}, ${world}))`);
+
+        
+        
+      }
+    }
+  
+    return disjunctions
+      .map(content => content)
+      .join('& \n');;
+}
+
+function getOrFromClassesFormula(classes: Class[], entity:string, world:string): string{
+  return '(' + classes
+  .map(content =>`${content.getName()}(${entity}, ${world})`)
+  .join(' | ') + ')';
+}
+
+function getCombinationOfClassesFormula(classes: Class[], tabs: string, entity:string, world:string): string{
+  const combinationOfClasses = getCombinations(classes);
+
+  return combinationOfClasses
+    .map(content => '(' +content
+      .map(content2 => `${content2.getName()}(${entity}, ${world}) `)
+      .join('& ') 
+      
+      + ')'
+
+    )
+    .join(' | \n' + tabs) + '\n';
+}
+
+function getCombinations<T>(array: T[]): T[][] {
+  const result: T[][] = [];
+
+  const combine = (start: number, path: T[]) => {
+    if (path.length >= 2) {
+      result.push([...path]);
+    }
+
+    for (let i = start; i < array.length; i++) {
+      path.push(array[i]);
+      combine(i + 1, path);
+      path.pop();
+    }
+  };
+
+  combine(0, []);
+  return result;
+}
+
+function generalizationSetAllAxioms(project: Project): string {
   
   return project.getAllGeneralizationSets()
     .map(content => generalizationSetAxiom(content))
@@ -216,35 +272,27 @@ function generalizationSetAxiom(generalizationSet: GeneralizationSet): string{
 
   function disjointGeneralizationSetAxiom(): string{
     const comment = `% Disjoint set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
-    const disjunctions: string[] = [];
     const additionalTabs = '\t\t\t\t\t\t\t';
-    for (let i = 0; i < generalizationSet.getSpecificClasses().length; i++) {
-      for (let j = i + 1; j < generalizationSet.getSpecificClasses().length; j++) {
-        const a = generalizationSet.getSpecificClasses()[i].getName();
-        const b = generalizationSet.getSpecificClasses()[j].getName();
-
-
-        i > 0 || j > 1 ? disjunctions.push(`${additionalTabs}~ (${a}(X, W) & ${b}(X, W))`) : disjunctions.push(`~ (${a}(X, W) & ${b}(X, W))`);
-
-        
-        
-      }
-    }
-    const disjunctionsAxiom = disjunctions
-      .map(content => content)
-      .join('& \n');
+    
+   const disjunctionAxiom = getDisjunctionsOfClassesFormula(generalizationSet.getSpecificClasses(), additionalTabs, 'X', 'W');
     return comment + `fof(ax_generalization_set_disjoint_${generalizationSet.getName()}, axiom, (
-    ![X, W]: (${disjunctionsAxiom})\n)).`;
+    ![X, W]: (${disjunctionAxiom})\n)).`;
   }
 
   function overlapGeneralizationSetAxiom(): string{
-    
-    return `% Overlap set of general -${generalizationSet.getGeneralClass().getName()}-`;
+    const comment = `% Overlap set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
+    const additionalTabs = '\t\t\t\t\t\t\t';
+    const combinationOfClasses = getCombinationOfClassesFormula(generalizationSet.getSpecificClasses(), additionalTabs, 'X', 'W');
+
+    return comment + `fof(ax_generalization_set_overlap_${generalizationSet.getName()}, axiom, (
+    ?[X, W]: (${combinationOfClasses})\n)).`;
   }
 
   function completeGeneralizationSetAxiom(): string{
-  
-    return `% Complete set of general -${generalizationSet.getGeneralClass().getName()}-`;
+    const comment = `% Complete set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
+
+    return comment + `fof(ax_generalization_set_complete_PhasesOfPerson, axiom, (
+    ![X, W]: (${generalizationSet.getGeneralClass().getName()}(X, W) => ${getOrFromClassesFormula(generalizationSet.getSpecificClasses(), 'X', 'W')})\n)).`;
   }
 
   function incompleteGeneralizationSetAxiom(): string{

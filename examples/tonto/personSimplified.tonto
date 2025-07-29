@@ -15,8 +15,9 @@ role Student specializes Person
 role GradutationStudent
 role MasterStudent
 role PhdStudent
+role TechnicalStudent
 
 disjoint complete genset StudentByDegreePursued {
     general Student
-    specifics GradutationStudent, MasterStudent, PhdStudent
+    specifics TechnicalStudent, GradutationStudent, MasterStudent, PhdStudent
 }
