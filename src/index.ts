@@ -1,6 +1,6 @@
 import path from 'path';
-import { loadProjectFromJson, getAllClassNames } from './utils/ontoumlToJson';
-import { generateTptpFromProject } from './utils/jsonToTptp';
+import { loadProjectFromJson} from './common/utils';
+import { generateTptpFromProject } from './validation/validator';
 
 async function main() {
   try {
