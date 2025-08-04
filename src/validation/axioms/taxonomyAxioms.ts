@@ -21,12 +21,12 @@ export function disjunctionOfKindsAxiom(project: Project): string {
 }
 
 export function existenceOfSortalInstancesAxiom(project: Project): string {
-
+  
   const errorMessage = 'Erro: A ontologia não possui sortal para ser instanciada'
   checkEmptyForError(project.getClassesWithKindStereotype(), errorMessage);
 
   const result = project.getClassesWithKindStereotype()
-    .map(content => `${content.getName()}(X,W)`)
+    .map(content => `${content.getName()}(X, W)`)
     .join(' | ');
 
   return `fof(ax_existence_of_sortal_instances, axiom, (

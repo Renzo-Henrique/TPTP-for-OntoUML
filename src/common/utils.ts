@@ -5,24 +5,26 @@ import {camelCase} from 'lodash';
 
 
 export function loadProjectFromJson(filePath: string): Project {
-  const absolutePath = path.resolve(filePath);
 
-  if (!fs.existsSync(absolutePath)) {
-    throw new Error(`Arquivo não encontrado: ${absolutePath}`);
-  }
-  let data: any;
-  try {
-    data = fs.readFileSync(absolutePath, { encoding: "utf8" });
-  } catch (err) {
-    throw new Error(`Erro ao ler arquivo JSON: ${err}`);
-  }
-  try {
-    // Use fromJSON em vez de from
-    return serializationUtils.parse(data, true) as Project;
-    //return Project.fromJSON(json);
-  } catch (err) {
-    throw new Error(`Erro ao criar Project do ontouml-js: ${err}`);
-  }
+    var modelPath = path.resolve(__dirname, filePath); // ajuste o caminho do seu JSON
+    const absolutePath = path.resolve(modelPath);
+
+    if (!fs.existsSync(absolutePath)) {
+        throw new Error(`Arquivo não encontrado: ${absolutePath}`);
+    }
+    let data: any;
+    try {
+        data = fs.readFileSync(absolutePath, { encoding: "utf8" });
+    } catch (err) {
+        throw new Error(`Erro ao ler arquivo JSON: ${err}`);
+    }
+    try {
+        // Use fromJSON em vez de from
+        return serializationUtils.parse(data, true) as Project;
+        //return Project.fromJSON(json);
+    } catch (err) {
+        throw new Error(`Erro ao criar Project do ontouml-js: ${err}`);
+    }
 }
 
 export function checkEmptyForError(elements: any[], errorMessage: string): void{
