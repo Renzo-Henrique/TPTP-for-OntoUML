@@ -13,6 +13,8 @@ export function generateTptpAxioms(project: Project): string[]{
 
   formulas.push(worldAndEntity);
 
+
+  formulas.push('\n\n\n');
   var formulaComment = `% Tudo que existe deve ser instância de sortal`;
   formulas.push(formulaComment);
   formulas.push(existenceOfSortalInstancesAxiom(project));
