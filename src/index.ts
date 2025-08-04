@@ -5,12 +5,12 @@ import { generateTptpFromProject } from './validation/validator';
 async function main() {
   try {
     var file_path = '/home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/json/customer.json';
-    //var modelPath = path.resolve(__dirname, file_path); // ajuste o caminho do seu JSON
-    var project = loadProjectFromJson(file_path);
+    var modelPath = path.resolve(__dirname, file_path); // ajuste o caminho do seu JSON
+    var project = loadProjectFromJson(modelPath);
     generateTptpFromProject(file_path,project);
 
     file_path = '/home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/json/personSimplified.json';
-    //modelPath = path.resolve(__dirname, file_path); // ajuste o caminho do seu JSON
+    modelPath = path.resolve(__dirname, modelPath); // ajuste o caminho do seu JSON
     project = loadProjectFromJson(file_path);
     generateTptpFromProject(file_path,project);
   } catch (err) {

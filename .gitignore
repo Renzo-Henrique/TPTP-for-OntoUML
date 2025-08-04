@@ -33,3 +33,4 @@ temp/
 .Trashes
 
 /examples/json/generated/*.p
+/scripts/bin

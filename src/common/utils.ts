@@ -5,9 +5,7 @@ import {camelCase} from 'lodash';
 
 
 export function loadProjectFromJson(filePath: string): Project {
-
-    var modelPath = path.resolve(__dirname, filePath); // ajuste o caminho do seu JSON
-    const absolutePath = path.resolve(modelPath);
+    const absolutePath = path.resolve(filePath);
 
     if (!fs.existsSync(absolutePath)) {
         throw new Error(`Arquivo não encontrado: ${absolutePath}`);
