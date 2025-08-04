@@ -26,7 +26,7 @@ export function generalizationSetAxiom(generalizationSet: GeneralizationSet): st
     const comment = `% Disjoint set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
     const additionalTabs = '\t\t\t\t\t\t\t';
     
-   const disjunctionAxiom = getDisjunctionsOfClassesFormula(generalizationSet.getSpecificClasses(), additionalTabs, 'X', 'W');
+    const disjunctionAxiom = getDisjunctionsOfClassesFormula(generalizationSet.getSpecificClasses(), additionalTabs, 'X', 'W');
     return comment + `fof(ax_generalization_set_disjoint_${generalizationSet.getName()}, axiom, (
     ![X, W]: (${disjunctionAxiom})\n)).`;
   }

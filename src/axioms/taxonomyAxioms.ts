@@ -1,6 +1,24 @@
 import { Project, Class, ClassStereotype, stereotypeUtils } from 'ontouml-js';
 import {checkEmptyForError} from './utils'
 import * as newStereotypes from './newStereotypes'
+import { getDisjunctionsOfClassesFormula } from './basicFormulas';
+
+export function disjunctionOfKindsAxiom(project: Project): string {
+
+  const errorMessage = 'Erro: A ontologia não possui sortal para ser instanciada'
+  checkEmptyForError(project.getClassesWithKindStereotype(), errorMessage);
+
+  if (project.getClassesWithKindStereotype().length > 1){
+    const additionalTabs = '\t\t\t\t\t\t\t';
+  return `fof(ax_disjunction_of_kinds_instances, axiom, (
+  ![X, W]: ( ${getDisjunctionsOfClassesFormula(project.getClassesWithKindStereotype(), additionalTabs, 'X', 'W')})
+)).`;
+  }
+  else{
+    return '\n\n\n';
+  }
+  
+}
 
 export function existenceOfSortalInstancesAxiom(project: Project): string {
 

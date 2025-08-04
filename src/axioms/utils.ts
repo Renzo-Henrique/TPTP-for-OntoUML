@@ -19,7 +19,9 @@ fof(ax_entity_different_than_world, axiom, (
   ![X, W]: ( exists(X, W)  => (X != W & entity(X) & world(W)))
 )).`;
 
-
+export const existentiallyDependesOn = `fof(ax_existentiallyDependsOn, axiom, (
+  ![X,Y]: (existentiallyDependsOn(X,Y) <=> (![W]: (exists(X,W) => exists(Y,W))))
+)).`
 
 
 export function checkEmptyForError(elements: any[], errorMessage: string): void{
@@ -29,7 +31,6 @@ export function checkEmptyForError(elements: any[], errorMessage: string): void{
     process.exit(1);
   }
 }
-
 
 export function refactorNames(project: Project): void {
   const classes = project.getAllClasses();
