@@ -26,10 +26,12 @@ export function generateTptpFromProject(filePath: string, project: Project): voi
     }
 
     const projectName = project.name.getText();
-    const fileName = projectName
-        .toLowerCase()
-        .replace(/\s+/g, '_')
-        .replace(/[^a-z0-9_]/gi, '') + '.p';
+    //TODO:: consertar geração do nome
+    // const fileName = projectName
+    //     .toLowerCase()
+    //     .replace(/\s+/g, '_')
+    //     .replace(/[^a-z0-9_]/gi, '') + '.p';
+    const fileName = projectName  + '.p';
 
     const outputPath = path.join(outputDir, fileName);
 
@@ -72,7 +74,6 @@ export function generateTptpAxioms(project: Project): string[]{
     formulaComment = `% PODEM NÃO SE-LO EM OUTRO MUNDO`;
     formulas.push(formulaComment);
     formulas.push(existenceOfAntiRigidSortalClassesAxioms(project));
-
 
     formulaComment = `%%%%%%\n%%%%%%\n%%%%%%\n%Especializações`;
     formulas.push(formulaComment);

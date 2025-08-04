@@ -2,6 +2,7 @@ import { Project, Class, ClassStereotype, stereotypeUtils } from 'ontouml-js';
 import {checkEmptyForError} from '../../common/utils'
 import * as newStereotypes from '../../common/newStereotypes'
 import { getDisjunctionsOfClassesFormula } from './basicFormulas';
+import { RigidSortalStereotypes } from '../../common/newStereotypes';
 
 export function disjunctionOfKindsAxiom(project: Project): string {
 
@@ -37,7 +38,8 @@ export function existenceOfSortalInstancesAxiom(project: Project): string {
 export function existenceOfRigidSortalClassesAxioms(project: Project): string {
   const errorMessage = 'Erro: A ontologia não possui rigid sortals';
   //const rigidSortal: Class[] = project.getClassesWithKindStereotype().concat(project.getClassesWithSubkindStereotype());
-  const rigidSortal: Class[] = project.getAllClassesByStereotype(newStereotypes.RigidSortalStereotypes);
+  //TODO:: Consertar nomenclatura
+  const rigidSortal: Class[] = project.getAllClassesByStereotype(stereotypeUtils.RigidStereotypes);
   checkEmptyForError(rigidSortal, errorMessage);
 
   return rigidSortal
@@ -46,10 +48,11 @@ export function existenceOfRigidSortalClassesAxioms(project: Project): string {
 }
 
 export function existenceOfRigidSortalClassAxiom(rigidSortalClass: Class): string{
-    if(! newStereotypes.isRigidSortalStereotype(rigidSortalClass.stereotype)){
-        console.error('Erro: Essa função só pode ser usada para o esteriótipo rigidSortal');
-        process.exit(1);
-    }
+    //TODO:: Consertar nomenclatura e checagem de erros
+    // if(! newStereotypes.isRigidSortalStereotype(stereotypeUtils.RigidStereotypes)){
+    //     console.error('Erro: Essa função só pode ser usada para o esteriótipo rigidSortal');
+    //     process.exit(1);
+    // }
   return `fof(ax_rigid_sortal_ex_${rigidSortalClass.getName()}, axiom, (
   ![X, W1]: (${rigidSortalClass.getName()}(X, W1) => ( 
               (exists(X, W1) &

@@ -33,6 +33,7 @@ export function generalizationSetAxiom(generalizationSet: GeneralizationSet): st
 
   function overlapGeneralizationSetAxiom(): string{
     //TODO:: Esse axioma está expandindo muito o escopo da ontologia, sobrecarregando o provador. Acho que deve ser retirado.
+    //TODO:: teria que fazer um axioma que descreve que existem 0011, 1100, 0110
     return '';
     // const comment = `% Overlap set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
     // const additionalTabs = '\t\t\t\t\t\t\t';

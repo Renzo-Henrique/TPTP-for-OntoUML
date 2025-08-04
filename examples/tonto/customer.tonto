@@ -10,9 +10,6 @@ disjoint genset PersonByGender {
     specifics Woman, Man
 }
 
-
-
-
 category Company
 kind ForProfitCompany
 kind NonProfitCompany

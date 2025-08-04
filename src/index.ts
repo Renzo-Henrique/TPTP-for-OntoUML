@@ -13,6 +13,11 @@ async function main() {
     modelPath = path.resolve(__dirname, modelPath); // ajuste o caminho do seu JSON
     project = loadProjectFromJson(file_path);
     generateTptpFromProject(file_path,project);
+
+    file_path = '/home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/json/personSimplified_errado.json';
+    modelPath = path.resolve(__dirname, modelPath); // ajuste o caminho do seu JSON
+    project = loadProjectFromJson(file_path);
+    generateTptpFromProject(file_path,project);
   } catch (err) {
     console.error('Erro ao carregar o projeto:', err);
   }
