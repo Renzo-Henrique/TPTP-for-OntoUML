@@ -1,9 +1,13 @@
 import {ClassStereotype } from 'ontouml-js';
 
-///
-/// Constants
-///
+// ///
+// /// Constants
+// ///
 
+/**
+ * Array of class stereotypes that are considered available for use in axioms.
+ * Excludes ENUMERATION, DATATYPE, and ABSTRACT stereotypes.
+ */
 export const AvailableInAxiomsClassStereotypes: ClassStereotype[] = Object.values(ClassStereotype).filter(
   value =>
     value !== ClassStereotype.ENUMERATION &&
@@ -11,27 +15,15 @@ export const AvailableInAxiomsClassStereotypes: ClassStereotype[] = Object.value
     value !== ClassStereotype.ABSTRACT
 );
 
-export const RigidSortalStereotypes = [
-  ClassStereotype.KIND,
-  ClassStereotype.SUBKIND
-];
-
-export const AntiRigidSortalStereotypes = [
-  ClassStereotype.PHASE,
-  ClassStereotype.ROLE
-];
-
-///
-/// Functions
-///
+// ///
+// /// Functions
+// ///
+/**
+ * Checks whether a given class stereotype is available for use in axioms.
+ *
+ * @param stereotype - The class stereotype to check.
+ * @returns True if the stereotype is available in axioms, false otherwise.
+ */
 export function isAvailableInAxiomsClassStereotypes(stereotype: ClassStereotype): boolean {
   return AvailableInAxiomsClassStereotypes.includes(stereotype);
-}
-
-export function isRigidSortalStereotype(stereotype: ClassStereotype): boolean {
-  return RigidSortalStereotypes.includes(stereotype);
-}
-
-export function isAntiRigidSortalStereotype(stereotype: ClassStereotype): boolean {
-  return AntiRigidSortalStereotypes.includes(stereotype);
 }

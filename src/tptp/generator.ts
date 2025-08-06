@@ -3,7 +3,6 @@ import path from 'path';
 import { Project} from 'ontouml-js';
 import {worldAndEntity} from './axioms/baseAxioms'
 import {refactorNames} from '../common/utils'
-//import {getDisjunctionsOfClassesFormula, getOrFromClassesFormula, getCombinationOfClassesFormula} from './basicFormulas'
 import {generalizationAllAxioms, generalizationSetAllAxioms} from './axioms/generalizationAxioms'
 import {existenceOfSortalInstancesAxiom, existenceOfRigidClassesAxioms, 
         existenceOfAntiRigidClassesAxioms, existenceOfAtLeastOneOfEachClassAxioms,
@@ -13,11 +12,12 @@ import { resetAxiomId } from './axioms/idGenerator';
 
 
 /**
- * Gera um arquivo .p com a representação TPTP do modelo OntoUML.
- * O arquivo será salvo na pasta:
- * ~/TPTP-for-OntoUML/examples/generated
+ * Generates a TPTP (.p) file representation of a given OntoUML project.
+ * The output file will be saved under the `generated` directory,
+ * in the same path as the input file.
  *
- * @param project Instância do modelo OntoUML carregado.
+ * @param filePath - Path to the input OntoUML JSON file.
+ * @param project - The OntoUML project instance parsed with `ontouml-js`.
  */
 export function generateTptpFromProject(filePath: string, project: Project): void {
     const inputDir = path.dirname(filePath);
@@ -30,11 +30,6 @@ export function generateTptpFromProject(filePath: string, project: Project): voi
     resetAxiomId()
     console.log(project.name.getText())
     const projectName = project.name.getText();
-    //TODO:: consertar geração do nome
-    // const fileName = projectName
-    //     .toLowerCase()
-    //     .replace(/\s+/g, '_')
-    //     .replace(/[^a-z0-9_]/gi, '') + '.p';
     const fileName = projectName  + '.p';
 
     const outputPath = path.join(outputDir, fileName);
@@ -51,6 +46,20 @@ export function generateTptpFromProject(filePath: string, project: Project): voi
     }
 }
 
+/**
+ * Generates a list of TPTP axioms as strings based on the given OntoUML project.
+ *
+ * This includes axioms for:
+ * - Basic ontology assumptions
+ * - Existence of instances
+ * - Taxonomic disjunctions
+ * - Rigidity/anti-rigidity of classes
+ * - Generalizations and generalization sets
+ *
+ *
+ * @param project - The OntoUML project to be transformed.
+ * @returns Array of strings representing TPTP axioms.
+ */
 export function generateTptpAxioms(project: Project): string[]{
   
     refactorNames(project);
@@ -59,80 +68,42 @@ export function generateTptpAxioms(project: Project): string[]{
     formulas.push(worldAndEntity);
 
     formulas.push('\n%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%\n');
-    var formulaComment = `% Tudo que existe deve ser instância de sortal`;
+    var formulaComment = `% Everything that exists must be an instance of a sortal`;
     formulas.push(formulaComment);
     formulas.push(existenceOfSortalInstancesAxiom(project));
 
-    formulaComment = `%%%%%%%%\n%%%%%%%%\n% Disjunção entre kinds`;
+    formulaComment = `%%%%%%%%\n%%%%%%%%\n% Disjunction among kinds`;
     formulas.push(formulaComment);
     formulas.push(disjunctionOfKindsAxiom(project));
 
-    formulaComment = `% TODAS AS COISAS QUE SAO INSTANCIAS DE UM SORTAL EM ALGUM MUNDO`;
+    formulaComment = `% All things that are instances of a rigid type in some world`;
     formulas.push(formulaComment);
-    formulaComment = `% CONTINUAM SENDO INSTÂNCIAS DO MESMO SORTAL EM TODOS OS MUNDOS NO QUAL EXISTAM`;
+    formulaComment = `% Remain instances of the same type in every world where they exist`;
     formulas.push(formulaComment);
     formulas.push(existenceOfRigidClassesAxioms(project));
 
-    formulaComment = `% TODAS AS COISAS QUE SAO INSTANCIAS DE UM TIPO-ANTI-RIGIDO EM ALGUM MUNDO`;
+    formulaComment = `% All things that are instances of an anti-rigid type in some world`;
     formulas.push(formulaComment);
-    formulaComment = `% PODEM NÃO SE-LO EM OUTRO MUNDO`;
+    formulaComment = `% May not be instances in other worlds`;
     formulas.push(formulaComment);
     formulas.push(existenceOfAntiRigidClassesAxioms(project));
 
-    formulaComment = `%%%%%%\n%%%%%%\n%%%%%%\n%Especializações`;
+    formulaComment = `%%%%%%\n%%%%%%\n%%%%%%\n% Improper Specializations\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`;
     formulas.push(formulaComment);
     formulas.push(generalizationAllAxioms(project));
 
-    formulaComment = `%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%\n%%% Genset\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`;
+    formulaComment = `%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%\n%%% Generalization Sets\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`;
     formulas.push(formulaComment);
     formulas.push(generalizationSetAllAxioms(project));
 
     
-    formulaComment = `\n\n%% NAO TENHO CERTEZA SE ISSO É NECESSÁRIO/CORRETO!?!? É PRA SIMULAÇÃO DE MUNDOS?`;
+    formulaComment = `\n\n%% UNCERTAIN: Is this necessary or only for simulation of worlds?`;
     formulas.push(formulaComment);
-    formulaComment = `%% SE FOR, MELHOR DEIXAR NO FINAL E COM UM COMENTÁRIO EXPLICANDO`;
+    formulaComment = `%% If so, better to keep at the end and explain why`;
     formulas.push(formulaComment);
     formulas.push(existenceOfAtLeastOneOfEachClassAxioms(project));
     
-    const result = findDuplicateFofIdentifiers(formulas)
-    if (result.length > 0){
-        console.log(`Existem fórmulas com o mesmo identificador para o projeto {${project.getName()}}:`);
-        console.log(result)
-    }
     return formulas;
-}
-
-function findDuplicateFofIdentifiers(lines: string[]): string[] {
-  const regex = /fof\(ax_([^,]+),/g;
-  const countMap = new Map<string, number>();
-  let totalMatches = 0;
-
-  for (const line of lines) {
-    const matches = [...line.matchAll(regex)];
-
-    for (const match of matches) {
-      totalMatches++;
-      const id = match[1]; // exemplo: 'rigid_sortal_ex_'
-
-      const key = `ax_${id}`;
-      const count = countMap.get(key) ?? 0;
-      countMap.set(key, count + 1);
-
-      //console.log(`Match #${totalMatches}: '${key}' encontrado`);
-    }
-  }
-
-  //console.log(`\nTotal de ocorrências: ${totalMatches}\n`);
-
-  const duplicates: string[] = [];
-  for (const [id, count] of countMap.entries()) {
-    if (count > 1) {
-      //console.log(`🔁 Duplicado: '${id}' com ${count} ocorrências\n`);
-      duplicates.push(id);
-    }
-  }
-
-  return duplicates;
 }
 
 
