@@ -34,7 +34,7 @@ export function generateTptpFromProject(filePath: string, project: Project): voi
 
     const outputPath = path.join(outputDir, fileName);
 
-    const formulas = generateTptpAxioms(project);
+    const formulas = generateTptpAxiomsFromProject(project);
     
     const content = formulas.join('\n');
     //----------
@@ -60,7 +60,7 @@ export function generateTptpFromProject(filePath: string, project: Project): voi
  * @param project - The OntoUML project to be transformed.
  * @returns Array of strings representing TPTP axioms.
  */
-export function generateTptpAxioms(project: Project): string[]{
+function generateTptpAxiomsFromProject(project: Project): string[]{
   
     refactorNames(project);
     const formulas: string[] = [];
