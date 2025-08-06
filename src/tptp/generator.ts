@@ -19,27 +19,25 @@ import { resetAxiomId } from './axioms/idGenerator';
  * @param filePath - Path to the input OntoUML JSON file.
  * @param project - The OntoUML project instance parsed with `ontouml-js`.
  */
-export function generateTptpFromProject(filePath: string, project: Project): void {
-    const inputDir = path.dirname(filePath);
-    const outputDir = path.join(inputDir, 'generated');
+export function generateTptpFromProject(project: Project, outputDirPath: string): void {
 
-    if (!fs.existsSync(outputDir)) {
-        fs.mkdirSync(outputDir, { recursive: true });
+    if (!fs.existsSync(outputDirPath)) {
+        fs.mkdirSync(outputDirPath, { recursive: true });
     }
     resetAxiomId()
     console.log(project.name.getText())
     const projectName = project.name.getText();
     const fileName = projectName  + '.p';
 
-    const outputPath = path.join(outputDir, fileName);
+    const outputFilePath = path.join(outputDirPath, fileName);
 
     const formulas = generateTptpAxiomsFromProject(project);
     
     const content = formulas.join('\n');
     //----------
     try {
-        fs.writeFileSync(outputPath, content, 'utf-8');
-        console.log(`Arquivo TPTP gerado com sucesso em: ${outputPath}`);
+        fs.writeFileSync(outputFilePath, content, 'utf-8');
+        console.log(`Arquivo TPTP gerado com sucesso em: ${outputFilePath}`);
     } catch (err) {
         console.error(`Erro ao salvar arquivo .p: ${err}`);
     }

@@ -1,25 +1,20 @@
 import path from 'path';
-import { loadProjectFromJson} from './common/utils';
+import { loadProjectFromJson, findJsonFiles} from './common/utils';
 import { generateTptpFromProject } from './tptp/generator';
 
 async function main() {
   try {
-    var file_path = '/home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/json/customer.json';
-    var modelPath = path.resolve(__dirname, file_path); // ajuste o caminho do seu JSON
-    var project = loadProjectFromJson(modelPath);
-    generateTptpFromProject(file_path,project);
+    const inputDir = path.resolve(__dirname, '../examples');
+    const outputDir = path.resolve(inputDir, 'generated');
 
-    file_path = '/home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/json/personSimplified.json';
-    modelPath = path.resolve(__dirname, modelPath); // ajuste o caminho do seu JSON
-    project = loadProjectFromJson(file_path);
-    generateTptpFromProject(file_path,project);
+    const jsonFiles = findJsonFiles(inputDir);
 
-    file_path = '/home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/json/personSimplified_errado.json';
-    modelPath = path.resolve(__dirname, modelPath); // ajuste o caminho do seu JSON
-    project = loadProjectFromJson(file_path);
-    generateTptpFromProject(file_path,project);
+    for (const inputFilePath of jsonFiles) {
+      const project = loadProjectFromJson(inputFilePath);
+      generateTptpFromProject(project, outputDir);
+    }
   } catch (err) {
-    console.error('Erro ao carregar o projeto:', err);
+    console.error('Erro ao carregar os projetos:', err);
   }
 }
 

@@ -32,6 +32,29 @@ export function loadProjectFromJson(filePath: string): Project {
 }
 
 /**
+ * Recursively find all .json files inside a directory and its subdirectories.
+ */
+export function findJsonFiles(dir: string): string[] {
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+  const files = entries.flatMap(entry => {
+    const fullPath = path.join(dir, entry.name);
+
+    if (entry.isDirectory()) {
+      return findJsonFiles(fullPath);
+    }
+
+    if (entry.isFile() && entry.name.endsWith('.json')) {
+      return [fullPath];
+    }
+
+    return [];
+  });
+
+  return files;
+}
+
+/**
  * Checks if an array is empty, logs an error message, and exits the process if it is.
  *
  * @param elements - The array to check.
