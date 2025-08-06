@@ -32,6 +32,4 @@ temp/
 # MacOS Trash
 .Trashes
 
-/examples/generated
-/examples/json/generated/
-/scripts/bin
+/examples/outputGenerated

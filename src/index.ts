@@ -1,11 +1,11 @@
 import path from 'path';
-import { loadProjectFromJson, findJsonFiles} from './common/utils';
+import { loadProjectFromJson, findJsonFiles, outpurDirName} from './common/utils';
 import { generateTptpFromProject } from './tptp/generator';
 
 async function main() {
   try {
     const inputDir = path.resolve(__dirname, '../examples');
-    const outputDir = path.resolve(inputDir, 'generated');
+    const outputDir = path.resolve(inputDir, outpurDirName);
 
     const jsonFiles = findJsonFiles(inputDir);
 

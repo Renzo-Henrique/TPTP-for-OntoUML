@@ -21,3 +21,5 @@ disjoint complete genset StudentByDegreePursued {
     general Student
     specifics TechnicalStudent, GradutationStudent, MasterStudent, PhdStudent
 }
+
+role MixingAdultStudent specializes Adult, Student

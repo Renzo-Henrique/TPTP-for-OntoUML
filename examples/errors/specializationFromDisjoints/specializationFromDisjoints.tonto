@@ -1,0 +1,18 @@
+package PersonSimplified
+
+kind Person
+
+phase Child
+phase Teenager
+phase Adult
+
+disjoint complete genset PersonPhasesByAge {
+    general Person
+    specifics Child, Teenager, Adult
+}
+
+role Student specializes Person
+
+phase MixingChildTeenager specializes Child, Teenager
+
+role MixingAdultStudent specializes Adult, Student
