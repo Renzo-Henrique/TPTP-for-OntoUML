@@ -1,11 +1,11 @@
 {
   "id" : "rodjqhmA0BnszwBO",
-  "name" : "personSimplified",
+  "name" : "personSimplified_errado",
   "description" : null,
   "type" : "Project",
   "model" : {
     "id" : "rodjqhmA0BnszwBO_root",
-    "name" : "personSimplified",
+    "name" : "personSimplified_errado",
     "description" : null,
     "type" : "Package",
     "propertyAssignments" : null,
@@ -344,7 +344,7 @@
   },
   "diagrams" : [ {
     "id" : "xQbjqhmA0BnszwWd",
-    "name" : "personSimplified",
+    "name" : "personSimplified_errado",
     "description" : null,
     "type" : "Diagram",
     "owner" : {

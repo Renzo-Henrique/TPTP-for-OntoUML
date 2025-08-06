@@ -1,6 +1,6 @@
 import path from 'path';
 import { loadProjectFromJson} from './common/utils';
-import { generateTptpFromProject } from './validation/validator';
+import { generateTptpFromProject } from './tptp/generator';
 
 async function main() {
   try {

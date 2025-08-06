@@ -30,6 +30,7 @@ export function getAndFromClassesFormula(classes: Class[], entity:string, world:
   .join(' & ') + ' )';
 }
 
+//TODO:: reformular para corrigir o overlap
 export function getCombinationOfClassesFormula(classes: Class[], tabs: string, entity:string, world:string): string{
     const combinationOfClasses = getCombinations(classes);
 

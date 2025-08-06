@@ -5,9 +5,11 @@ import {worldAndEntity} from './axioms/baseAxioms'
 import {refactorNames} from '../common/utils'
 //import {getDisjunctionsOfClassesFormula, getOrFromClassesFormula, getCombinationOfClassesFormula} from './basicFormulas'
 import {generalizationAllAxioms, generalizationSetAllAxioms} from './axioms/generalizationAxioms'
-import {existenceOfSortalInstancesAxiom, existenceOfRigidSortalClassesAxioms, 
-        existenceOfAntiRigidSortalClassesAxioms, existenceOfAtLeastOneOfEachClassAxioms,
+import {existenceOfSortalInstancesAxiom, existenceOfRigidClassesAxioms, 
+        existenceOfAntiRigidClassesAxioms, existenceOfAtLeastOneOfEachClassAxioms,
         disjunctionOfKindsAxiom} from './axioms/taxonomyAxioms'
+
+import { resetAxiomId } from './axioms/idGenerator';
 
 
 /**
@@ -25,6 +27,8 @@ export function generateTptpFromProject(filePath: string, project: Project): voi
         fs.mkdirSync(outputDir, { recursive: true });
     }
 
+    resetAxiomId()
+    console.log(project.name.getText())
     const projectName = project.name.getText();
     //TODO:: consertar geração do nome
     // const fileName = projectName
@@ -67,13 +71,13 @@ export function generateTptpAxioms(project: Project): string[]{
     formulas.push(formulaComment);
     formulaComment = `% CONTINUAM SENDO INSTÂNCIAS DO MESMO SORTAL EM TODOS OS MUNDOS NO QUAL EXISTAM`;
     formulas.push(formulaComment);
-    formulas.push(existenceOfRigidSortalClassesAxioms(project));
+    formulas.push(existenceOfRigidClassesAxioms(project));
 
     formulaComment = `% TODAS AS COISAS QUE SAO INSTANCIAS DE UM TIPO-ANTI-RIGIDO EM ALGUM MUNDO`;
     formulas.push(formulaComment);
     formulaComment = `% PODEM NÃO SE-LO EM OUTRO MUNDO`;
     formulas.push(formulaComment);
-    formulas.push(existenceOfAntiRigidSortalClassesAxioms(project));
+    formulas.push(existenceOfAntiRigidClassesAxioms(project));
 
     formulaComment = `%%%%%%\n%%%%%%\n%%%%%%\n%Especializações`;
     formulas.push(formulaComment);
@@ -132,42 +136,7 @@ function findDuplicateFofIdentifiers(lines: string[]): string[] {
 }
 
 
-// function findDuplicateFofIdentifiers(lines: string[]): string[] {
-//   const regex = /fof\(ax_([^,]+),/g;
-//   const map = new Map<string, Set<string>>();
-//   let totalMatches = 0;
 
-//   for (const line of lines) {
-//     const matches = [...line.matchAll(regex)];
-    
-//     for (const match of matches) {
-//       totalMatches++;
-//       const id = match[1]; // só o identificador, ex: 'example1'
-//       //console.log(`Match #${totalMatches}: 'ax_${id}' encontrado na linha:\n${line.trim()}\n`);
-
-//       const contentSet = map.get(id) ?? new Set<string>();
-//       contentSet.add(line.trim());
-//       map.set(id, contentSet);
-//     }
-//   }
-
-//   console.log(`Total de ocorrências de identificadores ax_: ${totalMatches}\n`);
-
-//   const duplicates: string[] = [];
-
-//   for (const [id, contents] of map.entries()) {
-//     if (contents.size > 1) {
-//       console.log(`Identificador duplicado: 'ax_${id}' com ${contents.size} variações:\n`);
-//       for (const content of contents) {
-//         console.log(` - ${content}`);
-//       }
-//       console.log();
-//       duplicates.push(`ax_${id}`);
-//     }
-//   }
-
-//   return duplicates;
-// }
 
 
 

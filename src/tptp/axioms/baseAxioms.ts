@@ -12,12 +12,12 @@ fof(ax_exists_entity, axiom,(
   ?[E]: entity(E)
 )).
 % Entidades são diferentes de mundos
-fof(ax_entity_different_than_world, axiom, (
+fof(ax_exists_has_entity_and_world, axiom, (
   ![X, W]: ( exists(X, W)  => (entity(X) & world(W)))
 )).
 
 % Tudo que existe deve ser entidade ou mundo
-fof(ax_entity_world__, axiom, (
+fof(ax_everything_is_world_or_entity, axiom, (
   ![Y]: ( entity(Y) | world(Y))
 )).
 
@@ -27,7 +27,7 @@ fof(ax_entity_world_disjunction, axiom, (
 )).
 
 % Tudo que é entidade deve existir em um mundo possível
-fof(ax_entity_different____, axiom, (
+fof(ax_entity_exists_in_a_world, axiom, (
   ![X]: ( entity(X)  => 
           ?[W] : (exists(X, W))
           )
