@@ -26,7 +26,6 @@ export function generateTptpFromProject(filePath: string, project: Project): voi
     if (!fs.existsSync(outputDir)) {
         fs.mkdirSync(outputDir, { recursive: true });
     }
-
     resetAxiomId()
     console.log(project.name.getText())
     const projectName = project.name.getText();
