@@ -14,7 +14,7 @@ async function main() {
       generateTptpFromProject(project, outputDir);
     }
   } catch (err) {
-    console.error('Erro ao carregar os projetos:', err);
+    console.error('Error while trying to load ontouml-js projects:', err);
   }
 }
 

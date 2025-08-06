@@ -37,9 +37,9 @@ export function generateTptpFromProject(project: Project, outputDirPath: string)
     //----------
     try {
         fs.writeFileSync(outputFilePath, content, 'utf-8');
-        console.log(`Arquivo TPTP gerado com sucesso em: ${outputFilePath}`);
+        console.log(`TPTP file successfully generated in: ${outputFilePath}`);
     } catch (err) {
-        console.error(`Erro ao salvar arquivo .p: ${err}`);
+        console.error(`Error while trying to save generated TPTP file: ${err}`);
     }
 }
 

@@ -15,19 +15,19 @@ export function loadProjectFromJson(filePath: string): Project {
     const absolutePath = path.resolve(filePath);
 
     if (!fs.existsSync(absolutePath)) {
-        throw new Error(`Arquivo não encontrado: ${absolutePath}`);
+        throw new Error(`File not found: ${absolutePath}`);
     }
     let data: any;
     try {
         data = fs.readFileSync(absolutePath, { encoding: "utf8" });
     } catch (err) {
-        throw new Error(`Erro ao ler arquivo JSON: ${err}`);
+        throw new Error(`Error while trying to read JSON file: ${err}`);
     }
     try {
         // Use parse instead of fromJSON
         return serializationUtils.parse(data, true) as Project;
     } catch (err) {
-        throw new Error(`Erro ao criar Project do ontouml-js: ${err}`);
+        throw new Error(`Error while trying to create ontouml-js Project: ${err}`);
     }
 }
 
