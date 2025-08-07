@@ -19,7 +19,7 @@ import { resetAxiomId } from './axioms/idGenerator';
  * @param filePath - Path to the input OntoUML JSON file.
  * @param project - The OntoUML project instance parsed with `ontouml-js`.
  */
-export function generateTptpFromProject(project: Project, outputDirPath: string): void {
+export function generateTptpFromProject(project: Project, outputDirPath: string): string {
 
     if (!fs.existsSync(outputDirPath)) {
         fs.mkdirSync(outputDirPath, { recursive: true });
@@ -41,6 +41,8 @@ export function generateTptpFromProject(project: Project, outputDirPath: string)
     } catch (err) {
         console.error(`Error while trying to save generated TPTP file: ${err}`);
     }
+
+    return content;
 }
 
 /**
