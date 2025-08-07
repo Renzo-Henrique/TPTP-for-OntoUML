@@ -19,8 +19,8 @@ async function main() {
     //   //break;
     // }
     const project = loadProjectFromJson(path.resolve(__dirname,'../examples/wrongs/specializationFromDisjoints/specializationFromDisjoints.json'));
-    // //generateTptpFromProject(project, outputDir);
-    const result = await validateTptpFromProject(project, outputDir, true);
+    generateTptpFromProject(project, outputDir);
+    //const result = await validateTptpFromProject(project, outputDir, true);
     //console.log(result);
   } catch (err) {
     console.error('Error while trying to load ontouml-js projects:', err);
