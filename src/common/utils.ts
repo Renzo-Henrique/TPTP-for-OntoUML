@@ -3,7 +3,7 @@ import path from 'path';
 import { Project, serializationUtils} from 'ontouml-js';
 import {camelCase} from 'lodash';
 
-export const outpurDirName = 'outputGenerated'
+export const outpurDirName = 'generated'
 
 
 /**

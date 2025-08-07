@@ -32,4 +32,4 @@ temp/
 # MacOS Trash
 .Trashes
 
-/examples/outputGenerated
+/examples/generated
