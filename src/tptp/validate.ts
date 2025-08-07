@@ -26,6 +26,7 @@ export async function validateTptpFromProject(project: Project, tptpFileDir: str
     }
 
     try {
+        return '';
         // Chama o provador remoto com a string TPTP
         const result = await tptpClient.runSystem('E---', tptpContent, {includeSystemOutput: generateOutputFileOfResult});
 
@@ -47,5 +48,21 @@ export async function validateTptpFromProject(project: Project, tptpFileDir: str
     } catch (err) {
     console.error('Error during remote theorem proving:', err);
     throw err;
+  }
+}
+
+async function printAvailableSystems(problem: string) {
+  try {
+    const systems = await tptpClient.suggestSystemList(problem);
+    console.log('Available theorem prover systems:');
+    console.log(typeof(systems))
+    console.log(systems)
+
+    systems.map(content => console.log(`- ${content.getName()} ;--; ${content.getTptpName()} (${content.getStatus() || 'no description'})`));
+    // systems.forEach(sys => {
+    //   console.log(`- ${systems.getTptpName()} (${systems.getStatus() || 'no description'})`);
+    // });
+  } catch (error) {
+    console.error('Error fetching systems:', error);
   }
 }
