@@ -5,14 +5,14 @@ import fs from 'fs';
 import { generateTptpFromProject } from './generator';
 
 
-/**
+/** TODO:: FIX comments
  * Validate the generated TPTP from a project using a remote TPTP theorem prover.
  *
  * @param project The OntoUML project to be validated.
  * @param inputDir The directory where the TPTP (.p) file is (or will be) located.
  * @returns A string containing the result of the proof.
  */
-export async function validateTptpFromProject(project: Project, tptpFileDir: string): Promise<any> {
+export async function validateTptpFromProject(project: Project, tptpFileDir: string, generateOutputFileOfResult: boolean): Promise<string> {
     const tptpFileName = `${project.name.getText()}.p`;
     const tptpFilePath = path.join(tptpFileDir, tptpFileName);
     let tptpContent: string;
@@ -27,8 +27,20 @@ export async function validateTptpFromProject(project: Project, tptpFileDir: str
 
     try {
         // Chama o provador remoto com a string TPTP
-        const result = await tptpClient.runSystem('E---', tptpContent);
+        const result = await tptpClient.runSystem('E---', tptpContent, {includeSystemOutput: generateOutputFileOfResult});
 
+        if(generateOutputFileOfResult){
+            try {
+                const outputFileOfResult = path.join(tptpFileDir, tptpFileName + ".validationResult.txt");
+                fs.writeFileSync(outputFileOfResult, result.systemOutput, 'utf-8');
+                console.log(`TPTP validation result successfully generated in: ${outputFileOfResult}`);
+            } catch (err) {
+                console.error(`Error while trying to save generated TPTP file: ${err}`);
+            }
+        }
+        
+        //console.log(typeof(result));
+        //console.log('Full result object:', JSON.stringify(result, null, 2));
         // Exibe os campos úteis retornados
         return `System "${result.systemName}" on project "${project.name.getText()}":\n` +
             `Result: ${result.result}\nCPU time: ${result.cpuTime}\nWall-clock time: ${result.wallClockTime}`;
