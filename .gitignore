@@ -33,3 +33,6 @@ temp/
 .Trashes
 
 /examples/generated
+
+/examples/*.Identifier
+/examples/**/*.Identifier
