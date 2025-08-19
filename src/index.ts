@@ -18,10 +18,12 @@ async function main() {
     //   // console.log(result);
     //   //break;
     // }
-    const project = loadProjectFromJson(path.resolve(__dirname,'../examples/wrongs/specializationFromDisjoints/specializationFromDisjoints.json'));
-    generateTptpFromProject(project, outputDir);
-    //const result = await validateTptpFromProject(project, outputDir, true);
-    //console.log(result);
+    //const project = loadProjectFromJson(path.resolve(__dirname,'../examples/wrongs/specializationFromDisjoints/specializationFromDisjoints.json'));
+    const project = loadProjectFromJson(path.resolve(__dirname,'../examples/notWrongs/personSimplified/personSimplified.json'));
+    
+    //generateTptpFromProject(project, outputDir);
+    const result = await validateTptpFromProject(project, outputDir, true);
+    console.log(result);
   } catch (err) {
     console.error('Error while trying to load ontouml-js projects:', err);
   }

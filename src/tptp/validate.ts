@@ -26,7 +26,7 @@ export async function validateTptpFromProject(project: Project, tptpFileDir: str
     }
 
     try {
-        return '';
+        //return '';
         // Chama o provador remoto com a string TPTP
         const result = await tptpClient.runSystem('E---', tptpContent, {includeSystemOutput: generateOutputFileOfResult});
 
