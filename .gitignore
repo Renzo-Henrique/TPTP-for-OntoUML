@@ -36,3 +36,6 @@ temp/
 
 /examples/*.Identifier
 /examples/**/*.Identifier
+
+/examples/*.vpp.bak_*
+/examples/**/*.vpp.bak_*
