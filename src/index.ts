@@ -2,7 +2,6 @@ import path from 'path';
 import { loadProjectFromJson, findJsonFiles, outpurDirName} from './common/utils';
 import { generateTptpFromProject } from './tptp/generator';
 import { validateTptpFromProject } from './tptp/validate';
-import {tptpClient} from 'tptp';
 
 async function main() {
   try {
@@ -22,8 +21,7 @@ async function main() {
     const project = loadProjectFromJson(path.resolve(__dirname,'../examples/notWrongs/personSimplified/personSimplified.json'));
     
     //generateTptpFromProject(project, outputDir);
-    const result = await validateTptpFromProject(project, outputDir, true);
-    console.log(result);
+    const result = await validateTptpFromProject(project, outputDir, true, true);console.log(result);
   } catch (err) {
     console.error('Error while trying to load ontouml-js projects:', err);
   }

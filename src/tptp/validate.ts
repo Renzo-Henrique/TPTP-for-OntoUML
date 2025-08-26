@@ -12,12 +12,12 @@ import { generateTptpFromProject } from './generator';
  * @param inputDir The directory where the TPTP (.p) file is (or will be) located.
  * @returns A string containing the result of the proof.
  */
-export async function validateTptpFromProject(project: Project, tptpFileDir: string, generateOutputFileOfResult: boolean): Promise<string> {
+export async function validateTptpFromProject(project: Project, tptpFileDir: string, generateOutputFileOfResult: boolean, generateFile: boolean): Promise<string> {
     const tptpFileName = `${project.name.getText()}.p`;
     const tptpFilePath = path.join(tptpFileDir, tptpFileName);
     let tptpContent: string;
     // If the file doesn't exist, generate it
-    if (!fs.existsSync(tptpFilePath)) {
+    if (generateFile || !fs.existsSync(tptpFilePath)) {
         console.warn(`File "${tptpFileName}" not found. Generating TPTP from project...`);
         tptpContent = generateTptpFromProject(project, tptpFileDir);
     }

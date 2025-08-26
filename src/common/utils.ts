@@ -83,10 +83,36 @@ export function refactorNames(project: Project): void {
     const original = cls.getName();
 
     if (!original) continue;
+    // substitui { e : por _
+    const sanitized = original.replace(/[{:}]/g, "_");
 
-    const camel = camelCase(original);
+    const camel = camelCase(sanitized);
     const newName = `cl_${camel}`;
     cls.setName(newName);
+  }
+
+  for (const genSets of project.getAllGeneralizationSets()) {
+    const original = genSets.getName();
+
+    if (!original) continue;
+    // substitui { e : por _
+    const sanitized = original.replace(/[{:}]/g, "_");
+
+    const camel = camelCase(sanitized);
+    const newName = `cl_${camel}`;
+    genSets.setName(newName);
+  }
+
+  for (const gens of project.getAllGeneralizations()) {
+    const original = gens.getName();
+
+    if (!original) continue;
+    // substitui { e : por _
+    const sanitized = original.replace(/[{:}]/g, "_");
+
+    const camel = camelCase(sanitized);
+    const newName = `cl_${camel}`;
+    gens.setName(newName);
   }
 }
 

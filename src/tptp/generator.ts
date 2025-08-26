@@ -9,7 +9,9 @@ import {existenceOfSortalInstancesAxiom, existenceOfRigidClassesAxioms,
         disjunctionOfKindsAxiom} from './axioms/simplifiedAxioms/taxonomyAxioms'
 
 import { resetAxiomId } from './axioms/idGenerator';
-
+import { existenceOfDeclaredClassesAxioms, closedWorldAxioms, differenceBetweenReifiedClassesAxioms, topLevelTaxonomyOfClassesAxioms} from './axioms/mltAxioms/worldConstraints';
+import { mltBaseAxiom } from './axioms/mltAxioms/baseAxioms';
+import { classesTaxonomiesStatementsAxioms } from './axioms/mltAxioms/taxonomyConstraints';
 
 /**
  * Generates a TPTP (.p) file representation of a given OntoUML project.
@@ -34,9 +36,13 @@ export function generateTptpFromProject(project: Project, outputDirPath: string)
     const formulas = generateTptpSimplifiedAxiomsFromProject(project);
     
     const content = formulas.join('\n');
+
+    const formulasMlt = generateTptpMLTAxiomsFromProject(project);
+    
+    const contentMlt = formulasMlt.join('\n');
     //----------
     try {
-        fs.writeFileSync(outputFilePath, content, 'utf-8');
+        fs.writeFileSync(outputFilePath, content + contentMlt, 'utf-8');
         console.log(`TPTP file successfully generated in: ${outputFilePath}`);
     } catch (err) {
         console.error(`Error while trying to save generated TPTP file: ${err}`);
@@ -116,10 +122,19 @@ function generateTptpMLTAxiomsFromProject(project: Project): string[]{
   
     
     const formulas: string[] = [];
-    var formulaComment = '';
+    var formulaComment = '\n\n%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%% Beginning of MLT %%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%';
+    formulas.push(formulaComment);
+    formulas.push(mltBaseAxiom);
     
-    
-    
+    formulaComment = '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% WORLD CONSTRAINTS\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
+    formulas.push(formulaComment);
+    formulas.push(existenceOfDeclaredClassesAxioms(project));
+    formulas.push(topLevelTaxonomyOfClassesAxioms(project))
+    formulas.push(closedWorldAxioms(project));
+    formulas.push(differenceBetweenReifiedClassesAxioms(project));
+
+    formulas.push('%%%%%%%%%%%%%%%\n%%%%Classes Statements%%%%%%%%%%%%%%%')
+    formulas.push(classesTaxonomiesStatementsAxioms(project));
     return formulas;
 }
 

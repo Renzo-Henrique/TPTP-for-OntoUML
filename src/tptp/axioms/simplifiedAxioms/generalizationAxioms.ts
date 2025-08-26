@@ -75,7 +75,7 @@ function generalizationSetAxiom(generalizationSet: GeneralizationSet): string{
   function overlapGeneralizationSetAxiom(): string{
     //TODO:: teria que fazer um axioma que descreve que existem 0011, 1100, 0110 
     // (sendo n o total de especializações, existem m classes juntas que podem ser possíveis, mas que não são as outras n - m possíveis)
-    // return '';
+     return '';
     //TODO:: Consertar
     const comment = `% Overlap set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
     const additionalTabs = '\t\t\t\t\t\t\t';
