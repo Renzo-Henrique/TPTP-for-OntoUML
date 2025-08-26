@@ -1,12 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import { Project} from 'ontouml-js';
-import {worldAndEntity} from './axioms/baseAxioms'
+import {worldAndEntity} from './axioms/simplifiedAxioms/baseAxioms'
 import {refactorNames} from '../common/utils'
-import {generalizationAllAxioms, generalizationSetAllAxioms} from './axioms/generalizationAxioms'
+import {generalizationAllAxioms, generalizationSetAllAxioms} from './axioms/simplifiedAxioms/generalizationAxioms'
 import {existenceOfSortalInstancesAxiom, existenceOfRigidClassesAxioms, 
         existenceOfAntiRigidClassesAxioms, existenceOfAtLeastOneOfEachClassAxioms,
-        disjunctionOfKindsAxiom} from './axioms/taxonomyAxioms'
+        disjunctionOfKindsAxiom} from './axioms/simplifiedAxioms/taxonomyAxioms'
 
 import { resetAxiomId } from './axioms/idGenerator';
 
@@ -30,8 +30,8 @@ export function generateTptpFromProject(project: Project, outputDirPath: string)
     const fileName = projectName  + '.p';
 
     const outputFilePath = path.join(outputDirPath, fileName);
-
-    const formulas = generateTptpAxiomsFromProject(project);
+    refactorNames(project);
+    const formulas = generateTptpSimplifiedAxiomsFromProject(project);
     
     const content = formulas.join('\n');
     //----------
@@ -46,7 +46,7 @@ export function generateTptpFromProject(project: Project, outputDirPath: string)
 }
 
 /**
- * Generates a list of TPTP axioms as strings based on the given OntoUML project.
+ * Generates a list of simplified TPTP axioms as strings based on the given OntoUML project.
  *
  * This includes axioms for:
  * - Basic ontology assumptions
@@ -59,15 +59,16 @@ export function generateTptpFromProject(project: Project, outputDirPath: string)
  * @param project - The OntoUML project to be transformed.
  * @returns Array of strings representing TPTP axioms.
  */
-function generateTptpAxiomsFromProject(project: Project): string[]{
+function generateTptpSimplifiedAxiomsFromProject(project: Project): string[]{
   
-    refactorNames(project);
+    
     const formulas: string[] = [];
+    var formulaComment = '';
 
     formulas.push(worldAndEntity);
 
     formulas.push('\n%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%\n');
-    var formulaComment = `% Everything that exists must be an instance of a sortal`;
+    formulaComment = `% Everything that exists must be an instance of a sortal`;
     formulas.push(formulaComment);
     formulas.push(existenceOfSortalInstancesAxiom(project));
 
@@ -101,6 +102,23 @@ function generateTptpAxiomsFromProject(project: Project): string[]{
     formulaComment = `%% If so, better to keep at the end and explain why`;
     formulas.push(formulaComment);
     formulas.push(existenceOfAtLeastOneOfEachClassAxioms(project));
+    
+    return formulas;
+}
+
+/**
+ * Generates a list of MLT TPTP axioms as strings based on the given OntoUML project.
+ *
+ * @param project - The OntoUML project to be transformed.
+ * @returns Array of strings representing TPTP axioms.
+ */
+function generateTptpMLTAxiomsFromProject(project: Project): string[]{
+  
+    
+    const formulas: string[] = [];
+    var formulaComment = '';
+    
+    
     
     return formulas;
 }

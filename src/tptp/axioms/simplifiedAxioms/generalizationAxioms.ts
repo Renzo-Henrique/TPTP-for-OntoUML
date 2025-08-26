@@ -1,6 +1,6 @@
 import { Project, Class, Generalization, GeneralizationSet} from 'ontouml-js';
-import {getDisjunctionsOfClassesFormula, getOrFromClassesFormula, getCombinationOfClassesFormula, getAndFromClassesFormula} from './basicFormulas'
-import { getNextAxiomId } from './idGenerator';
+import {getDisjunctionsOfClassesFormula, getOrFromClassesFormula, getCombinationOfClassesFormula, getAndFromClassesFormula} from '../basicFormulas'
+import { getNextAxiomId } from '../idGenerator';
 
 /**
  * Generates TPTP axioms for all generalizations in the project.

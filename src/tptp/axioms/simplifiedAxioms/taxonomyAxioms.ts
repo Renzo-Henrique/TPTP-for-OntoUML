@@ -1,8 +1,8 @@
 import { Project, Class, stereotypeUtils } from 'ontouml-js';
-import {checkEmptyForError} from '../../common/utils'
-import { getDisjunctionsOfClassesFormula } from './basicFormulas';
-import { getNextAxiomId } from './idGenerator';
-import { AvailableInAxiomsClassStereotypes } from '../../common/newStereotypes';
+import {checkEmptyForError} from '../../../common/utils'
+import { getDisjunctionsOfClassesFormula } from '../basicFormulas';
+import { getNextAxiomId } from '../idGenerator';
+import { AvailableInAxiomsClassStereotypes } from '../../../common/newStereotypes';
 
 
 /**
