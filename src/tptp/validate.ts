@@ -28,7 +28,7 @@ export async function validateTptpFromProject(project: Project, tptpFileDir: str
     else{
         tptpContent = fs.readFileSync(tptpFilePath, 'utf-8');
     }
-
+    
     try {
         //return '';
         // Chama o provador remoto com a string TPTP

@@ -72,7 +72,7 @@ fof(ax_entities_are_individuals, axiom, (
 )).`
 
 
-export const baseMltAxiom = includesMlt + '\n'
+export const baseMltAxiom = //includesMlt + '\n'
                             disjointnessMlt + '\n' +
                             overlapMlt + '\n' + 
                             disjointCantOverlapMlt + '\n' +
