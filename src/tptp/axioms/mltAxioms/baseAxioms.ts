@@ -1,4 +1,4 @@
-const disjointnessMLT = `
+const includesMlt = `
 include('./originalAxioms/01_taxonomy_thing.p').
 include('./originalAxioms/02_taxonomy_abstract_individual.p').
 include('./originalAxioms/03_taxonomy_endurant.p').
@@ -8,9 +8,10 @@ include('./originalAxioms/06_instantiation.p').
 include('./originalAxioms/07_specialization.p').
 include('./originalAxioms/08_rigidity_and_sortality.p').
 include('./originalAxioms/09_endurant_types_definitions.p').
-include('./originalAxioms/10_ultimate_sortals.p').
+include('./originalAxioms/10_ultimate_sortals.p').\n\n
+`
 
-
+const disjointnessMlt = `
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Disjointness
 
@@ -31,7 +32,7 @@ fof(ax_disjointWith_irreflexivity, axiom, (
   ![C1]: (~disjointWith(C1, C1))
 )).`;
 
-const overlapMLT = `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+const overlapMlt = `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Overlap
 
 % Two classes overlap iff there exists an individual that is instance of both in some world
@@ -51,19 +52,19 @@ fof(ax_overlapping_reflexivity, axiom, (
   ![C]: (type_(C) => overlappingWith(C, C))
 )).`;
 
-const disjointCantOverlap = `% Disjoint classes cannot overlap
+const disjointCantOverlapMlt = `% Disjoint classes cannot overlap
 fof(ax_disjoint_implies_not_overlapping, axiom, (
   ![C1, C2]: (disjointWith(C1, C2) => ~overlappingWith(C1, C2))
 )).`;
 
-const onlyKindsHaveInstances = `
+const onlyKindsHaveInstancesMlt = `
 fof(ax_only_types_of_kind_have_instances, axiom, (
   ![X, C, W]: (
     (iof(X, C, W) & type_(C) ) => (sortal(C))
   )
 )).`
 
-const entitiesAreIndividuals = `
+const entitiesAreIndividualsMlt = `
 fof(ax_entities_are_individuals, axiom, (
   ![X]: (
     entity(X) <=> concreteIndividual(X)
@@ -71,9 +72,10 @@ fof(ax_entities_are_individuals, axiom, (
 )).`
 
 
-export const mltBaseAxiom = disjointnessMLT + '\n' +
-                            overlapMLT + '\n' + 
-                            disjointCantOverlap + '\n' +
-                            onlyKindsHaveInstances + '\n' +
-                            //entitiesAreIndividuals + '\n';
+export const baseMltAxiom = includesMlt + '\n'
+                            disjointnessMlt + '\n' +
+                            overlapMlt + '\n' + 
+                            disjointCantOverlapMlt + '\n' +
+                            onlyKindsHaveInstancesMlt + '\n' +
+                            //entitiesAreIndividualsMlt + '\n';
                             '';

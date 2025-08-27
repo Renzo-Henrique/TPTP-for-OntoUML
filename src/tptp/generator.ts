@@ -9,9 +9,10 @@ import {existenceOfSortalInstancesAxiom, existenceOfRigidClassesAxioms,
         disjunctionOfKindsAxiom} from './axioms/simplifiedAxioms/taxonomyAxioms'
 
 import { resetAxiomId } from './axioms/idGenerator';
-import { existenceOfDeclaredClassesAxioms, differenceBetweenReifiedClassesAxioms, topLevelTaxonomyOfClassesAxioms} from './axioms/mltAxioms/worldConstraints';
-import { mltBaseAxiom } from './axioms/mltAxioms/baseAxioms';
-import { classesTaxonomiesStatementsAxioms } from './axioms/mltAxioms/taxonomyConstraints';
+import { existenceOfDeclaredClassesMltAxioms, differenceBetweenReifiedClassesMltAxioms, topLevelTaxonomyOfClassesMltAxioms, relationBetweenClassesAndReifiedClassesMltAxioms} from './axioms/mltAxioms/worldConstraints';
+import { baseMltAxiom } from './axioms/mltAxioms/baseAxioms';
+import { classesTaxonomiesStatementsMltAxioms } from './axioms/mltAxioms/taxonomyConstraints';
+import { generalizationAllMltAxioms, generalizationSetAllMltAxioms } from './axioms/mltAxioms/generalizationAxioms';
 
 /**
  * Generates a TPTP (.p) file representation of a given OntoUML project.
@@ -69,44 +70,33 @@ function generateTptpSimplifiedAxiomsFromProject(project: Project): string[]{
   
     
     const formulas: string[] = [];
-    var formulaComment = '';
 
     formulas.push(worldAndEntity);
 
     formulas.push('\n%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%\n');
-    formulaComment = `% Everything that exists must be an instance of a sortal`;
-    formulas.push(formulaComment);
+    formulas.push(`% Everything that exists must be an instance of a sortal`);
     formulas.push(existenceOfSortalInstancesAxiom(project));
 
-    formulaComment = `%%%%%%%%\n%%%%%%%%\n% Disjunction among kinds`;
-    formulas.push(formulaComment);
+    formulas.push(`%%%%%%%%\n%%%%%%%%\n% Disjunction among kinds`);
     formulas.push(disjunctionOfKindsAxiom(project));
 
-    formulaComment = `% All things that are instances of a rigid type in some world`;
-    formulas.push(formulaComment);
-    formulaComment = `% Remain instances of the same type in every world where they exist`;
-    formulas.push(formulaComment);
+    formulas.push(`% All things that are instances of a rigid type in some world`);
+    formulas.push(`% Remain instances of the same type in every world where they exist`);
     formulas.push(existenceOfRigidClassesAxioms(project));
 
-    formulaComment = `% All things that are instances of an anti-rigid type in some world`;
-    formulas.push(formulaComment);
-    formulaComment = `% May not be instances in other worlds`;
-    formulas.push(formulaComment);
+    formulas.push(`% All things that are instances of an anti-rigid type in some world`);
+    formulas.push(`% May not be instances in other worlds`);
     formulas.push(existenceOfAntiRigidClassesAxioms(project));
 
-    formulaComment = `%%%%%%\n%%%%%%\n%%%%%%\n% Improper Specializations\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`;
-    formulas.push(formulaComment);
+    formulas.push(`%%%%%%\n%%%%%%\n%%%%%%\n% Improper Specializations\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`);
     formulas.push(generalizationAllAxioms(project));
 
-    formulaComment = `%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%\n%%% Generalization Sets\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`;
-    formulas.push(formulaComment);
+    formulas.push(`%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%\n%%% Generalization Sets\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`);
     formulas.push(generalizationSetAllAxioms(project));
 
     
-    formulaComment = `\n\n%% UNCERTAIN: Is this necessary or only for simulation of worlds?`;
-    formulas.push(formulaComment);
-    formulaComment = `%% If so, better to keep at the end and explain why`;
-    formulas.push(formulaComment);
+    formulas.push(`\n\n%% UNCERTAIN: Is this necessary or only for simulation of worlds?`);
+    formulas.push(`%% If so, better to keep at the end and explain why`);
     formulas.push(existenceOfAtLeastOneOfEachClassAxioms(project));
     
     return formulas;
@@ -122,18 +112,24 @@ function generateTptpMLTAxiomsFromProject(project: Project): string[]{
   
     
     const formulas: string[] = [];
-    var formulaComment = '\n\n%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%% Beginning of MLT %%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%';
-    formulas.push(formulaComment);
-    formulas.push(mltBaseAxiom);
+    formulas.push('\n\n%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%% Beginning of MLT %%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%');
+    formulas.push(baseMltAxiom);
     
-    formulaComment = '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% WORLD CONSTRAINTS\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
-    formulas.push(formulaComment);
-    formulas.push(existenceOfDeclaredClassesAxioms(project));
-    formulas.push(topLevelTaxonomyOfClassesAxioms(project));
-    formulas.push(differenceBetweenReifiedClassesAxioms(project));
+    formulas.push('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% WORLD CONSTRAINTS\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+    formulas.push(existenceOfDeclaredClassesMltAxioms(project));
+    formulas.push(topLevelTaxonomyOfClassesMltAxioms(project));
+    formulas.push(differenceBetweenReifiedClassesMltAxioms(project));
 
-    formulas.push('%%%%%%%%%%%%%%%\n%%%%Classes Statements\n%%%%%%%%%%%%%%%')
-    formulas.push(classesTaxonomiesStatementsAxioms(project));
+    formulas.push('%%%%%%%%%%%%%%%\n%%%%Classes Statements\n%%%%%%%%%%%%%%%');
+    formulas.push(classesTaxonomiesStatementsMltAxioms(project));
+
+    formulas.push('%%%%%%%%%%%%%%%\n%%%%Class Reification\n%%%%%%%%%%%%%%%');
+    formulas.push(relationBetweenClassesAndReifiedClassesMltAxioms(project));
+    formulas.push('%%%%%%%%%%%%%%%\n%%%%Generalizations\n%%%%%%%%%%%%%%%');
+    formulas.push(generalizationAllMltAxioms(project));
+
+    formulas.push(`%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%\n%%% Generalization Sets\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`);
+    formulas.push(generalizationSetAllMltAxioms(project));
     return formulas;
 }
 

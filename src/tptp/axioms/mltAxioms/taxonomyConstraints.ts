@@ -8,7 +8,7 @@ import { getNextAxiomId } from '../idGenerator';
 import { Project } from "ontouml-js";
 import { AvailableInAxiomsClassStereotypes, mapStereotypeToRefactored } from '../../../common/newStereotypes';
 
-export function classesTaxonomiesStatementsAxioms(project: Project): string{
+export function classesTaxonomiesStatementsMltAxioms(project: Project): string{
     
     const result = project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
             .map(content => `${mapStereotypeToRefactored(content.stereotype)}(${content.getName()})`)

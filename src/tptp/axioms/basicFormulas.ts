@@ -76,10 +76,21 @@ export function getAndFromClassesFormula(classes: Class[], entity:string, world:
  * NOTE: This function currently has a TODO to fix overlap issues.
  *
  * Example output (for classes A, B, C):
- *   (A(X, W) & B(X, W)) | 
- *   (A(X, W) & C(X, W)) | 
- *   (B(X, W) & C(X, W))
- *
+ *   ( (A(X, W) & B(X, W) ) & (~ C(X, W)) ) | 
+ *   ( (A(X, W) & C(X, W) ) & (~ B(X, W)) )| 
+ *   ( (B(X, W) & C(X, W) ) & (~ A(X, W)))
+ * 
+ * Example output (for classes A, B, C, D):
+ *   ( (A(X, W) & B(X, W) ) & (~ C(X, W)) ) |
+ *   ( (A(X, W) & B(X, W) ) & (~ D(X, W)) ) |
+ *   
+ *   ( (A(X, W) & C(X, W) ) & (~ B(X, W)) ) |
+ *   ( (A(X, W) & C(X, W) ) & (~ D(X, W)) ) |
+ * 
+ *   ( (A(X, W) & D(X, W) ) & (~ B(X, W)) ) |
+ *   ( (A(X, W) & D(X, W) ) & (~ C(X, W)) ) |
+ *    ....
+ * 
  * @param classes - Array of OntoUML classes.
  * @param tabs - String with tab characters used for indenting lines after the first.
  * @param entity - The variable name representing the individual.
@@ -119,5 +130,20 @@ function getCombinationsWithComplement<T>(array: T[], k: number): [T[], T[]][] {
   };
 
   combine(0, []);
+  return result;
+}
+
+/**
+ * Gera combinações 2 a 2 (pares) da lista
+ */
+export function getPairCombinations<T>(array: T[]): [T, T][] {
+  const result: [T, T][] = [];
+
+  for (let i = 0; i < array.length; i++) {
+    for (let j = i + 1; j < array.length; j++) {
+      result.push([array[i], array[j]]);
+    }
+  }
+
   return result;
 }

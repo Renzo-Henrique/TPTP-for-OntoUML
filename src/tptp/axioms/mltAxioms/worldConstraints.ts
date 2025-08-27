@@ -3,43 +3,43 @@ import { AvailableInAxiomsClassStereotypes } from '../../../common/newStereotype
 import { getNextAxiomId } from '../idGenerator';
 
 
-const worldConstraints = `
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% WORLD CONSTRAINTS 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// const worldConstraints = `
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// %%%% WORLD CONSTRAINTS 
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-fof(ax_named_classes, axiom, (
-    ![C]: (named_classes(C) <=> (C = classA | C = classB | C = classZ)) 
-)).
+// fof(ax_named_classes, axiom, (
+//     ![C]: (named_classes(C) <=> (C = classA | C = classB | C = classZ)) 
+// )).
 
-fof(ax_class_types, axiom, (
-  type_(classA) & type_(classB) & type_(classZ)
-)).
+// fof(ax_class_types, axiom, (
+//   type_(classA) & type_(classB) & type_(classZ)
+// )).
 
-fof(ax_named_classes_negatives, axiom, (
-  ![C]: ((~(C = classA) & ~(C = classB) & ~(C = classZ)) => ~named_classes(C))
-)).
+// fof(ax_named_classes_negatives, axiom, (
+//   ![C]: ((~(C = classA) & ~(C = classB) & ~(C = classZ)) => ~named_classes(C))
+// )).
 
-% Only the explicitly declared classes exist in this world
-fof(ax_world_only_for_declarated_classes, axiom, (
-  ![C]: (type_(C) <=> named_classes(C))
-)).
+// % Only the explicitly declared classes exist in this world
+// fof(ax_world_only_for_declarated_classes, axiom, (
+//   ![C]: (type_(C) <=> named_classes(C))
+// )).
 
-% All instantiations must refer to one of the declared classes
-fof(ax_only_declared_classes_have_instances, axiom, (
-  ![X, C, W]: (
-    iof(X, C, W) => named_classes(C)
-  )
-)).
+// % All instantiations must refer to one of the declared classes
+// fof(ax_only_declared_classes_have_instances, axiom, (
+//   ![X, C, W]: (
+//     iof(X, C, W) => named_classes(C)
+//   )
+// )).
 
-fof(ax_named_classes_are_different, axiom, (
-  classA != classB &
-  classA != classZ &
-  classB != classZ
-)).
-`
+// fof(ax_named_classes_are_different, axiom, (
+//   classA != classB &
+//   classA != classZ &
+//   classB != classZ
+// )).
+// `
 
-export function existenceOfDeclaredClassesAxioms(project: Project): string{
+export function existenceOfDeclaredClassesMltAxioms(project: Project): string{
     const result = project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
         .map(content => 'C = ' + content.getName())
         .join(' | \n\t\t\t\t');
@@ -48,7 +48,7 @@ export function existenceOfDeclaredClassesAxioms(project: Project): string{
 )).`
 }
 
-export function topLevelTaxonomyOfClassesAxioms(project: Project): string{
+export function topLevelTaxonomyOfClassesMltAxioms(project: Project): string{
     const result = project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
         .map(content => `type_(${content.getName()})`)
         .join(' & \n\t\t\t\t');
@@ -57,7 +57,7 @@ export function topLevelTaxonomyOfClassesAxioms(project: Project): string{
 )).`
 }
 
-export function differenceBetweenReifiedClassesAxioms(project: Project): string{
+export function differenceBetweenReifiedClassesMltAxioms(project: Project): string{
     // const result = project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
     // .map(content => `${content.getName()}(X, W)`)
     // .join(' | ');
@@ -78,5 +78,19 @@ export function differenceBetweenReifiedClassesAxioms(project: Project): string{
     return `fof(${getNextAxiomId()}_ontology_classes_are_differente, axiom,
   (${corpo})
 ).`;
+}
+
+export function relationBetweenClassesAndReifiedClassesMltAxioms(project: Project): string{
+
+    return project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
+        .map(content => classAndReifiedClassAxiom(content))
+        .join('\n');
+
+}
+
+function classAndReifiedClassAxiom(cl: Class): string{
+    return `fof(${getNextAxiomId()}_relation_between_class_and_reified_class, axiom,(
+          ![X, W]: (iof(X, ${cl.getName()}, W) <=> ${cl.getName()}(X, W) )
+)).`;
 }
 
