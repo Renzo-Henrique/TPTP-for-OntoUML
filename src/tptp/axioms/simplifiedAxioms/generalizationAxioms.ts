@@ -19,7 +19,7 @@ export function generalizationAllAxioms(project: Project): string {
    */
   function generalizationAxiom(generalization: Generalization): string{
     return `fof(${getNextAxiomId()}improper_especialization_of_created_class_${generalization.specific.getName()}_generalizing_${generalization.general.getName()}, axiom, (
-    ![X, W]: (${generalization.specific.getName()}(X, W)  => ${generalization.general.getName()}(X, W))
+    ![X, W]: (${generalization.specific.getName()}(X, W)  => (${generalization.general.getName()}(X, W) ))
   )).`
   }
 
@@ -75,6 +75,8 @@ function generalizationSetAxiom(generalizationSet: GeneralizationSet): string{
   function overlapGeneralizationSetAxiom(): string{
     //TODO:: teria que fazer um axioma que descreve que existem 0011, 1100, 0110 
     // (sendo n o total de especializações, existem m classes juntas que podem ser possíveis, mas que não são as outras n - m possíveis)
+
+    //TODO:: verificar, mas deveria ter uma flag para utilizar ou não essa "expansão" da ontologia?
      return '';
     //TODO:: Consertar
     const comment = `% Overlap set of general -${generalizationSet.getGeneralClass().getName()}-\n`;

@@ -2,6 +2,7 @@ import { Project, Class, Generalization, GeneralizationSet} from 'ontouml-js';
 import {getDisjunctionsOfClassesFormula, getOrFromClassesFormula, getCombinationOfClassesFormula, getAndFromClassesFormula} from '../basicFormulas'
 import { getNextAxiomId } from '../idGenerator';
 import { getPairCombinations } from '../basicFormulas';
+import { ifError } from 'assert';
 
 /**
  * Generates TPTP axioms for all generalizations in the project.
@@ -80,15 +81,14 @@ function generalizationSetMltAxiom(generalizationSet: GeneralizationSet): string
    * @returns An empty string (to be implemented).
    */
   function overlapGeneralizationSetMltAxiom(): string{
+    //TODO:: verificar, mas deveria ter uma flag para utilizar ou não essa "expansão" da ontologia?
+
     const comment = `% Mlt overlap set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
     const additionalTabs = '\t\t';
-    // const result = generalizationSet.getSpecificClasses()
-    //             .map(content => `properSpecializes(${content.getName()}, ${generalizationSet.getGeneralClass().getName()}) `)
-    //             .join(' & \n\t');
     const pairCombinationsOfSpecifics: [Class, Class][] = getPairCombinations(generalizationSet.getSpecificClasses());
 
     const result = pairCombinationsOfSpecifics
-                    .map(content => `overlappingWith(${content[0].getName()}, ${content[1].getName()}) `)
+                    .map(content => `overlappingWith(${content[0].getName()}, ${content[1].getName()})`)
                     .join('&\n'+additionalTabs);
     return comment + `fof(${getNextAxiomId()}generalization_set_overlapping_${generalizationSet.getName()}, axiom, (
     ${result}\n)).`;
@@ -100,11 +100,14 @@ function generalizationSetMltAxiom(generalizationSet: GeneralizationSet): string
    * @returns A string representing the completeness axiom for the generalization set.
    */
   function completeGeneralizationSetMltAxiom(): string{
-    return '';
-    const comment = `% Complete set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
+    const comment = `% Mlt complete set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
+    const additionalTabs = '\t\t\t\t\t\t\t\t\t';
+    const result = generalizationSet.getSpecificClasses()
+                    .map(content => `iof(X, ${content.getName()}, W)`)
+                    .join(' |\n'+additionalTabs)
 
     return comment + `fof(${getNextAxiomId()}generalization_set_complete_${generalizationSet.getName()}, axiom, (
-    ![X, W]: (${generalizationSet.getGeneralClass().getName()}(X, W) => ${getOrFromClassesFormula(generalizationSet.getSpecificClasses(), 'X', 'W')})\n)).`;
+    ![X, W]: (iof(X, ${generalizationSet.getGeneralClass().getName()}, W) => (\n${additionalTabs}${result}\n${additionalTabs}))\n)).`;
   }
 
   /**
@@ -115,13 +118,15 @@ function generalizationSetMltAxiom(generalizationSet: GeneralizationSet): string
    */
   function incompleteGeneralizationSetMltAxiom(): string{
     //TODO:: está certo, mas deveria ter uma flag para utilizar ou não essa "expansão" da ontologia?
-    return '';
-    const comment = `% Incomplete set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
-    const incompleteAxiom = getOrFromClassesFormula(generalizationSet.getSpecificClasses(), 'X', 'W');
-
+    //return '';
+    const comment = `% Mlt incomplete set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
+    const additionalTabs = '\t\t\t\t\t\t\t\t\t';
+    const result = generalizationSet.getSpecificClasses()
+                    .map(content => `iof(X, ${content.getName()}, W)`)
+                    .join(' |\n'+additionalTabs)
 
     return comment + `fof(${getNextAxiomId()}generalization_set_incomplete_${generalizationSet.getName()}, axiom, (
-  ?[X, W]: (${generalizationSet.getGeneralClass().getName()}(X, W) & ~(${incompleteAxiom} )\n\t\t\t)\n)).`;
+    ?[X, W]: (iof(X, ${generalizationSet.getGeneralClass().getName()}, W) & ~(\n${additionalTabs}${result}\n${additionalTabs}))\n)).`;
   }
 
   const disjointOrOverlap = generalizationSet.isDisjoint ? disjointGeneralizationSetMltAxiom() : overlapGeneralizationSetMltAxiom();
