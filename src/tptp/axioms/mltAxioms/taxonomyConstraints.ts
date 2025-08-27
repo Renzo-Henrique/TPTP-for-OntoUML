@@ -12,8 +12,8 @@ export function classesTaxonomiesStatementsAxioms(project: Project): string{
     
     const result = project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
             .map(content => `${mapStereotypeToRefactored(content.stereotype)}(${content.getName()})`)
-            .join(' & \n\t\t\t\t\t\t');
-        return `fof(${getNextAxiomId()}_named_classes, axiom, (
+            .join(' & \n\t\t\t\t');
+        return `fof(${getNextAxiomId()}_ontology_classes_stereotypes, axiom, (
         ${result}
     )).`
 }

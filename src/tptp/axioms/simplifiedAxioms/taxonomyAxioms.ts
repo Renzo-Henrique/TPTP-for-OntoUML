@@ -35,6 +35,7 @@ export function disjunctionOfKindsAxiom(project: Project): string {
  * @returns A string representing the TPTP axiom.
  */
 export function existenceOfSortalInstancesAxiom(project: Project): string {
+  checkEmptyForError(project.getClassesWithKindStereotype(), 'Your ontology must have at least one kind class stereotype to be instatiable')
   //TODO:: fazer checagem de erros?
   const result = project.getClassesWithKindStereotype()
     .map(content => `${content.getName()}(X, W)`)

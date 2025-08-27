@@ -1,0 +1,10 @@
+package companyService
+
+category Company
+
+relator Service {
+  @mediation
+  [0..*] -- [1] Company
+  @mediation
+  [0..*] -- [1] Company
+}

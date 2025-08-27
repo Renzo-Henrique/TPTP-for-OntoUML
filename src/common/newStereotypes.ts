@@ -2,27 +2,27 @@ import {ClassStereotype } from 'ontouml-js';
 
 
 export enum ClassStereotypeRefactoredStringsForAxioms {
-    TYPE = "type",
-    HISTORICAL_ROLE = "historicalRole",
-    HISTORICAL_ROLE_MIXIN = "historicalRoleMixin",
-    EVENT = "event",
-    SITUATION = "situation",
-    CATEGORY = "category",
-    MIXIN = "mixin",
-    ROLE_MIXIN = "roleMixin",
-    PHASE_MIXIN = "phaseMixin",
-    KIND = "kind",
+    TYPE = "type",//??
+    HISTORICAL_ROLE = "historicalRole", // ERROR
+    HISTORICAL_ROLE_MIXIN = "historicalRoleMixin",// ERROR
+    EVENT = "event",// ERROR
+    SITUATION = "situation",// ERROR
+    CATEGORY = "category", ///
+    MIXIN = "mixin", ///
+    ROLE_MIXIN = "roleMixin",///
+    PHASE_MIXIN = "phaseMixin",///
+    KIND = "kind", ///
     COLLECTIVE = "collectiveKind",
     QUANTITY = "quantityKind",
     RELATOR = "relatorKind",
     QUALITY = "qualityKind",
     MODE = "modeKind",
-    SUBKIND = "subkind",
-    ROLE = "role",
-    PHASE = "phase",
-    ENUMERATION = "enumeration",
-    DATATYPE = "datatype",
-    ABSTRACT = "abstract"
+    SUBKIND = "subkind",///
+    ROLE = "role",///
+    PHASE = "phase",///
+    ENUMERATION = "enumeration",// ERROR
+    DATATYPE = "datatype",// ERROR
+    ABSTRACT = "abstract"// ERROR
 }
 
 export function mapStereotypeToRefactored(

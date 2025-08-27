@@ -9,7 +9,7 @@ import {existenceOfSortalInstancesAxiom, existenceOfRigidClassesAxioms,
         disjunctionOfKindsAxiom} from './axioms/simplifiedAxioms/taxonomyAxioms'
 
 import { resetAxiomId } from './axioms/idGenerator';
-import { existenceOfDeclaredClassesAxioms, closedWorldAxioms, differenceBetweenReifiedClassesAxioms, topLevelTaxonomyOfClassesAxioms} from './axioms/mltAxioms/worldConstraints';
+import { existenceOfDeclaredClassesAxioms, differenceBetweenReifiedClassesAxioms, topLevelTaxonomyOfClassesAxioms} from './axioms/mltAxioms/worldConstraints';
 import { mltBaseAxiom } from './axioms/mltAxioms/baseAxioms';
 import { classesTaxonomiesStatementsAxioms } from './axioms/mltAxioms/taxonomyConstraints';
 
@@ -129,11 +129,10 @@ function generateTptpMLTAxiomsFromProject(project: Project): string[]{
     formulaComment = '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% WORLD CONSTRAINTS\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
     formulas.push(formulaComment);
     formulas.push(existenceOfDeclaredClassesAxioms(project));
-    formulas.push(topLevelTaxonomyOfClassesAxioms(project))
-    formulas.push(closedWorldAxioms(project));
+    formulas.push(topLevelTaxonomyOfClassesAxioms(project));
     formulas.push(differenceBetweenReifiedClassesAxioms(project));
 
-    formulas.push('%%%%%%%%%%%%%%%\n%%%%Classes Statements%%%%%%%%%%%%%%%')
+    formulas.push('%%%%%%%%%%%%%%%\n%%%%Classes Statements\n%%%%%%%%%%%%%%%')
     formulas.push(classesTaxonomiesStatementsAxioms(project));
     return formulas;
 }

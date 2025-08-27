@@ -17,7 +17,11 @@ export async function validateTptpFromProject(project: Project, tptpFileDir: str
     const tptpFilePath = path.join(tptpFileDir, tptpFileName);
     let tptpContent: string;
     // If the file doesn't exist, generate it
-    if (generateFile || !fs.existsSync(tptpFilePath)) {
+    if (generateFile) {
+        console.warn(`Generating TPTP file "${tptpFileName}" from project...`);
+        tptpContent = generateTptpFromProject(project, tptpFileDir);
+    }
+    else if (!fs.existsSync(tptpFilePath)){
         console.warn(`File "${tptpFileName}" not found. Generating TPTP from project...`);
         tptpContent = generateTptpFromProject(project, tptpFileDir);
     }
@@ -28,6 +32,7 @@ export async function validateTptpFromProject(project: Project, tptpFileDir: str
     try {
         //return '';
         // Chama o provador remoto com a string TPTP
+        console.log(`\nTPTP validation running...\n`);
         const result = await tptpClient.runSystem('E---', tptpContent, {includeSystemOutput: generateOutputFileOfResult});
 
         if(generateOutputFileOfResult){

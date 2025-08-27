@@ -56,6 +56,24 @@ fof(ax_disjoint_implies_not_overlapping, axiom, (
   ![C1, C2]: (disjointWith(C1, C2) => ~overlappingWith(C1, C2))
 )).`;
 
+const onlyKindsHaveInstances = `
+fof(ax_only_types_of_kind_have_instances, axiom, (
+  ![X, C, W]: (
+    (iof(X, C, W) & type_(C) ) => (sortal(C))
+  )
+)).`
+
+const entitiesAreIndividuals = `
+fof(ax_entities_are_individuals, axiom, (
+  ![X]: (
+    entity(X) <=> concreteIndividual(X)
+  )
+)).`
+
+
 export const mltBaseAxiom = disjointnessMLT + '\n' +
                             overlapMLT + '\n' + 
-                            disjointCantOverlap + '\n';
+                            disjointCantOverlap + '\n' +
+                            onlyKindsHaveInstances + '\n' +
+                            //entitiesAreIndividuals + '\n';
+                            '';

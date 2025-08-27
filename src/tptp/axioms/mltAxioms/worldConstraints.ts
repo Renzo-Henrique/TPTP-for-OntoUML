@@ -2,18 +2,6 @@ import { Project, Class, Generalization, GeneralizationSet} from 'ontouml-js';
 import { AvailableInAxiomsClassStereotypes } from '../../../common/newStereotypes';
 import { getNextAxiomId } from '../idGenerator';
 
-const baseClosedWorld = `
-% Only the explicitly declared classes exist in this world
-fof(ax_world_only_for_declarated_classes, axiom, (
-  ![C]: (type_(C) <=> named_classes(C))
-)).
-
-% All instantiations must refer to one of the declared classes
-fof(ax_only_declared_classes_have_instances, axiom, (
-  ![X, C, W]: (
-    iof(X, C, W) => named_classes(C)
-  )
-)).`
 
 const worldConstraints = `
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -54,23 +42,19 @@ fof(ax_named_classes_are_different, axiom, (
 export function existenceOfDeclaredClassesAxioms(project: Project): string{
     const result = project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
         .map(content => 'C = ' + content.getName())
-        .join(' | \n\t\t\t\t\t\t');
-    return `fof(${getNextAxiomId()}_named_classes, axiom, (
-    ![C]: (named_classes(C) <=> (${result})) 
+        .join(' | \n\t\t\t\t');
+    return `fof(${getNextAxiomId()}_ontology_classes_are_types, axiom, (
+    ![C]: (type_(C) <=> (${result})) 
 )).`
 }
 
 export function topLevelTaxonomyOfClassesAxioms(project: Project): string{
     const result = project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
         .map(content => `type_(${content.getName()})`)
-        .join(' & \n\t\t\t\t\t\t');
-    return `fof(${getNextAxiomId()}_named_classes, axiom, (
+        .join(' & \n\t\t\t\t');
+    return `fof(${getNextAxiomId()}_ontology_classes_are_types, axiom, (
     ${result}
 )).`
-}
-
-export function closedWorldAxioms(project: Project): string{
-    return baseClosedWorld;
 }
 
 export function differenceBetweenReifiedClassesAxioms(project: Project): string{
@@ -90,8 +74,8 @@ export function differenceBetweenReifiedClassesAxioms(project: Project): string{
         }
     }
 
-    const corpo = condicoes.join(" &\n\t\t\t\t\t\t");
-    return `fof(${getNextAxiomId()}_named_classes_are_differente, axiom,
+    const corpo = condicoes.join(" &\n\t\t\t");
+    return `fof(${getNextAxiomId()}_ontology_classes_are_differente, axiom,
   (${corpo})
 ).`;
 }
