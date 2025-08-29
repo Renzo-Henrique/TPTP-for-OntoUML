@@ -57,11 +57,12 @@ fof(ax_disjoint_implies_not_overlapping, axiom, (
   ![C1, C2]: (disjointWith(C1, C2) => ~overlappingWith(C1, C2))
 )).`;
 
+//TODO:: Consertar nomenclatura e definir que deve ser somente de um kind 
 const onlyKindsHaveInstancesMlt = `
 fof(ax_only_types_of_kind_have_instances, axiom, (
-  ![X, C, W]: (
-    (iof(X, C, W) & type_(C) ) => (sortal(C))
-  )
+  ![X, W]: ( exists(X, W) => (
+    ?[C]: ( kind(C) & iof(X, C, W) ) 
+))
 )).`
 
 const entitiesAreIndividualsMlt = `

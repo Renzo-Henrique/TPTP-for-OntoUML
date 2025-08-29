@@ -1,6 +1,6 @@
 import { Project, Class, Generalization, GeneralizationSet} from 'ontouml-js';
-import {getDisjunctionsOfClassesFormula, getOrFromClassesFormula, getCombinationOfClassesFormula, getAndFromClassesFormula} from '../basicFormulas'
-import { getNextAxiomId } from '../idGenerator';
+import {getDisjunctionsOfClassesFormula, getOrFromClassesFormula, getFactorialCombinationOfClassesFormula, getAndFromClassesFormula} from '../basicFormulas'
+import { getNextAxiomId, getReifiedPrefix } from '../idGenerator';
 import { getPairCombinations } from '../basicFormulas';
 import { ifError } from 'assert';
 
@@ -21,7 +21,7 @@ export function generalizationAllMltAxioms(project: Project): string {
    */
   function generalizationMltAxiom(generalization: Generalization): string{
     return `fof(${getNextAxiomId()}proper_especialization_of_created_class_${generalization.specific.getName()}_generalizing_${generalization.general.getName()}, axiom, (
-    properSpecializes(${generalization.specific.getName()}, ${generalization.general.getName()})
+    properSpecializes(${getReifiedPrefix()}${generalization.specific.getName()}, ${getReifiedPrefix()}${generalization.general.getName()})
   )).`
   }
 
@@ -68,7 +68,7 @@ function generalizationSetMltAxiom(generalizationSet: GeneralizationSet): string
     const pairCombinationsOfSpecifics: [Class, Class][] = getPairCombinations(generalizationSet.getSpecificClasses());
 
     const result = pairCombinationsOfSpecifics
-                    .map(content => `disjointWith(${content[0].getName()}, ${content[1].getName()}) `)
+                    .map(content => `disjointWith(${getReifiedPrefix()}${content[0].getName()}, ${getReifiedPrefix()}${content[1].getName()}) `)
                     .join('&\n'+additionalTabs);
     return comment + `fof(${getNextAxiomId()}generalization_set_disjoint_${generalizationSet.getName()}, axiom, (
     ${result}\n)).`;
@@ -82,13 +82,13 @@ function generalizationSetMltAxiom(generalizationSet: GeneralizationSet): string
    */
   function overlapGeneralizationSetMltAxiom(): string{
     //TODO:: verificar, mas deveria ter uma flag para utilizar ou não essa "expansão" da ontologia?
-
+    //TODO:: Deveria fazer exaustivamente cada possibilidade?
     const comment = `% Mlt overlap set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
     const additionalTabs = '\t\t';
     const pairCombinationsOfSpecifics: [Class, Class][] = getPairCombinations(generalizationSet.getSpecificClasses());
 
     const result = pairCombinationsOfSpecifics
-                    .map(content => `overlappingWith(${content[0].getName()}, ${content[1].getName()})`)
+                    .map(content => `overlappingWith(${getReifiedPrefix()}${content[0].getName()}, ${getReifiedPrefix()}${content[1].getName()})`)
                     .join('&\n'+additionalTabs);
     return comment + `fof(${getNextAxiomId()}generalization_set_overlapping_${generalizationSet.getName()}, axiom, (
     ${result}\n)).`;
@@ -103,11 +103,11 @@ function generalizationSetMltAxiom(generalizationSet: GeneralizationSet): string
     const comment = `% Mlt complete set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
     const additionalTabs = '\t\t\t\t\t\t\t\t\t';
     const result = generalizationSet.getSpecificClasses()
-                    .map(content => `iof(X, ${content.getName()}, W)`)
+                    .map(content => `iof(X, ${getReifiedPrefix()}${content.getName()}, W)`)
                     .join(' |\n'+additionalTabs)
 
     return comment + `fof(${getNextAxiomId()}generalization_set_complete_${generalizationSet.getName()}, axiom, (
-    ![X, W]: (iof(X, ${generalizationSet.getGeneralClass().getName()}, W) => (\n${additionalTabs}${result}\n${additionalTabs}))\n)).`;
+    ![X, W]: (iof(X, ${getReifiedPrefix()}${generalizationSet.getGeneralClass().getName()}, W) => (\n${additionalTabs}${result}\n${additionalTabs}))\n)).`;
   }
 
   /**
@@ -117,16 +117,16 @@ function generalizationSetMltAxiom(generalizationSet: GeneralizationSet): string
    * @returns A string representing the incompleteness axiom for the generalization set.
    */
   function incompleteGeneralizationSetMltAxiom(): string{
-    //TODO:: está certo, mas deveria ter uma flag para utilizar ou não essa "expansão" da ontologia?
+    //TODO:: está certo?, mas deveria ter uma flag para utilizar ou não essa "expansão" da ontologia?
     //return '';
     const comment = `% Mlt incomplete set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
     const additionalTabs = '\t\t\t\t\t\t\t\t\t';
     const result = generalizationSet.getSpecificClasses()
-                    .map(content => `iof(X, ${content.getName()}, W)`)
+                    .map(content => `iof(X, ${getReifiedPrefix()}${content.getName()}, W)`)
                     .join(' |\n'+additionalTabs)
 
     return comment + `fof(${getNextAxiomId()}generalization_set_incomplete_${generalizationSet.getName()}, axiom, (
-    ?[X, W]: (iof(X, ${generalizationSet.getGeneralClass().getName()}, W) & ~(\n${additionalTabs}${result}\n${additionalTabs}))\n)).`;
+    ?[X, W]: (iof(X, ${getReifiedPrefix()}${generalizationSet.getGeneralClass().getName()}, W) & ~(\n${additionalTabs}${result}\n${additionalTabs}))\n)).`;
   }
 
   const disjointOrOverlap = generalizationSet.isDisjoint ? disjointGeneralizationSetMltAxiom() : overlapGeneralizationSetMltAxiom();

@@ -2,14 +2,14 @@ import fs from 'fs';
 import path from 'path';
 import { Project} from 'ontouml-js';
 import {worldAndEntity} from './axioms/simplifiedAxioms/baseAxioms'
-import {refactorNames} from '../common/utils'
+import {fixProjectNames, refactorNames} from '../common/utils'
 import {generalizationAllAxioms, generalizationSetAllAxioms} from './axioms/simplifiedAxioms/generalizationAxioms'
 import {existenceOfSortalInstancesAxiom, existenceOfRigidClassesAxioms, 
         existenceOfAntiRigidClassesAxioms, existenceOfAtLeastOneOfEachClassAxioms,
         disjunctionOfKindsAxiom} from './axioms/simplifiedAxioms/taxonomyAxioms'
 
 import { resetAxiomId } from './axioms/idGenerator';
-import { existenceOfDeclaredClassesMltAxioms, differenceBetweenReifiedClassesMltAxioms, topLevelTaxonomyOfClassesMltAxioms, relationBetweenClassesAndReifiedClassesMltAxioms} from './axioms/mltAxioms/worldConstraints';
+import { existenceOfDeclaredClassesMltAxioms, reifiedClassesAreDifferentMltAxioms, relationBetweenClassesAndReifiedClassesMltAxioms} from './axioms/mltAxioms/worldConstraints';
 import { baseMltAxiom } from './axioms/mltAxioms/baseAxioms';
 import { classesTaxonomiesStatementsMltAxioms } from './axioms/mltAxioms/taxonomyConstraints';
 import { generalizationAllMltAxioms, generalizationSetAllMltAxioms } from './axioms/mltAxioms/generalizationAxioms';
@@ -27,15 +27,18 @@ export function generateTptpFromProject(project: Project, outputDirPath: string)
     if (!fs.existsSync(outputDirPath)) {
         fs.mkdirSync(outputDirPath, { recursive: true });
     }
-    resetAxiomId()
+    resetAxiomId();
+
+    fixProjectNames(project);
     console.log(project.name.getText())
     const projectName = project.name.getText();
     const fileName = projectName  + '.p';
+    
 
     const outputFilePath = path.join(outputDirPath, fileName);
-    refactorNames(project);
-    const formulas = generateTptpSimplifiedAxiomsFromProject(project);
     
+    var formulas = ['',''];
+    formulas = generateTptpSimplifiedAxiomsFromProject(project);
     const content = formulas.join('\n');
 
     const formulasMlt = generateTptpMLTAxiomsFromProject(project);
@@ -70,7 +73,7 @@ function generateTptpSimplifiedAxiomsFromProject(project: Project): string[]{
   
     
     const formulas: string[] = [];
-
+    refactorNames(project);
     formulas.push(worldAndEntity);
 
     formulas.push('\n%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%\n');
@@ -117,8 +120,7 @@ function generateTptpMLTAxiomsFromProject(project: Project): string[]{
     
     formulas.push('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% WORLD CONSTRAINTS\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
     formulas.push(existenceOfDeclaredClassesMltAxioms(project));
-    formulas.push(topLevelTaxonomyOfClassesMltAxioms(project));
-    formulas.push(differenceBetweenReifiedClassesMltAxioms(project));
+    formulas.push(reifiedClassesAreDifferentMltAxioms(project));
 
     formulas.push('%%%%%%%%%%%%%%%\n%%%%Classes Statements\n%%%%%%%%%%%%%%%');
     formulas.push(classesTaxonomiesStatementsMltAxioms(project));

@@ -97,7 +97,7 @@ export function getAndFromClassesFormula(classes: Class[], entity:string, world:
  * @param world - The variable name representing the world/context.
  * @returns A string representing the disjunction of conjunctions formula.
  */
-export function getCombinationOfClassesFormula(classes: Class[], tabs: string, entity:string, world:string): string{
+export function getFactorialCombinationOfClassesFormula(classes: Class[], tabs: string, entity:string, world:string): string{
   
   //TODO:: reformular para corrigir o overlap  
   const combinationOfClasses = getCombinationsWithComplement(classes, classes.length - 1);
@@ -134,7 +134,7 @@ function getCombinationsWithComplement<T>(array: T[], k: number): [T[], T[]][] {
 }
 
 /**
- * Gera combinações 2 a 2 (pares) da lista
+ * Gera combinações 2 a 2 (pares) da lista com a ordem importando
  */
 export function getPairCombinations<T>(array: T[]): [T, T][] {
   const result: [T, T][] = [];

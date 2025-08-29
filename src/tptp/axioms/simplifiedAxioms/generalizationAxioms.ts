@@ -1,5 +1,5 @@
 import { Project, Class, Generalization, GeneralizationSet} from 'ontouml-js';
-import {getDisjunctionsOfClassesFormula, getOrFromClassesFormula, getCombinationOfClassesFormula, getAndFromClassesFormula} from '../basicFormulas'
+import {getDisjunctionsOfClassesFormula, getOrFromClassesFormula, getFactorialCombinationOfClassesFormula, getAndFromClassesFormula} from '../basicFormulas'
 import { getNextAxiomId } from '../idGenerator';
 
 /**
@@ -81,7 +81,7 @@ function generalizationSetAxiom(generalizationSet: GeneralizationSet): string{
     //TODO:: Consertar
     const comment = `% Overlap set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
     const additionalTabs = '\t\t\t\t\t\t\t';
-    const combinationOfClasses = getCombinationOfClassesFormula(generalizationSet.getSpecificClasses(), additionalTabs, 'X', 'W');
+    const combinationOfClasses = getFactorialCombinationOfClassesFormula(generalizationSet.getSpecificClasses(), additionalTabs, 'X', 'W');
 
     return comment + `fof(${getNextAxiomId()}generalization_set_overlap_${generalizationSet.getName()}, axiom, (
     ?[X, W]: (${combinationOfClasses})\n)).`;

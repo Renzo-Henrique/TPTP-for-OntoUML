@@ -1,6 +1,7 @@
 import { Project, Class, Generalization, GeneralizationSet} from 'ontouml-js';
 import { AvailableInAxiomsClassStereotypes } from '../../../common/newStereotypes';
-import { getNextAxiomId } from '../idGenerator';
+import { getClassPrefix, getNextAxiomId, getReifiedPrefix } from '../idGenerator';
+import { getPairCombinations } from '../basicFormulas';
 
 
 // const worldConstraints = `
@@ -41,42 +42,33 @@ import { getNextAxiomId } from '../idGenerator';
 
 export function existenceOfDeclaredClassesMltAxioms(project: Project): string{
     const result = project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
-        .map(content => 'C = ' + content.getName())
+        .map(content => `C = ${getReifiedPrefix()}${content.getName()}`)
         .join(' | \n\t\t\t\t');
     return `fof(${getNextAxiomId()}_ontology_classes_are_types, axiom, (
     ![C]: (type_(C) <=> (${result})) 
 )).`
 }
 
-export function topLevelTaxonomyOfClassesMltAxioms(project: Project): string{
-    const result = project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
-        .map(content => `type_(${content.getName()})`)
-        .join(' & \n\t\t\t\t');
-    return `fof(${getNextAxiomId()}_ontology_classes_are_types, axiom, (
-    ${result}
-)).`
-}
+export function reifiedClassesAreDifferentMltAxioms(project: Project): string{
+    
+    const condicoes: string[] = [];
 
-export function differenceBetweenReifiedClassesMltAxioms(project: Project): string{
-    // const result = project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
-    // .map(content => `${content.getName()}(X, W)`)
-    // .join(' | ');
-
-    // return project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
-    //     .map(content => existenceOfAtLeastOneOfClassAxiom(content))
-    //     .join('\n');
-
-     const condicoes: string[] = [];
-
-    for (let i = 0; i < project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes).length; i++) {
+    const availableClasses = project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes);
+    for (let i = 0; i < availableClasses.length; i++) {
         for (let j = i + 1; j < project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes).length; j++) {
-        condicoes.push(`${project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)[i].getName()} != ${project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)[j].getName()}`);
+        condicoes.push(`${getReifiedPrefix()}${availableClasses[i].getName()} != ${getReifiedPrefix()}${availableClasses[j].getName()}`);
         }
     }
-
+    
     const corpo = condicoes.join(" &\n\t\t\t");
-    return `fof(${getNextAxiomId()}_ontology_classes_are_differente, axiom,
-  (${corpo})
+
+    const pairCombinations: [Class, Class][] = getPairCombinations( project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes));
+    const result = pairCombinations
+                    .map(content => `${getReifiedPrefix()}${content[0].getName()} != ${getReifiedPrefix()}${content[1].getName()}`)
+                    .join(" &\n\t\t\t");
+
+    return `fof(${getNextAxiomId()}_reified_classes_are_different, axiom,
+  (${result})
 ).`;
 }
 
@@ -90,7 +82,7 @@ export function relationBetweenClassesAndReifiedClassesMltAxioms(project: Projec
 
 function classAndReifiedClassAxiom(cl: Class): string{
     return `fof(${getNextAxiomId()}_relation_between_class_and_reified_class, axiom,(
-          ![X, W]: (iof(X, ${cl.getName()}, W) <=> ${cl.getName()}(X, W) )
+          ![X, W]: (iof(X, ${getReifiedPrefix()}${cl.getName()}, W) <=> ${getClassPrefix()}${cl.getName()}(X, W) )
 )).`;
 }
 

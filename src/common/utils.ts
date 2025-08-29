@@ -76,6 +76,40 @@ export function checkEmptyForError(elements: any[], errorMessage: string): void{
  *
  * @param project - The OntoUML project whose class names will be refactored.
  */
+export function fixProjectNames(project: Project): void {
+
+  function fixName(original: string): string{
+    return original.replace(/[{:}, ]/g, "_");
+  }
+  const classes = project.getAllClasses();
+  for (const cls of classes) {
+    const original = cls.getName();
+
+    if (!original) continue;
+    cls.setName(fixName(original));
+  }
+
+  for (const genSets of project.getAllGeneralizationSets()) {
+    const original = genSets.getName();
+
+    if (!original) continue;
+    genSets.setName(fixName(original));
+  }
+
+  for (const gens of project.getAllGeneralizations()) {
+    const original = gens.getName();
+
+    if (!original) continue;
+    gens.setName(fixName(original));
+  }
+}
+
+/**
+ * Refactors class names in a project by converting them to camelCase
+ * and prefixing with "cl_".
+ *
+ * @param project - The OntoUML project whose class names will be refactored.
+ */
 export function refactorNames(project: Project): void {
   const classes = project.getAllClasses();
 

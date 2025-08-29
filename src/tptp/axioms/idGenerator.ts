@@ -21,3 +21,11 @@ export function getNextAxiomId(): string {
 export function resetAxiomId() {
   idCounter = 0;
 }
+
+export function getReifiedPrefix(): string{
+  return 'rf_';
+}
+
+export function getClassPrefix(): string{
+  return 'cl_';
+}
