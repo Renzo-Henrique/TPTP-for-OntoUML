@@ -1,3 +1,11 @@
+
+/** 
+ * Imports original UFO axioms (taxonomy, instantiation, specialization, etc.)
+ * from `.p` files. 
+ *
+ * @note Currently commented out in `baseMltAxiom`, but may be re-enabled when
+ * full ontology axioms are required.
+ */
 const includesMlt = `
 include('./originalAxioms/01_taxonomy_thing.p').
 include('./originalAxioms/02_taxonomy_abstract_individual.p').
@@ -11,6 +19,14 @@ include('./originalAxioms/09_endurant_types_definitions.p').
 include('./originalAxioms/10_ultimate_sortals.p').\n\n
 `
 
+/**
+ * Axioms for reified class disjointness.
+ * 
+ * @logic
+ * - `disjointWith(C1, C2)` ⇔ C1 ≠ C2 ∧ no instance belongs to both in any world.
+ * - Symmetric: if C1 is disjoint with C2, then C2 is disjoint with C1.
+ * - Irreflexive: no class is disjoint with itself.
+ */
 const disjointnessMlt = `
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Disjointness
@@ -32,6 +48,14 @@ fof(ax_disjointWith_irreflexivity, axiom, (
   ![C1]: (~disjointWith(C1, C1))
 )).`;
 
+/**
+ * Axioms for reified class overlap.
+ *
+ * @logic
+ * - `overlappingWith(C1, C2)` ⇔ ∃x,w such that x ∈ C1 and x ∈ C2 in some world w.
+ * - Symmetric: if C1 overlaps C2, then C2 overlaps C1.
+ * - Reflexive: every class overlaps with itself (if it is a type).
+ */
 const overlapMlt = `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Overlap
 
@@ -52,24 +76,29 @@ fof(ax_overlapping_reflexivity, axiom, (
   ![C]: (type_(C) => overlappingWith(C, C))
 )).`;
 
+/**
+ * Compatibility axiom between disjointness and overlap.
+ *
+ * @logic
+ * - If two reified classes are disjoint, then they cannot overlap.
+ */
 const disjointCantOverlapMlt = `% Disjoint classes cannot overlap
 fof(ax_disjoint_implies_not_overlapping, axiom, (
   ![C1, C2]: (disjointWith(C1, C2) => ~overlappingWith(C1, C2))
 )).`;
 
-//TODO:: Consertar nomenclatura e definir que deve ser somente de um kind 
-const onlyKindsHaveInstancesMlt = `
+/**
+ * Sortality constraint: all instances must belong to some Kind.
+ *
+ * @logic
+ * - If x exists in some world w, then ∃C such that Kind(C) ∧ iof(x,C,w).
+ * - Ensures that only kinds (ultimate sortals) can have instances.
+ */
+const allInstancesHaveAKindMlt = `
 fof(ax_only_types_of_kind_have_instances, axiom, (
   ![X, W]: ( exists(X, W) => (
     ?[C]: ( kind(C) & iof(X, C, W) ) 
 ))
-)).`
-
-const entitiesAreIndividualsMlt = `
-fof(ax_entities_are_individuals, axiom, (
-  ![X]: (
-    entity(X) <=> concreteIndividual(X)
-  )
 )).`
 
 
@@ -77,6 +106,5 @@ export const baseMltAxiom = //includesMlt + '\n'
                             disjointnessMlt + '\n' +
                             overlapMlt + '\n' + 
                             disjointCantOverlapMlt + '\n' +
-                            onlyKindsHaveInstancesMlt + '\n' +
-                            //entitiesAreIndividualsMlt + '\n';
+                            allInstancesHaveAKindMlt + '\n' +
                             '';

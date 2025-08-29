@@ -1,13 +1,16 @@
-// 
-// iof(X, T, W)
-// X é instância
-// T é tipo
-// W é mundo
-//
 import { getNextAxiomId, getReifiedPrefix } from '../idGenerator';
 import { Project } from "ontouml-js";
 import { AvailableInAxiomsClassStereotypes, mapStereotypeToRefactored } from '../../../common/newStereotypes';
 
+/**
+ * Generates TPTP axioms that declare the stereotypes of OntoUML classes
+ * in a given project, adapted for Multi-Level Theory (MLT).
+ *
+ * @param project - OntoUML Project containing all classes and stereotypes.
+ * @returns A TPTP formula (string) where each class is reified and associated
+ *          with its mapped stereotype.
+ *
+ */ 
 export function classesTaxonomiesStatementsMltAxioms(project: Project): string{
     
     const result = project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)

@@ -73,13 +73,14 @@ tptp-cli validate ./examples/model.json
 ```
 TPTP-for-OntoUML/
 ├── examples/
-│   ├── wrongs/                       ── folders containing semantically and/or syntactically wrong models
+│   ├── wrongs/                     ── folders containing semantically and/or syntactically wrong models
 │   └── notWrongs/                  ── folders containing NOT semantically and/or syntactically wrong models
 │   └── generated/                  ── TPTP axioms output
 ├── src/
 │   ├── generator.ts                ── transformation logic
+│   ├── validate.ts                 ── tptp validation logic
 │   ├── axioms/                     ── taxonomy, generalization, base axioms
-│   └── commom                   ── file and model utilities
+│   └── commom                      ── file and model utilities
 ├── index.ts                        ── CLI or entry point
 ├── README.md
 └── package.json
@@ -93,7 +94,6 @@ TPTP-for-OntoUML/
 
 Transforms an OntoUML `Project` object into TPTP format:
 
-- Refactors class names (`cl_<camelCase>`)
 - Resets axiom ID counter for consistency
 - Produces axioms across:
   - worlds and entities
@@ -104,6 +104,13 @@ Transforms an OntoUML `Project` object into TPTP format:
   - optional instance existence axioms
 
 Output is saved as `outputDir/generated/{ProjectName}.p`
+
+--
+## iof(X,T,W) explanation
+
+- X é instância
+- T é tipo
+- W é mundo
 
 ---
 

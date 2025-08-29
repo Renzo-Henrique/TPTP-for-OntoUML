@@ -16,8 +16,8 @@ async function main() {
     //   //break;
     // }
     //const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/wrongs/specializationFromDisjoints/specializationFromDisjoints.json'));
-    //const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/wrongs/companyService/companyService.json'));
-    const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/personSimplified/personSimplified.json'));
+    const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/wrongs/companyService/companyService.json'));
+    //const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/personSimplified/personSimplified.json'));
     //const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/customer/customer.json'));
     
     generateTptpFromProject(project, outputDir);

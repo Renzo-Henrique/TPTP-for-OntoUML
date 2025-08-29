@@ -52,6 +52,7 @@ export function generateTptpFromProject(project: Project, outputDirPath: string)
         console.error(`Error while trying to save generated TPTP file: ${err}`);
     }
 
+    console.log(project.getAllRelations())
     return content;
 }
 
