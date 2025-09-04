@@ -25,7 +25,7 @@ export enum ClassStereotypeRefactoredStringsForAxioms {
     ABSTRACT = "abstract"// ERROR
 }
 
-export function mapStereotypeToRefactored(
+export function mapClassStereotypeToRefactored(
   stereotype: ClassStereotype
 ): string {
   // pega a chave (ex: "COLLECTIVE")
@@ -49,7 +49,7 @@ export function mapStereotypeToRefactored(
  * Array of class stereotypes that are considered available for use in axioms.
  * Excludes ENUMERATION, DATATYPE, and ABSTRACT stereotypes.
  */
-export const AvailableInAxiomsClassStereotypes: ClassStereotype[] = Object.values(ClassStereotype).filter(
+export const ClassStereotypesAvailableInAxioms: ClassStereotype[] = Object.values(ClassStereotype).filter(
   value =>
     value !== ClassStereotype.ENUMERATION &&
     value !== ClassStereotype.DATATYPE &&
@@ -65,6 +65,6 @@ export const AvailableInAxiomsClassStereotypes: ClassStereotype[] = Object.value
  * @param stereotype - The class stereotype to check.
  * @returns True if the stereotype is available in axioms, false otherwise.
  */
-export function isAvailableInAxiomsClassStereotypes(stereotype: ClassStereotype): boolean {
-  return AvailableInAxiomsClassStereotypes.includes(stereotype);
+export function isClassStereotypeAvailableInAxioms(stereotype: ClassStereotype): boolean {
+  return ClassStereotypesAvailableInAxioms.includes(stereotype);
 }

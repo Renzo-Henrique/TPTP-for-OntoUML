@@ -1,5 +1,5 @@
 import { Project, Class, Generalization, GeneralizationSet} from 'ontouml-js';
-import { AvailableInAxiomsClassStereotypes } from '../../../common/newStereotypes';
+import { AvailableInAxiomsClassStereotypes } from '../../../common/newClassStereotypes';
 import { getClassPrefix, getNextAxiomId, getReifiedPrefix } from '../idGenerator';
 import { getPairCombinations } from '../basicFormulas';
 

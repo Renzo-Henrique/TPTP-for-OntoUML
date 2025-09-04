@@ -6,7 +6,7 @@ import { generateTptpFromProject } from './generator';
 import { readAxiomFiles } from '../common/readFiles';
 
 
-/** TODO:: FIX comments
+/** TODO:: FIX comments and possible parameters
  * Validate the generated TPTP from a project using a remote TPTP theorem prover.
  *
  * @param project The OntoUML project to be validated.

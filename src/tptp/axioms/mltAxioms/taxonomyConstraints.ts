@@ -1,6 +1,6 @@
 import { getNextAxiomId, getReifiedPrefix } from '../idGenerator';
 import { Project } from "ontouml-js";
-import { AvailableInAxiomsClassStereotypes, mapStereotypeToRefactored } from '../../../common/newStereotypes';
+import { AvailableInAxiomsClassStereotypes, mapStereotypeToRefactored } from '../../../common/newClassStereotypes';
 
 /**
  * Generates TPTP axioms that declare the stereotypes of OntoUML classes

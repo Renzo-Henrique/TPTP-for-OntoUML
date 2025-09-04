@@ -38,10 +38,11 @@ export function generateTptpFromProject(project: Project, outputDirPath: string)
     const outputFilePath = path.join(outputDirPath, fileName);
     
     var formulas = ['',''];
-    formulas = generateTptpSimplifiedAxiomsFromProject(project);
+    //formulas = generateTptpSimplifiedAxiomsFromProject(project);
     const content = formulas.join('\n');
 
-    const formulasMlt = generateTptpMLTAxiomsFromProject(project);
+    var formulasMlt = ['',''];
+    formulasMlt = generateTptpMLTAxiomsFromProject(project);
     
     const contentMlt = formulasMlt.join('\n');
     //----------
@@ -52,7 +53,6 @@ export function generateTptpFromProject(project: Project, outputDirPath: string)
         console.error(`Error while trying to save generated TPTP file: ${err}`);
     }
 
-    console.log(project.getAllRelations())
     return content;
 }
 

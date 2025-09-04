@@ -95,7 +95,7 @@ fof(ax_disjoint_implies_not_overlapping, axiom, (
  * - Ensures that only kinds (ultimate sortals) can have instances.
  */
 const allInstancesHaveAKindMlt = `
-fof(ax_only_types_of_kind_have_instances, axiom, (
+fof(ax_all_instances_have_a_kind, axiom, (
   ![X, W]: ( exists(X, W) => (
     ?[C]: ( kind(C) & iof(X, C, W) ) 
 ))
@@ -106,5 +106,5 @@ export const baseMltAxiom = //includesMlt + '\n'
                             disjointnessMlt + '\n' +
                             overlapMlt + '\n' + 
                             disjointCantOverlapMlt + '\n' +
-                            allInstancesHaveAKindMlt + '\n' +
+                            //allInstancesHaveAKindMlt + '\n' +
                             '';
