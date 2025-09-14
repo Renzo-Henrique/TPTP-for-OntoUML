@@ -9,9 +9,8 @@ import {existenceOfSortalInstancesAxiom, existenceOfRigidClassesAxioms,
         disjunctionOfKindsAxiom} from './axioms/simplifiedAxioms/taxonomyAxioms'
 
 import { resetAxiomId} from './axioms/idGenerator';
-import { existenceOfDeclaredClassesMltAxioms, reifiedClassesAreDifferentMltAxioms, relationBetweenClassesAndReifiedClassesMltAxioms} from './axioms/mltAxioms/worldConstraints';
+import { existenceOfDeclaredClassesMltAxioms, reifiedClassesAreDifferentMltAxioms, relationBetweenClassesAndReifiedClassesMltAxioms, classesTaxonomiesStatementsMltAxioms} from './axioms/mltAxioms/classAxioms';
 import { baseMltAxiom } from './axioms/mltAxioms/baseAxioms';
-import { classesTaxonomiesStatementsMltAxioms } from './axioms/mltAxioms/taxonomyConstraints';
 import { generalizationAllMltAxioms, generalizationSetAllMltAxioms } from './axioms/mltAxioms/generalizationAxioms';
 import { relationsDefinitions } from './axioms/mltAxioms/relationBaseAxioms';
 

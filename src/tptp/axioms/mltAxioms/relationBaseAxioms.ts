@@ -118,6 +118,22 @@ fof(ax_association_reificated_is_a_type_but_different, axiom, (
 %%%%%
 %%%%%
 
+% TODO:: verificar, acho que isso restringe a criação de ontologias simplificadas de somente indivíduos
+%
+% For every X,
+% X is an association individual if and only if:
+% - X is a abstract individual, and
+% - for every type T in every world W,
+%   if X is an instance of T in W, then T must be an association type.
+%
+% Association types are therefore reified: they behave like types whose instances are always association individuals.
+%
+fof(ax_association_reificated_and_for_individuals, axiom , (
+    ![X]: (associationIndividual(X) <=> (
+           abstractIndividual(X) & (![W, T]: ((world(W) & iof(X,T,W)) => (associationType(T)))))
+    )
+)).
+
 %
 % Association individual is an abstract individual
 %

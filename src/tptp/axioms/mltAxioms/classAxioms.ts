@@ -1,5 +1,5 @@
-import { Project, Class, Generalization, GeneralizationSet} from 'ontouml-js';
-import { ClassStereotypesAvailableInAxioms } from '../../../common/newClassStereotypes';
+import { Project, Class} from 'ontouml-js';
+import { ClassStereotypesAvailableInAxioms, mapClassStereotypeToRefactored } from '../../../common/newClassStereotypes';
 import { getClassPrefix, getNextAxiomId, getReifiedPrefix } from '../idGenerator';
 import { getPairCombinations } from '../basicFormulas';
 
@@ -71,5 +71,23 @@ export function relationBetweenClassesAndReifiedClassesMltAxioms(project: Projec
 
 }
 
+/**
+ * Generates TPTP axioms that declare the stereotypes of OntoUML classes
+ * in a given project, adapted for Multi-Level Theory (MLT).
+ *
+ * @param project - OntoUML Project containing all classes and stereotypes.
+ * @returns A TPTP formula (string) where each class is reified and associated
+ *          with its mapped stereotype.
+ *
+ */ 
+export function classesTaxonomiesStatementsMltAxioms(project: Project): string{
+    
+    const result = project.getAllClassesByStereotype(ClassStereotypesAvailableInAxioms)
+            .map(content => `${mapClassStereotypeToRefactored(content.stereotype)}(${getReifiedPrefix()}${content.getName()})`)
+            .join(' & \n\t\t\t\t');
+        return `fof(${getNextAxiomId()}_ontology_classes_stereotypes, axiom, (
+        ${result}
+    )).`
+}
 
 

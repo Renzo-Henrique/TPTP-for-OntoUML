@@ -116,31 +116,16 @@ export function fixProjectNames(project: Project): void {
   project.getAllClasses().forEach(content =>
     content.setName(fixName(content.getName(), 'class'))
   );
+  project.getAllGeneralizationSets().forEach(content =>
+    content.setName(fixName(content.getName(), 'generalizationSet'))
+  );
+  project.getAllGeneralizations().forEach(content =>
+    content.setName(fixName(content.getName(), 'generalization'))
+  );
+  project.getAllRelations().forEach(content =>
+    content.setName(fixName(content.getName(), 'association'))
+  );
 
-  // const classes = project.getAllClasses();
-  // for (const cl of classes) {
-  //   const original = cl.getName();
-
-  //   cl.setName(fixName(original, 'association'));
-  // }
-
-  for (const genSet of project.getAllGeneralizationSets()) {
-    const original = genSet.getName();
-
-    genSet.setName(fixName(original, 'association'));
-  }
-
-  for (const gen of project.getAllGeneralizations()) {
-    const original = gen.getName();
-
-    gen.setName(fixName(original, 'association'));
-  }
-
-  for (const rlt of project.getAllRelations()) {
-    const original = rlt.getName();
-
-    rlt.setName(fixName(original, 'association'));
-  }
 }
 
 /**
