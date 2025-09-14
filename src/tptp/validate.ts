@@ -13,17 +13,15 @@ import { readAxiomFiles } from '../common/readFiles';
  * @param inputDir The directory where the TPTP (.p) file is (or will be) located.
  * @returns A string containing the result of the proof.
  */
-export async function validateTptpFromProject(project: Project, tptpFileDir: string, generateOutputFileOfResult: boolean, generateFile: boolean, isMlt: boolean): Promise<string> {
+export async function validateTptpFromProject(project: Project, tptpFileDir: string, generateOutputFileOfResult: boolean, generateFile: boolean): Promise<string> {
     const tptpFileName = `${project.name.getText()}.p`;
     const tptpFilePath = path.join(tptpFileDir, tptpFileName);
     let tptpContent: string = '';
 
     
     // Leitura dos includes do MLT
-    if(isMlt){
-      tptpContent +=  await readAxiomFiles();
-    }
-
+    tptpContent +=  await readAxiomFiles();
+    
     // If the file doesn't exist, generate it
     if (generateFile) {
         console.warn(`Generating TPTP file "${tptpFileName}" from project...`);
@@ -41,7 +39,7 @@ export async function validateTptpFromProject(project: Project, tptpFileDir: str
     const tptpContentResult = path.join(tptpFileDir, tptpFileName + ".contentResult.p");
     fs.writeFileSync(tptpContentResult, tptpContent, 'utf-8');
     try {
-        return '';
+        //return '';
         // Chama o provador remoto com a string TPTP
         console.log(`\nTPTP validation running...\n`);
         const result = await tptpClient.runSystem('E---', tptpContent, {includeSystemOutput: generateOutputFileOfResult});
