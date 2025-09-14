@@ -108,3 +108,7 @@ export const baseMltAxiom = //includesMlt + '\n'
                             disjointCantOverlapMlt + '\n' +
                             //allInstancesHaveAKindMlt + '\n' +
                             '';
+
+
+
+//connects(t1,t2,r,w)

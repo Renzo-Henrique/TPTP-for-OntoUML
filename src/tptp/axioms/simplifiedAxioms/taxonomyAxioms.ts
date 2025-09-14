@@ -2,7 +2,7 @@ import { Project, Class, stereotypeUtils } from 'ontouml-js';
 import {checkEmptyForError} from '../../../common/utils'
 import { getDisjunctionsOfClassesFormula } from '../basicFormulas';
 import { getNextAxiomId } from '../idGenerator';
-import { AvailableInAxiomsClassStereotypes } from '../../../common/newClassStereotypes';
+import { ClassStereotypesAvailableInAxioms } from '../../../common/newClassStereotypes';
 
 
 /**
@@ -122,7 +122,7 @@ export function existenceOfAntiRigidClassesAxioms(project: Project): string {
 export function existenceOfAtLeastOneOfEachClassAxioms(project: Project): string {
   //TODO:: deveria ter uma flag para garantir esse escopo para os provadores?
   const errorMessage = 'Error: The ontology must have at least one class';
-  checkEmptyForError(project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes), errorMessage);
+  checkEmptyForError(project.getAllClassesByStereotype(ClassStereotypesAvailableInAxioms), errorMessage);
   /**
  * Generates a TPTP axiom asserting that at least one instance of the given class exists
  * in some world.
@@ -135,7 +135,7 @@ export function existenceOfAtLeastOneOfEachClassAxioms(project: Project): string
     ?[X, W]: (exists(X, W) & ${projectClass.getName()}(X, W))
   )).`
   }
-  return project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
+  return project.getAllClassesByStereotype(ClassStereotypesAvailableInAxioms)
     .map(content => existenceOfAtLeastOneOfClassAxiom(content))
     .join('\n');
 }

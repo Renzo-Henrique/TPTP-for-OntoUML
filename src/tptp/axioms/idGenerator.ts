@@ -1,7 +1,9 @@
 // idGenerator.ts
-let idCounter = 0;
+let idCounterAxiom = 0;
 const prefix = 'id_';
 const sufix = '_ax_';
+
+
 
 /**
  * Generates a unique axiom identifier by combining a prefix, 
@@ -10,7 +12,7 @@ const sufix = '_ax_';
  * @returns A unique string identifier for an axiom (e.g., "id_0_ax_").
  */
 export function getNextAxiomId(): string {
-  return `${prefix}${idCounter++}${sufix}`;
+  return `${prefix}${idCounterAxiom++}${sufix}`;
 }
 
 /**
@@ -19,7 +21,7 @@ export function getNextAxiomId(): string {
  * Useful for test cases or when regenerating axioms from scratch.
  */
 export function resetAxiomId() {
-  idCounter = 0;
+  idCounterAxiom = 0;
 }
 
 export function getReifiedPrefix(): string{
@@ -29,3 +31,4 @@ export function getReifiedPrefix(): string{
 export function getClassPrefix(): string{
   return 'cl_';
 }
+

@@ -1,5 +1,5 @@
 import { Project, Class, Generalization, GeneralizationSet} from 'ontouml-js';
-import { AvailableInAxiomsClassStereotypes } from '../../../common/newClassStereotypes';
+import { ClassStereotypesAvailableInAxioms } from '../../../common/newClassStereotypes';
 import { getClassPrefix, getNextAxiomId, getReifiedPrefix } from '../idGenerator';
 import { getPairCombinations } from '../basicFormulas';
 
@@ -14,7 +14,7 @@ import { getPairCombinations } from '../basicFormulas';
  *
  */
 export function existenceOfDeclaredClassesMltAxioms(project: Project): string{
-    const result = project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
+    const result = project.getAllClassesByStereotype(ClassStereotypesAvailableInAxioms)
         .map(content => `C = ${getReifiedPrefix()}${content.getName()}`)
         .join(' | \n\t\t\t\t');
     return `fof(${getNextAxiomId()}_ontology_classes_are_types, axiom, (
@@ -33,7 +33,7 @@ export function existenceOfDeclaredClassesMltAxioms(project: Project): string{
  */
 export function reifiedClassesAreDifferentMltAxioms(project: Project): string{
     
-    const pairCombinations: [Class, Class][] = getPairCombinations( project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes));
+    const pairCombinations: [Class, Class][] = getPairCombinations( project.getAllClassesByStereotype(ClassStereotypesAvailableInAxioms));
     const result = pairCombinations
                     .map(content => `${getReifiedPrefix()}${content[0].getName()} != ${getReifiedPrefix()}${content[1].getName()}`)
                     .join(" &\n\t\t\t");
@@ -65,7 +65,7 @@ export function relationBetweenClassesAndReifiedClassesMltAxioms(project: Projec
         return `fof(${getNextAxiomId()}_relation_between_class_and_reified_class, axiom,(
     ![X, W]: (iof(X, ${getReifiedPrefix()}${cl.getName()}, W) <=> ${getClassPrefix()}${cl.getName()}(X, W) )\n)).`;
     }
-    return project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
+    return project.getAllClassesByStereotype(ClassStereotypesAvailableInAxioms)
         .map(content => classAndReifiedClassAxiom(content))
         .join('\n');
 

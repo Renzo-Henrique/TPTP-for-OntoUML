@@ -5,6 +5,25 @@ import {camelCase} from 'lodash';
 
 export const outpurDirName = 'generated'
 
+let idCounterProject = 0;
+/**
+ * Generates a unique id for things without name
+ *
+ * @returns A unique string identifier for an axiom (e.g., "id_0_ax_").
+ */
+export function getNextProjectId(): string {
+  return `${idCounterProject++}`;
+}
+
+/**
+ * Resets the internal axiom ID counter to zero.
+ * 
+ * Useful for test cases or when regenerating axioms from scratch.
+ */
+export function resetProjectId() {
+  idCounterProject = 0;
+}
+
 
 /**
  * Loads an OntoUML Project instance from a JSON file.
@@ -78,29 +97,49 @@ export function checkEmptyForError(elements: any[], errorMessage: string): void{
  */
 export function fixProjectNames(project: Project): void {
 
-  function fixName(original: string): string{
+  function fixSymbols(original: string): string{
     return original.replace(/[{:}, ]/g, "_");
   }
-  const classes = project.getAllClasses();
-  for (const cls of classes) {
-    const original = cls.getName();
-
-    if (!original) continue;
-    cls.setName(fixName(original));
+  function getDefaultName(sufix: string): string{
+    return `default_name_${getNextProjectId()}_${sufix}`;
+  }
+  function fixName(name: string, sufixForDefault: string): string{
+    if (name == null){
+      return getDefaultName(sufixForDefault);
+    }
+    else{
+      return fixSymbols(name);
+    }
   }
 
-  for (const genSets of project.getAllGeneralizationSets()) {
-    const original = genSets.getName();
+  
+  project.getAllClasses().forEach(content =>
+    content.setName(fixName(content.getName(), 'class'))
+  );
 
-    if (!original) continue;
-    genSets.setName(fixName(original));
+  // const classes = project.getAllClasses();
+  // for (const cl of classes) {
+  //   const original = cl.getName();
+
+  //   cl.setName(fixName(original, 'association'));
+  // }
+
+  for (const genSet of project.getAllGeneralizationSets()) {
+    const original = genSet.getName();
+
+    genSet.setName(fixName(original, 'association'));
   }
 
-  for (const gens of project.getAllGeneralizations()) {
-    const original = gens.getName();
+  for (const gen of project.getAllGeneralizations()) {
+    const original = gen.getName();
 
-    if (!original) continue;
-    gens.setName(fixName(original));
+    gen.setName(fixName(original, 'association'));
+  }
+
+  for (const rlt of project.getAllRelations()) {
+    const original = rlt.getName();
+
+    rlt.setName(fixName(original, 'association'));
   }
 }
 

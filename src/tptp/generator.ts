@@ -1,18 +1,19 @@
 import fs from 'fs';
 import path from 'path';
-import { Project} from 'ontouml-js';
+import { Project, Relation} from 'ontouml-js';
 import {worldAndEntity} from './axioms/simplifiedAxioms/baseAxioms'
-import {fixProjectNames, refactorNames} from '../common/utils'
+import {fixProjectNames, refactorNames, resetProjectId } from '../common/utils'
 import {generalizationAllAxioms, generalizationSetAllAxioms} from './axioms/simplifiedAxioms/generalizationAxioms'
 import {existenceOfSortalInstancesAxiom, existenceOfRigidClassesAxioms, 
         existenceOfAntiRigidClassesAxioms, existenceOfAtLeastOneOfEachClassAxioms,
         disjunctionOfKindsAxiom} from './axioms/simplifiedAxioms/taxonomyAxioms'
 
-import { resetAxiomId } from './axioms/idGenerator';
+import { resetAxiomId} from './axioms/idGenerator';
 import { existenceOfDeclaredClassesMltAxioms, reifiedClassesAreDifferentMltAxioms, relationBetweenClassesAndReifiedClassesMltAxioms} from './axioms/mltAxioms/worldConstraints';
 import { baseMltAxiom } from './axioms/mltAxioms/baseAxioms';
 import { classesTaxonomiesStatementsMltAxioms } from './axioms/mltAxioms/taxonomyConstraints';
 import { generalizationAllMltAxioms, generalizationSetAllMltAxioms } from './axioms/mltAxioms/generalizationAxioms';
+import { relationsDefinitions } from './axioms/mltAxioms/relationBaseAxioms';
 
 /**
  * Generates a TPTP (.p) file representation of a given OntoUML project.
@@ -28,6 +29,7 @@ export function generateTptpFromProject(project: Project, outputDirPath: string)
         fs.mkdirSync(outputDirPath, { recursive: true });
     }
     resetAxiomId();
+    resetProjectId();
 
     fixProjectNames(project);
     console.log(project.name.getText())
@@ -118,7 +120,9 @@ function generateTptpMLTAxiomsFromProject(project: Project): string[]{
     const formulas: string[] = [];
     formulas.push('\n\n%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%% Beginning of MLT %%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%');
     formulas.push(baseMltAxiom);
+    formulas.push(relationsDefinitions);
     
+    formulas.push('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% ESPECIFIC AXIOM\'S FOR THE ONTOLOGY\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
     formulas.push('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% WORLD CONSTRAINTS\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
     formulas.push(existenceOfDeclaredClassesMltAxioms(project));
     formulas.push(reifiedClassesAreDifferentMltAxioms(project));
@@ -128,15 +132,27 @@ function generateTptpMLTAxiomsFromProject(project: Project): string[]{
 
     formulas.push('%%%%%%%%%%%%%%%\n%%%%Class Reification\n%%%%%%%%%%%%%%%');
     formulas.push(relationBetweenClassesAndReifiedClassesMltAxioms(project));
+
     formulas.push('%%%%%%%%%%%%%%%\n%%%%Generalizations\n%%%%%%%%%%%%%%%');
     formulas.push(generalizationAllMltAxioms(project));
 
     formulas.push(`%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%\n%%% Generalization Sets\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`);
     formulas.push(generalizationSetAllMltAxioms(project));
+
+    printRelations(project);
     return formulas;
 }
 
+function printRelations(project: Project): void{
+    console.log("\n\n------------------\n\n")
+    project.getAllRelations()
+        .map(content => console.log(getStringRelation(content)))
+}
 
+function getStringRelation(rlt: Relation): string{
+    return `${rlt.getName()}: ${rlt.getSourceClass().getName()}---${rlt.getTargetClass().getName()}
+    `
+}
 
 
 

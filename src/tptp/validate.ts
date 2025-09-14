@@ -40,7 +40,6 @@ export async function validateTptpFromProject(project: Project, tptpFileDir: str
     // arquivo de saída para ser validado:
     const tptpContentResult = path.join(tptpFileDir, tptpFileName + ".contentResult.p");
     fs.writeFileSync(tptpContentResult, tptpContent, 'utf-8');
-
     try {
         //return '';
         // Chama o provador remoto com a string TPTP

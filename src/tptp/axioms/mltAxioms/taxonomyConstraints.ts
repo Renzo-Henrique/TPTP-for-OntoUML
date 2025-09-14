@@ -1,6 +1,6 @@
 import { getNextAxiomId, getReifiedPrefix } from '../idGenerator';
 import { Project } from "ontouml-js";
-import { AvailableInAxiomsClassStereotypes, mapStereotypeToRefactored } from '../../../common/newClassStereotypes';
+import { ClassStereotypesAvailableInAxioms, mapClassStereotypeToRefactored } from '../../../common/newClassStereotypes';
 
 /**
  * Generates TPTP axioms that declare the stereotypes of OntoUML classes
@@ -13,8 +13,8 @@ import { AvailableInAxiomsClassStereotypes, mapStereotypeToRefactored } from '..
  */ 
 export function classesTaxonomiesStatementsMltAxioms(project: Project): string{
     
-    const result = project.getAllClassesByStereotype(AvailableInAxiomsClassStereotypes)
-            .map(content => `${mapStereotypeToRefactored(content.stereotype)}(${getReifiedPrefix()}${content.getName()})`)
+    const result = project.getAllClassesByStereotype(ClassStereotypesAvailableInAxioms)
+            .map(content => `${mapClassStereotypeToRefactored(content.stereotype)}(${getReifiedPrefix()}${content.getName()})`)
             .join(' & \n\t\t\t\t');
         return `fof(${getNextAxiomId()}_ontology_classes_stereotypes, axiom, (
         ${result}
