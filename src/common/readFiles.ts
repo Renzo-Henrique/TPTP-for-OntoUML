@@ -54,17 +54,3 @@ export async function readAxiomFiles(): Promise<string> {
 
     return allContent.trim() + '\n';
 }
-
-// /**
-//  * Reads and concatenates the contents of all axiom files into one string.
-//  *
-//  * @param basePath Path to the directory where the .p files are stored.
-//  * @returns A single string containing all file contents concatenated in order.
-//  */
-// export async function readAllAxioms(): Promise<string> {
-//   const filesContent = await readAxiomFiles();
-//   return Object.keys(filesContent)
-//     .sort()
-//     .map(fname => filesContent[fname])
-//     .join("\n\n");
-// }
