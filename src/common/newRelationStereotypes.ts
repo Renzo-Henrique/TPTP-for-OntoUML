@@ -6,8 +6,8 @@ export enum RelationStereotypeRefactoredStringsForAxioms {
     DERIVATION = "derivation", /// ERROR
     COMPARATIVE = "comparative", /// ERROR
     MEDIATION = "mediates",
-    CHARACTERIZATION = "characterizes",
-    EXTERNAL_DEPENDENCE = "externallyDependsOn",
+    CHARACTERIZATION = "characterizes", //characterizes(MT,ET)
+    EXTERNAL_DEPENDENCE = "externallyDependsOn", // externallyDependsOn(M,X)
     COMPONENT_OF = "componentOf",// componentOf/4
     MEMBER_OF = "memberOf", /// ERROR
     SUBCOLLECTION_OF = "subCollectionOf", /// ERROR

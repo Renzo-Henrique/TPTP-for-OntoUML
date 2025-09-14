@@ -4,10 +4,12 @@ import { Project, Relation} from 'ontouml-js';
 import {fixProjectNames, resetProjectId } from '../common/utils'
 
 import { resetAxiomId} from './axioms/idGenerator';
-import { existenceOfDeclaredClassesMltAxioms, reifiedClassesAreDifferentMltAxioms, relationBetweenClassesAndReifiedClassesMltAxioms, classesTaxonomiesStatementsMltAxioms} from './axioms/mltAxioms/classAxioms';
+import {  relationBetweenClassesAndReifiedClassesMltAxioms, classesTaxonomiesStatementsMltAxioms} from './axioms/mltAxioms/classAxioms';
 import { baseMltAxiom } from './axioms/mltAxioms/baseAxioms';
 import { generalizationAllMltAxioms, generalizationSetAllMltAxioms } from './axioms/mltAxioms/generalizationAxioms';
-import { relationsDefinitions } from './axioms/mltAxioms/relationBaseAxioms';
+import { relationBaseAxioms } from './axioms/mltAxioms/relationBaseAxioms';
+import { existenceOfTypesInOntology, reifiedClassesAndRelationsAreDifferentMltAxioms} from './axioms/mltAxioms/worldConstraints';
+import { relationsMltAxioms } from './axioms/mltAxioms/relationAxioms';
 
 /**
  * Generates a TPTP (.p) file representation of a given OntoUML project.
@@ -60,12 +62,12 @@ function generateTptpMLTAxiomsFromProject(project: Project): string[]{
     const formulas: string[] = [];
     formulas.push('\n\n%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%% Beginning of MLT %%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%');
     formulas.push(baseMltAxiom);
-    formulas.push(relationsDefinitions);
+    formulas.push(relationBaseAxioms);
     
     formulas.push('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% ESPECIFIC AXIOM\'S FOR THE ONTOLOGY\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
     formulas.push('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% WORLD CONSTRAINTS\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
-    formulas.push(existenceOfDeclaredClassesMltAxioms(project));
-    formulas.push(reifiedClassesAreDifferentMltAxioms(project));
+    formulas.push(existenceOfTypesInOntology(project));
+    formulas.push(reifiedClassesAndRelationsAreDifferentMltAxioms(project));
 
     formulas.push('%%%%%%%%%%%%%%%\n%%%%Classes Statements\n%%%%%%%%%%%%%%%');
     formulas.push(classesTaxonomiesStatementsMltAxioms(project));
@@ -79,6 +81,8 @@ function generateTptpMLTAxiomsFromProject(project: Project): string[]{
     formulas.push(`%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%\n%%% Generalization Sets\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`);
     formulas.push(generalizationSetAllMltAxioms(project));
 
+    formulas.push(`%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%\n%%% Relations\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`);
+    formulas.push(relationsMltAxioms(project));
     printRelations(project);
     return formulas;
 }

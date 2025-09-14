@@ -4,44 +4,9 @@ import { getClassPrefix, getNextAxiomId, getReifiedPrefix } from '../idGenerator
 import { getPairCombinations } from '../basicFormulas';
 
 
-/**
- * Generates a TPTP axiom asserting that all declared OntoUML classes
- * (filtered by stereotype) are the only valid `type_` entities.
- *
- * @param project - OntoUML Project containing the classes to axiomatize.
- * @returns A single TPTP formula (string) where the predicate `type_(C)`
- *          is equivalent to the disjunction of all reified classes.
- *
- */
-export function existenceOfDeclaredClassesMltAxioms(project: Project): string{
-    const result = project.getAllClassesByStereotype(ClassStereotypesAvailableInAxioms)
-        .map(content => `C = ${getReifiedPrefix()}${content.getName()}`)
-        .join(' | \n\t\t\t\t');
-    return `fof(${getNextAxiomId()}_ontology_classes_are_types, axiom, (
-    ![C]: (type_(C) <=> (${result})) 
-)).`
-}
 
-/**
- * Generates TPTP axioms ensuring that all reified classes are distinct
- * individuals in the ontology.
- *
- * @param project - OntoUML Project containing the classes to axiomatize.
- * @returns A single TPTP formula (string) where each pair of reified classes
- *          is asserted to be different.
- *
- */
-export function reifiedClassesAreDifferentMltAxioms(project: Project): string{
-    
-    const pairCombinations: [Class, Class][] = getPairCombinations( project.getAllClassesByStereotype(ClassStereotypesAvailableInAxioms));
-    const result = pairCombinations
-                    .map(content => `${getReifiedPrefix()}${content[0].getName()} != ${getReifiedPrefix()}${content[1].getName()}`)
-                    .join(" &\n\t\t\t");
 
-    return `fof(${getNextAxiomId()}_reified_classes_are_different, axiom,
-  (${result})
-).`;
-}
+
 
 /**
  * Generates TPTP axioms relating each OntoUML class with its reified class.
