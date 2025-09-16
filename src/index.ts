@@ -8,13 +8,13 @@ async function main() {
     const inputDir = path.resolve(process.cwd(), 'examples');
     const outputDir = path.resolve(inputDir, outpurDirName);
 
-    // const jsonFiles = findJsonFiles(inputDir);
-    // for (const inputFilePath of jsonFiles) {
-    //   const project = loadProjectFromJson(inputFilePath);
-    //   generateTptpFromProject(project, outputDir);
-    //   const result = await validateTptpFromProject(project, outputDir, true, false, true);console.log(result);
-    //   //break;
-    // }
+    const jsonFiles = findJsonFiles(inputDir);
+    for (const inputFilePath of jsonFiles) {
+      const project = loadProjectFromJson(inputFilePath);
+      generateTptpFromProject(project, outputDir);
+      const result = await validateTptpFromProject(project, outputDir, true, false);console.log(result);
+      //break;
+    }
     //const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/wrongs/specializationFromDisjoints/specializationFromDisjoints.json'));
     //const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/wrongs/companyService/companyService.json'));
     //const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/personSimplified/personSimplified.json'));

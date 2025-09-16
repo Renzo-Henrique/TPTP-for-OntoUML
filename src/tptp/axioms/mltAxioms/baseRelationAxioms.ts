@@ -212,6 +212,13 @@ fof(ax_material_has_a_relation_type, axiom, (
 )).
 `
 
+const estereotypesAxioms = mediationAxiom + '\n'
+                          + characterizationAxiom + '\n'
+                          + ufoBTypesAxiom + '\n'
+                          + manifestationAxiom + '\n'
+                          + materialAxiom + '\n'
+                          + derivationAxiom + '\n'
+                          + comparativeAxiom + '\n';
 
 ///////////
 /////////// Export

@@ -4,7 +4,7 @@ import { Project, Relation} from 'ontouml-js';
 import {fixProjectNames, resetProjectId } from '../common/utils'
 
 import { resetAxiomId} from './axioms/idGenerator';
-import {  relationBetweenClassesAndReifiedClassesMltAxioms, classesTaxonomiesStatementsMltAxioms} from './axioms/mltAxioms/classAxioms';
+import { relationBetweenClassesAndReifiedClassesMltAxioms, classesEstereotypesStatementsMltAxioms} from './axioms/mltAxioms/classAxioms';
 import { baseMltAxiom } from './axioms/mltAxioms/baseGeneralAxioms';
 import { generalizationAllMltAxioms, generalizationSetAllMltAxioms } from './axioms/mltAxioms/generalizationAxioms';
 import { relationBaseAxioms } from './axioms/mltAxioms/baseRelationAxioms';
@@ -70,7 +70,7 @@ function generateTptpMLTAxiomsFromProject(project: Project): string[]{
     formulas.push(reifiedClassesAndRelationsAreDifferentMltAxioms(project));
 
     formulas.push('%%%%%%%%%%%%%%%\n%%%%Classes Statements\n%%%%%%%%%%%%%%%');
-    formulas.push(classesTaxonomiesStatementsMltAxioms(project));
+    formulas.push(classesEstereotypesStatementsMltAxioms(project));
 
     formulas.push('%%%%%%%%%%%%%%%\n%%%%Class Reification\n%%%%%%%%%%%%%%%');
     formulas.push(relationBetweenClassesAndReifiedClassesMltAxioms(project));
@@ -83,7 +83,7 @@ function generateTptpMLTAxiomsFromProject(project: Project): string[]{
 
     formulas.push(`%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%\n%%% Relations\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`);
     formulas.push(relationsMltAxioms(project));
-    printRelations(project);
+    //printRelations(project);
     return formulas;
 }
 

@@ -118,7 +118,7 @@ function generalizationSetMltAxiom(generalizationSet: GeneralizationSet): string
    */
   function incompleteGeneralizationSetMltAxiom(): string{
     //TODO:: está certo?, mas deveria ter uma flag para utilizar ou não essa "expansão" da ontologia?
-    //return '';
+    return '';
     const comment = `% Mlt incomplete set of general -${generalizationSet.getGeneralClass().getName()}-\n`;
     const additionalTabs = '\t\t\t\t\t\t\t\t\t';
     const result = generalizationSet.getSpecificClasses()

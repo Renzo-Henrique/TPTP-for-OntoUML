@@ -5,9 +5,6 @@ import { getPairCombinations } from '../basicFormulas';
 
 
 
-
-
-
 /**
  * Generates TPTP axioms relating each OntoUML class with its reified class.
  *
@@ -18,6 +15,8 @@ import { getPairCombinations } from '../basicFormulas';
  *
  */
 export function relationBetweenClassesAndReifiedClassesMltAxioms(project: Project): string{
+    //TODO:: verify if is necessary
+    return '';
     /**
      * Helper function that generates a single TPTP axiom connecting
      * a given OntoUML class with its reified representation.
@@ -30,6 +29,7 @@ export function relationBetweenClassesAndReifiedClassesMltAxioms(project: Projec
         return `fof(${getNextAxiomId()}_relation_between_class_and_reified_class, axiom,(
     ![X, W]: (iof(X, ${getReifiedPrefix()}${cl.getName()}, W) <=> ${getClassPrefix()}${cl.getName()}(X, W) )\n)).`;
     }
+
     return project.getAllClassesByStereotype(ClassStereotypesAvailableInAxioms)
         .map(content => classAndReifiedClassAxiom(content))
         .join('\n');
@@ -45,14 +45,25 @@ export function relationBetweenClassesAndReifiedClassesMltAxioms(project: Projec
  *          with its mapped stereotype.
  *
  */ 
-export function classesTaxonomiesStatementsMltAxioms(project: Project): string{
+export function classesEstereotypesStatementsMltAxioms(project: Project): string{
     
     const result = project.getAllClassesByStereotype(ClassStereotypesAvailableInAxioms)
             .map(content => `${mapClassStereotypeToRefactored(content.stereotype)}(${getReifiedPrefix()}${content.getName()})`)
             .join(' & \n\t\t\t\t');
-        return `fof(${getNextAxiomId()}_ontology_classes_stereotypes, axiom, (
+    
+    
+    // Não gera se for vazio
+    if(result){
+        return `fof(${getNextAxiomId()}_ontology_classes_estereotypes, axiom, (
         ${result}
     )).`
+    }
+    else{
+        for(var i = 0; i < 5; i++){  
+            console.log("THERE ARE NO CLASSES IN YOUR ONTOLOGY\n---------\n");
+        }
+        return '';
+    }
 }
 
 
