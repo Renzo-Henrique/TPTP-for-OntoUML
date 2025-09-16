@@ -41,3 +41,7 @@ function relationsWithTypesAxioms(project: Project): string{
         ${result}
     )).`
 }
+
+function relationsStereotypesAxioms(project: Project): string{
+    return '';
+}

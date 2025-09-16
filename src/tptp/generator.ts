@@ -5,9 +5,9 @@ import {fixProjectNames, resetProjectId } from '../common/utils'
 
 import { resetAxiomId} from './axioms/idGenerator';
 import {  relationBetweenClassesAndReifiedClassesMltAxioms, classesTaxonomiesStatementsMltAxioms} from './axioms/mltAxioms/classAxioms';
-import { baseMltAxiom } from './axioms/mltAxioms/baseAxioms';
+import { baseMltAxiom } from './axioms/mltAxioms/baseGeneralAxioms';
 import { generalizationAllMltAxioms, generalizationSetAllMltAxioms } from './axioms/mltAxioms/generalizationAxioms';
-import { relationBaseAxioms } from './axioms/mltAxioms/relationBaseAxioms';
+import { relationBaseAxioms } from './axioms/mltAxioms/baseRelationAxioms';
 import { existenceOfTypesInOntology, reifiedClassesAndRelationsAreDifferentMltAxioms} from './axioms/mltAxioms/worldConstraints';
 import { relationsMltAxioms } from './axioms/mltAxioms/relationAxioms';
 

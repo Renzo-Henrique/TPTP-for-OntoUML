@@ -2,25 +2,25 @@ import {RelationStereotype } from 'ontouml-js';
 
 
 export enum RelationStereotypeRefactoredStringsForAxioms {
-    MATERIAL = "material", /// ERROR
-    DERIVATION = "derivation", /// ERROR
-    COMPARATIVE = "comparative", /// ERROR
-    MEDIATION = "mediates",
-    CHARACTERIZATION = "characterizes", //characterizes(MT,ET)
-    EXTERNAL_DEPENDENCE = "externallyDependsOn", // externallyDependsOn(M,X)
-    COMPONENT_OF = "componentOf",// componentOf/4
-    MEMBER_OF = "memberOf", /// ERROR
-    SUBCOLLECTION_OF = "subCollectionOf", /// ERROR
-    SUBQUANTITY_OF = "subQuantityOf", /// ERROR
+    MATERIAL = "materialType", /// ---
+    DERIVATION = "derivation", /// ---
+    COMPARATIVE = "comparative", /// ---
+    MEDIATION = "mediatesType", // baseRelationAxioms.ts
+    CHARACTERIZATION = "characterizes",// baseRelationAxioms.ts
+    EXTERNAL_DEPENDENCE = "externallyDependsOn", // OR existentiallyDependsOn ?
+    COMPONENT_OF = "properPartOf",/// se properPartOf(X, Y) nesse caso é para checar a taxonomia de X?
+    MEMBER_OF = "properPartOf", /// se properPartOf(X, Y) nesse caso é para checar a taxonomia de X?
+    SUBCOLLECTION_OF = "properPartOf", /// se properPartOf(X, Y) nesse caso é para checar a taxonomia de X?
+    SUBQUANTITY_OF = "properPartOf", /// se properPartOf(X, Y) nesse caso é para checar a taxonomia de X?
     INSTANTIATION = "iof",// iof/3
-    TERMINATION = "termination",/// ERROR
-    PARTICIPATIONAL = "participational",/// ERROR
-    PARTICIPATION = "participation",/// ERROR
-    HISTORICAL_DEPENDENCE = "historicalDependence",/// ERROR
-    CREATION = "creation",/// ERROR
-    MANIFESTATION = "manifests",
-    BRINGS_ABOUT = "bringsAbout",/// ERROR
-    TRIGGERS = "triggers"/// ERROR
+    TERMINATION = "termination",/// UFO-B
+    PARTICIPATIONAL = "participational",/// UFO-B
+    PARTICIPATION = "participation",/// UFO-B
+    HISTORICAL_DEPENDENCE = "historicalDependence",/// UFO-B
+    CREATION = "creation",/// UFO-B
+    MANIFESTATION = "manifests", /// TODO:: verify?
+    BRINGS_ABOUT = "bringsAbout",/// UFO-B
+    TRIGGERS = "triggers"/// UFO-B
 }
 
 export function mapRelationStereotypeToRefactored(

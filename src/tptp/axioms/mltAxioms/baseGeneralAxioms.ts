@@ -1,24 +1,3 @@
-
-/** 
- * Imports original UFO axioms (taxonomy, instantiation, specialization, etc.)
- * from `.p` files. 
- *
- * @note Currently commented out in `baseMltAxiom`, but may be re-enabled when
- * full ontology axioms are required.
- */
-const includesMlt = `
-include('./originalAxioms/01_taxonomy_thing.p').
-include('./originalAxioms/02_taxonomy_abstract_individual.p').
-include('./originalAxioms/03_taxonomy_endurant.p').
-include('./originalAxioms/04_taxonomy_endurant_type_nature.p').
-include('./originalAxioms/05_taxonomy_endurant_types_properties.p').
-include('./originalAxioms/06_instantiation.p').
-include('./originalAxioms/07_specialization.p').
-include('./originalAxioms/08_rigidity_and_sortality.p').
-include('./originalAxioms/09_endurant_types_definitions.p').
-include('./originalAxioms/10_ultimate_sortals.p').\n\n
-`
-
 /**
  * Axioms for reified class disjointness.
  * 
@@ -86,20 +65,6 @@ const disjointCantOverlapMlt = `% Disjoint classes cannot overlap
 fof(ax_disjoint_implies_not_overlapping, axiom, (
   ![C1, C2]: (disjointWith(C1, C2) => ~overlappingWith(C1, C2))
 )).`;
-
-/**
- * Sortality constraint: all instances must belong to some Kind.
- *
- * @logic
- * - If x exists in some world w, then ∃C such that Kind(C) ∧ iof(x,C,w).
- * - Ensures that only kinds (ultimate sortals) can have instances.
- */
-const allInstancesHaveAKindMlt = `
-fof(ax_all_instances_have_a_kind, axiom, (
-  ![X, W]: ( exists(X, W) => (
-    ?[C]: ( kind(C) & iof(X, C, W) ) 
-))
-)).`
 
 
 export const baseMltAxiom = //includesMlt + '\n'
