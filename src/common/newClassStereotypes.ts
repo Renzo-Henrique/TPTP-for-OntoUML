@@ -12,11 +12,11 @@ export enum ClassStereotypeRefactoredStringsForAxioms {
     ROLE_MIXIN = "roleMixin",///
     PHASE_MIXIN = "phaseMixin",///
     KIND = "kind", ///
-    COLLECTIVE = "collectiveType",
-    QUANTITY = "quantityType",
-    RELATOR = "relatorType",
-    QUALITY = "qualityType",
-    MODE = "modeType",
+    COLLECTIVE = "collectiveKind",
+    QUANTITY = "quantityKind",
+    RELATOR = "relatorKind",
+    QUALITY = "qualityKind",
+    MODE = "modeKind",
     SUBKIND = "subkind",///
     ROLE = "role",///
     PHASE = "phase",///
