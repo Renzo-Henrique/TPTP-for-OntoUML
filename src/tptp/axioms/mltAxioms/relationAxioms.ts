@@ -66,7 +66,7 @@ function relationsStereotypesAxioms(project: Project): string{
                 content.stereotype !== RelationStereotype.DERIVATION&&
                 content.stereotype !== RelationStereotype.COMPARATIVE
             )
-            .map(content => `${mapRelationStereotypeToRefactored(content.stereotype)}(${getReifiedPrefix()}${content.getName()})`)
+            .map(content => `${mapRelationStereotypeToRefactored(content.stereotype)}(${getReifiedPrefix()}${content.getSourceClass().getName()}, ${getReifiedPrefix()}${content.getTargetClass().getName()})`)
             .join(' & \n\t\t\t\t');
     
     if (relationStatement){

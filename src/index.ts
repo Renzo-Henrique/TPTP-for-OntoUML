@@ -6,7 +6,7 @@ import { validateTptpFromProject, ValidateTptpOptions } from './tptp/validate';
 async function main() {
   try {
 
-    const formalizationOptions: FormalizationOptions = {closedWorldOfTypes: false, withRelations: true}
+    const formalizationOptions: FormalizationOptions = {closedWorldOfTypes: true, withRelations: true}
 
     const inputDir = path.resolve(process.cwd(), 'examples');
     const outputDir = path.resolve(inputDir, outpurDirName);
@@ -24,10 +24,10 @@ async function main() {
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/providerRelation/providerRelation.json'));
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/iofExample/iofExample.json'));
     
-    //const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/wrongs/simplified/json/relator.json'));
+    const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/simplified/relatorSimple2.json'));
     
-    //generateTptpFileFromProject(project, outpurDirName, {formalizationOptions: formalizationOptions});
-    //const result = await validateTptpFromProject(project, outputDir, {generateOutputFileOfResult: true, outputFileOfResultDirPath: outpurDirName, formalizationOptions: formalizationOptions});console.log(result);
+    generateTptpFileFromProject(project, outputDir, {formalizationOptions: formalizationOptions});
+    //const result = await validateTptpFromProject(project, {generateOutputFileOfResult: true, outputFileOfResultDirPath: outpurDirName, formalizationOptions: formalizationOptions});console.log(result);
 
   } catch (err) {
     console.error('Error while trying to load ontouml-js projects:', err);

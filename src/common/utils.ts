@@ -33,7 +33,13 @@ export function resetProjectId() {
  * @returns The deserialized OntoUML Project.
  */
 export function loadProjectFromJson(filePath: string): Project {
-    const absolutePath = path.resolve(filePath);
+    var absolutePath: string;
+
+    try {
+      absolutePath = path.resolve(filePath);
+    } catch (err) {
+      throw new Error(`Invalid file path: ${filePath}. Error: ${err}`);
+    }
 
     if (!fs.existsSync(absolutePath)) {
         throw new Error(`File not found: ${absolutePath}`);
