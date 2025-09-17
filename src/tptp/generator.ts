@@ -20,11 +20,18 @@ export enum GenerateTptpMode {
 }
 
 export interface GenerateTptpFileOptions {
-  generateMode?: GenerateTptpMode;
+    generateMode?: GenerateTptpMode,
+    formalizationOptions?: FormalizationOptions;
 }
 
 export interface GenerateTptpOptions {
-  generateFullFormalization?: boolean;
+    generateFullFormalization?: boolean,
+    formalizationOptions?: FormalizationOptions;
+}
+
+export interface FormalizationOptions {
+    closedWorldOfTypes?: boolean,
+    withRelations?: boolean;
 }
 
 export async function generateTptpFileFromProject(project: Project, outputDirPath: string, options: GenerateTptpFileOptions = {}){
@@ -43,7 +50,8 @@ export async function generateTptpFileFromProject(project: Project, outputDirPat
     }
 
     async function generateFullFormalization(){
-        const fileContent = await generateTptpFromProject(project, {generateFullFormalization: true});
+        const fileContent = await generateTptpFromProject(project, 
+            {generateFullFormalization: true, formalizationOptions:options.formalizationOptions});
         const projectName = project.name.getText();
         const fileName = projectName + '.fullFormalization'  + '.p';
         const outputFilePath = path.join(outputDirPath, fileName);
@@ -52,7 +60,8 @@ export async function generateTptpFileFromProject(project: Project, outputDirPat
     }
 
     async function generateOntologyOnly(){
-        const fileContent = await generateTptpFromProject(project, {generateFullFormalization: false});
+        const fileContent = await generateTptpFromProject(project, 
+            {generateFullFormalization: false, formalizationOptions:options.formalizationOptions});
         const projectName = project.name.getText();
         const fileName = projectName  + '.p';
         const outputFilePath = path.join(outputDirPath, fileName);
@@ -108,7 +117,7 @@ export async function generateTptpFromProject(project: Project, options: Generat
         formalizationAxioms = await getBaseFormalizationAxioms();
     }
 
-    const formulasMlt = generateTptpMLTAxiomsFromProject(project);
+    const formulasMlt = generateTptpMLTAxiomsFromProject(project, options.formalizationOptions);
 
     const contentMlt = formalizationAxioms + '\n' + formulasMlt.join('\n');
     
@@ -121,12 +130,21 @@ export async function generateTptpFromProject(project: Project, options: Generat
  * @param project - The OntoUML project to be transformed.
  * @returns Array of strings representing TPTP axioms.
  */
-function generateTptpMLTAxiomsFromProject(project: Project): string[]{
+function generateTptpMLTAxiomsFromProject(project: Project, options: FormalizationOptions = {}): string[]{
+    const {
+        closedWorldOfTypes = true,
+        withRelations = true
+    } = options;
+
+    //console.log(options)
+
     const formulas: string[] = [];
     
     formulas.push('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% ESPECIFIC AXIOM\'S FOR THE ONTOLOGY\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
-    formulas.push('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% WORLD CONSTRAINTS\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
-    formulas.push(existenceOfTypesInOntology(project));
+    formulas.push('%%%%%%%%%%%%%%%%%%% WORLD CONSTRAINTS\n%%%%%%%%%%%%%%%%%');
+    if(closedWorldOfTypes){  
+        formulas.push(existenceOfTypesInOntology(project));
+    }
     formulas.push(reifiedClassesAndRelationsAreDifferentMltAxioms(project));
 
     formulas.push('%%%%%%%%%%%%%%%\n%%%%Classes Statements\n%%%%%%%%%%%%%%%');
@@ -141,8 +159,10 @@ function generateTptpMLTAxiomsFromProject(project: Project): string[]{
     formulas.push(`%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%\n%%% Generalization Sets\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`);
     formulas.push(generalizationSetAllMltAxioms(project));
 
-    formulas.push(`%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%\n%%% Relations\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`);
-    formulas.push(relationsMltAxioms(project));
+    if(withRelations){  
+        formulas.push(`%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%\n%%% Relations\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`);
+        formulas.push(relationsMltAxioms(project));
+    }
     //printRelations(project);
     return formulas;
 }

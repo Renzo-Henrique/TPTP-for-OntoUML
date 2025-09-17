@@ -2,9 +2,8 @@ import { Project } from 'ontouml-js';
 import { tptpClient } from 'tptp';
 import path from 'path';
 import fs from 'fs';
-import { generateTptpFromProject, getBaseFormalizationAxioms } from './generator';
+import { FormalizationOptions, generateTptpFromProject, getBaseFormalizationAxioms } from './generator';
 import { readAxiomFiles } from '../common/readFiles';
-
 
 // Caso 1: generateOutputFileOfResult = false ou não definido → não precisa de path
 interface ValidateTptpOptionsNoOutputFile {
@@ -17,8 +16,10 @@ interface ValidateTptpOptionsWithOutput {
   outputFileOfResultDirPath: string;
 }
 
-// União dos dois cenários
-export type ValidateTptpOptions = ValidateTptpOptionsNoOutputFile | ValidateTptpOptionsWithOutput;
+export type ValidateTptpOptions =
+  (ValidateTptpOptionsNoOutputFile | ValidateTptpOptionsWithOutput) & {
+    formalizationOptions?: FormalizationOptions;
+  };
 
 /** TODO:: FIX comments and possible parameters
  * Validate the generated TPTP from a project using a remote TPTP theorem prover.
@@ -34,7 +35,8 @@ export async function validateTptpFromProject(project: Project, options: Validat
 
   var tptpContent: string = '';
   tptpContent += await generateTptpFromProject(project, {
-      generateFullFormalization: true
+      generateFullFormalization: true,
+      formalizationOptions: options.formalizationOptions
     });
   
   try {
