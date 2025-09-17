@@ -2,7 +2,7 @@ import { Project } from 'ontouml-js';
 import { tptpClient } from 'tptp';
 import path from 'path';
 import fs from 'fs';
-import { generateTptpFromProject } from './generator';
+import { generateTptpFromProject, getBaseAxioms } from './generator';
 import { readAxiomFiles } from '../common/readFiles';
 
 
@@ -21,6 +21,7 @@ export async function validateTptpFromProject(project: Project, tptpFileDir: str
     
     // Leitura dos includes do MLT
     tptpContent +=  await readAxiomFiles();
+    tptpContent += getBaseAxioms();
     
     // If the file doesn't exist, generate it
     if (generateFile) {
@@ -42,7 +43,10 @@ export async function validateTptpFromProject(project: Project, tptpFileDir: str
         //return '';
         // Chama o provador remoto com a string TPTP
         console.log(`\nTPTP validation running...\n`);
-        const result = await tptpClient.runSystem('E---', tptpContent, {includeSystemOutput: generateOutputFileOfResult});
+        const result = await tptpClient.runSystem('E---', tptpContent, {
+          includeSystemOutput: generateOutputFileOfResult,
+          cpuLimit: 30 
+        });
 
         if(generateOutputFileOfResult){
             try {

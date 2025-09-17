@@ -98,13 +98,24 @@ export function checkEmptyForError(elements: any[], errorMessage: string): void{
 export function fixProjectNames(project: Project): void {
 
   function fixSymbols(original: string): string{
-    return original.replace(/[{:}, ]/g, "_");
+    //TODO:: mandar um aviso de que talvez gere nomes conflitantes caso o input nao seja utf-8
+    
+    // return original
+    //       .normalize('NFC') // normaliza acentos (ã, é, etc.
+    //       .replace(/[{:}, ]/g, "_");
+    return original
+    .replace(/ç/g, 'c')                     // transforma ç -> c
+    .replace(/Ç/g, 'C')
+    .normalize('NFD')                      // separa caracteres acentuados
+    .replace(/[\u0300-\u036f]/g, '')       // remove acentos
+    .replace(/[^a-zA-Z0-9]/g, "_")         // caracteres inválidos -> _
+    .replace(/^_+/, "class_")              // _ no início -> class_
   }
   function getDefaultName(sufix: string): string{
     return `default_name_${getNextProjectId()}_${sufix}`;
   }
   function fixName(name: string, sufixForDefault: string): string{
-    if (name == null){
+    if (name == null || name.trim() === ''){
       return getDefaultName(sufixForDefault);
     }
     else{

@@ -44,7 +44,11 @@ export function reifiedClassesAndRelationsAreDifferentMltAxioms(project: Project
                     .map(content => `${getReifiedPrefix()}${content[0].getName()} != ${getReifiedPrefix()}${content[1].getName()}`)
                     .join(" &\n\t\t\t");
 
-    return `fof(${getNextAxiomId()}_reified_classes_are_different, axiom,
-  (${result})
-).`;
+    if(result){
+        return `fof(${getNextAxiomId()}_reified_classes_are_different, axiom,
+  (${result})\n).`;
+    }
+    else{ 
+        return '\n';
+    }
 }

@@ -2,7 +2,7 @@ import {ClassStereotype } from 'ontouml-js';
 
 
 export enum ClassStereotypeRefactoredStringsForAxioms {
-    TYPE = "type_",///
+    TYPE = "powerType",///
     HISTORICAL_ROLE = "perdurantType", /// UFO-B
     HISTORICAL_ROLE_MIXIN = "perdurantType",/// UFO-B
     EVENT = "perdurantType",/// UFO-B

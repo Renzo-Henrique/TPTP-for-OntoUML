@@ -1,0 +1,134 @@
+
+> tptp-for-ontouml@0.1.0 execute_index
+> node dist/index.js
+
+customer
+TPTP file successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/customer.p
+
+TPTP validation running...
+
+TPTP validation result successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/customer.p.validationResult.txt
+System "E---3.3.0" on project "customer":
+Result: Timeout
+CPU time: 60.08
+Wall-clock time: 15.07
+Waiting 39.856 seconds...
+
+
+iofExample
+TPTP file successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/iofExample.p
+
+TPTP validation running...
+
+TPTP validation result successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/iofExample.p.validationResult.txt
+System "E---3.3.0" on project "iofExample":
+Result: Timeout
+CPU time: 60.12
+Wall-clock time: 15.09
+Waiting 21.286 seconds...
+
+
+personSimplified
+TPTP file successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/personSimplified.p
+
+TPTP validation running...
+
+TPTP validation result successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/personSimplified.p.validationResult.txt
+System "E---3.3.0" on project "personSimplified":
+Result: Timeout
+CPU time: 60.16
+Wall-clock time: 39.10
+Waiting 38.188 seconds...
+
+
+providerRelation
+TPTP file successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/providerRelation.p
+
+TPTP validation running...
+
+TPTP validation result successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/providerRelation.p.validationResult.txt
+System "E---3.3.0" on project "providerRelation":
+Result: Timeout
+CPU time: 60.08
+Wall-clock time: 15.07
+Waiting 39.516 seconds...
+
+
+companyService
+TPTP file successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/companyService.p
+
+TPTP validation running...
+
+TPTP validation result successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/companyService.p.validationResult.txt
+System "E---3.3.0" on project "companyService":
+Result: Unsatisfiable
+CPU time: 0.03
+Wall-clock time: 0.23
+Waiting 34.272 seconds...
+
+
+mode
+TPTP file successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/mode.p
+
+TPTP validation running...
+
+TPTP validation result successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/mode.p.validationResult.txt
+System "E---3.3.0" on project "mode":
+Result: Unsatisfiable
+CPU time: 0.01
+Wall-clock time: 0.14
+Waiting 23.681 seconds...
+
+
+quality
+TPTP file successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/quality.p
+
+TPTP validation running...
+
+TPTP validation result successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/quality.p.validationResult.txt
+System "E---3.3.0" on project "quality":
+Result: Unsatisfiable
+CPU time: 0.02
+Wall-clock time: 0.15
+Waiting 33.694 seconds...
+
+
+quantity
+TPTP file successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/quantity.p
+
+TPTP validation running...
+
+TPTP validation result successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/quantity.p.validationResult.txt
+System "E---3.3.0" on project "quantity":
+Result: Unsatisfiable
+CPU time: 0.01
+Wall-clock time: 0.13
+Waiting 26.595 seconds...
+
+
+relator
+TPTP file successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/relator.p
+
+TPTP validation running...
+
+TPTP validation result successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/relator.p.validationResult.txt
+System "E---3.3.0" on project "relator":
+Result: Unsatisfiable
+CPU time: 0.02
+Wall-clock time: 0.14
+Waiting 33.092 seconds...
+
+
+specializationFromDisjoints
+TPTP file successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/specializationFromDisjoints.p
+
+TPTP validation running...
+
+TPTP validation result successfully generated in: /home/renzohgl/projetos/npm-testes/TPTP-for-OntoUML/examples/generated/specializationFromDisjoints.p.validationResult.txt
+System "E---3.3.0" on project "specializationFromDisjoints":
+Result: Unsatisfiable
+CPU time: 5.43
+Wall-clock time: 1.83
+Waiting 34.912 seconds...
+
+

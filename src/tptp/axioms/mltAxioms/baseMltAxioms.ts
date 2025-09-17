@@ -67,7 +67,7 @@ fof(ax_disjoint_implies_not_overlapping, axiom, (
 )).`;
 
 
-export const baseMltAxiom = //includesMlt + '\n'
+export const mltBaseAxioms = //includesMlt + '\n'
                             disjointnessMlt + '\n' +
                             overlapMlt + '\n' + 
                             disjointCantOverlapMlt + '\n' +

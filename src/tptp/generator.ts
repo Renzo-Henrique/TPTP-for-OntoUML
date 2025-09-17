@@ -5,11 +5,12 @@ import {fixProjectNames, resetProjectId } from '../common/utils'
 
 import { resetAxiomId} from './axioms/idGenerator';
 import { relationBetweenClassesAndReifiedClassesMltAxioms, classesEstereotypesStatementsMltAxioms} from './axioms/mltAxioms/classAxioms';
-import { baseMltAxiom } from './axioms/mltAxioms/baseGeneralAxioms';
+import { mltBaseAxioms } from './axioms/mltAxioms/baseMltAxioms';
 import { generalizationAllMltAxioms, generalizationSetAllMltAxioms } from './axioms/mltAxioms/generalizationAxioms';
 import { relationBaseAxioms } from './axioms/mltAxioms/baseRelationAxioms';
 import { existenceOfTypesInOntology, reifiedClassesAndRelationsAreDifferentMltAxioms} from './axioms/mltAxioms/worldConstraints';
 import { relationsMltAxioms } from './axioms/mltAxioms/relationAxioms';
+import { classBaseAxioms } from './axioms/mltAxioms/baseClassAxioms';
 
 /**
  * Generates a TPTP (.p) file representation of a given OntoUML project.
@@ -60,9 +61,6 @@ function generateTptpMLTAxiomsFromProject(project: Project): string[]{
   
     
     const formulas: string[] = [];
-    formulas.push('\n\n%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%% Beginning of MLT %%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%');
-    formulas.push(baseMltAxiom);
-    formulas.push(relationBaseAxioms);
     
     formulas.push('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% ESPECIFIC AXIOM\'S FOR THE ONTOLOGY\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
     formulas.push('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% WORLD CONSTRAINTS\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
@@ -96,6 +94,16 @@ function printRelations(project: Project): void{
 function getStringRelation(rlt: Relation): string{
     return `${rlt.getName()}: ${rlt.getSourceClass().getName()}---${rlt.getTargetClass().getName()}
     `
+}
+
+export function getBaseAxioms(): string{
+    var axioms = [];
+    axioms.push('\n\n%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%% Beginning of included Axioms %%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%');
+    axioms.push(mltBaseAxioms);
+    axioms.push(relationBaseAxioms);
+    axioms.push(classBaseAxioms);
+
+    return axioms.join('\n');
 }
 
 

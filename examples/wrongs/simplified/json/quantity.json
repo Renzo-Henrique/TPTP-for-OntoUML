@@ -1,0 +1,55 @@
+{
+  "id" : "T_IdypmA0BnszwWe",
+  "name" : "quantity",
+  "description" : null,
+  "type" : "Project",
+  "model" : {
+    "id" : "T_IdypmA0BnszwWe_root",
+    "name" : "quantity",
+    "description" : null,
+    "type" : "Package",
+    "propertyAssignments" : null,
+    "contents" : [ {
+      "id" : "vJCdypmA0BnszwmH",
+      "name" : "Class",
+      "description" : null,
+      "type" : "Class",
+      "propertyAssignments" : null,
+      "stereotype" : "quantity",
+      "isAbstract" : false,
+      "isDerived" : false,
+      "properties" : null,
+      "isExtensional" : null,
+      "isPowertype" : null,
+      "order" : null,
+      "literals" : null,
+      "restrictedTo" : [ "quantity" ]
+    } ]
+  },
+  "diagrams" : [ {
+    "id" : "jR8dypmA0Bnszwl5",
+    "name" : "Class Diagram1",
+    "description" : null,
+    "type" : "Diagram",
+    "owner" : {
+      "id" : "T_IdypmA0BnszwWe_root",
+      "type" : "Package"
+    },
+    "contents" : [ {
+      "id" : "7JCdypmA0BnszwmG",
+      "type" : "ClassView",
+      "modelElement" : {
+        "id" : "vJCdypmA0BnszwmH",
+        "type" : "Class"
+      },
+      "shape" : {
+        "id" : "7JCdypmA0BnszwmG_shape",
+        "type" : "Rectangle",
+        "x" : 392,
+        "y" : 118,
+        "width" : 80,
+        "height" : 40
+      }
+    } ]
+  } ]
+}

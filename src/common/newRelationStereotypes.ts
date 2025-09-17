@@ -12,15 +12,15 @@ export enum RelationStereotypeRefactoredStringsForAxioms {
     MEMBER_OF = "properPartOf", /// se properPartOf(X, Y) nesse caso é para checar a taxonomia de X?
     SUBCOLLECTION_OF = "properPartOf", /// se properPartOf(X, Y) nesse caso é para checar a taxonomia de X?
     SUBQUANTITY_OF = "properPartOf", /// se properPartOf(X, Y) nesse caso é para checar a taxonomia de X?
-    INSTANTIATION = "iof",// iof/3
-    TERMINATION = "termination",/// UFO-B
-    PARTICIPATIONAL = "participational",/// UFO-B
-    PARTICIPATION = "participation",/// UFO-B
-    HISTORICAL_DEPENDENCE = "historicalDependence",/// UFO-B
-    CREATION = "creation",/// UFO-B
+    INSTANTIATION = "instantiation",// iof/3
+    TERMINATION = "ufo_b_type",/// UFO-B
+    PARTICIPATIONAL = "ufo_b_type",/// UFO-B
+    PARTICIPATION = "ufo_b_type",/// UFO-B
+    HISTORICAL_DEPENDENCE = "ufo_b_type",/// UFO-B
+    CREATION = "ufo_b_type",/// UFO-B
     MANIFESTATION = "manifests", /// TODO:: verify?
-    BRINGS_ABOUT = "bringsAbout",/// UFO-B
-    TRIGGERS = "triggers"/// UFO-B
+    BRINGS_ABOUT = "ufo_b_type",/// UFO-B
+    TRIGGERS = "ufo_b_type"/// UFO-B
 }
 
 export function mapRelationStereotypeToRefactored(

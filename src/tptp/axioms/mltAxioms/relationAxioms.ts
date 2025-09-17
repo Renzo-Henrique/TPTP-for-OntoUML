@@ -21,9 +21,7 @@ export function relationsMltAxioms(project: Project): string{
     
     return relationsStatementsMltAxioms(project) 
     + '\n' + relationsWithTypesAxioms(project)
-    + `\n%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%       Estereotypes
-%%%%%%%%%%%%%%%%%%%%%%\n` 
+    + `\n%%%%%%%%%%%%%% Relation Estereotypes\n` 
     + relationsStereotypesAxioms(project);
 }
 // connectsTypes(T1, T2, R)
@@ -66,7 +64,6 @@ function relationsStereotypesAxioms(project: Project): string{
                 content.stereotype &&
                 content.stereotype !== RelationStereotype.MATERIAL&&
                 content.stereotype !== RelationStereotype.DERIVATION&&
-                content.stereotype !== RelationStereotype.INSTANTIATION&&
                 content.stereotype !== RelationStereotype.COMPARATIVE
             )
             .map(content => `${mapRelationStereotypeToRefactored(content.stereotype)}(${getReifiedPrefix()}${content.getName()})`)
@@ -80,22 +77,42 @@ function relationsStereotypesAxioms(project: Project): string{
         relationStatement = '';
     }
 
-    function generateInstanceOf(project: Project): string{
-        return project.getAllRelationsByStereotype(RelationStereotype.INSTANTIATION)
-                    .map(content => `iof(${getReifiedPrefix()}${content.getSourceClass().getName()}, ${getReifiedPrefix()}${content.getTargetClass().getName()}, W)`)
-                    .join(' & \n\t\t\t\t');
-    }
-    var instantiationAxiom = generateInstanceOf(project)
-
-    // Geração somente se não for vazio
-    if (instantiationAxiom){
-        instantiationAxiom = `fof(${getNextAxiomId()}_instantiation_of_types, axiom, (
-    ![W]: (${instantiationAxiom})\n)).`
+    var relationWithoutStereotype = project.getAllRelations()
+            .filter(content =>
+                !content.stereotype ||
+                content.stereotype === RelationStereotype.MATERIAL ||
+                content.stereotype === RelationStereotype.DERIVATION ||
+                content.stereotype === RelationStereotype.COMPARATIVE
+            )
+            .map(content => `relationType(${getReifiedPrefix()}${content.getName()})`)
+            .join(' & \n\t\t\t\t');
+    
+    if (relationWithoutStereotype){
+        relationWithoutStereotype = `fof(${getNextAxiomId()}_ontology_relations_statement_without_estereotype, axiom, (
+        ${relationWithoutStereotype}\n)).`;
     }
     else{
-        instantiationAxiom = '';
+        relationWithoutStereotype = '';
     }
 
+    // function generateInstanceOf(project: Project): string{
+    //     return project.getAllRelationsByStereotype(RelationStereotype.INSTANTIATION)
+    //                 .map(content => `iof(${getReifiedPrefix()}${content.getSourceClass().getName()}, ${getReifiedPrefix()}${content.getTargetClass().getName()}, W)`)
+    //                 .join(' & \n\t\t\t\t');
+    // }
+    // var instantiationAxiom = generateInstanceOf(project)
+
+    // // Geração somente se não for vazio
+    // if (instantiationAxiom){
+    //     instantiationAxiom = `fof(${getNextAxiomId()}_instantiation_of_types, axiom, (
+    // ![W]: (${instantiationAxiom})\n)).`
+    // }
+    // else{
+    //     instantiationAxiom = '';
+    // }
+
     return relationStatement
-            +'\n' + instantiationAxiom;
+            //+'\n' + instantiationAxiom
+            + '\n' + relationWithoutStereotype
+            + '\n';
 }
