@@ -11,12 +11,10 @@ async function main() {
     const inputDir = path.resolve(process.cwd(), 'examples');
     const outputDir = path.resolve(inputDir, outpurDirName);
 
-    for (const inputFilePath of findJsonFiles(inputDir)) {
-      const project = loadProjectFromJson(inputFilePath);
-      generateTptpFileFromProject(project, outputDir, {formalizationOptions: formalizationOptions});
-      //const result = await validateTptpFromProject(project, {generateOutputFileOfResult: true, outputFileOfResultDirPath: outpurDirName, formalizationOptions: formalizationOptions});console.log(result);const waitTime = 20000 + Math.floor(Math.random() * 10000); console.log(`Waiting ${waitTime / 1000} seconds...\n\n`); await sleep(waitTime)
-      
-    }
+    
+    generateExamples(outputDir, formalizationOptions);
+    //validateExamples(outputDir, formalizationOptions);
+
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/wrongs/specializationFromDisjoints/specializationFromDisjoints.json'));
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/wrongs/companyService/companyService.json'));
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/personSimplified/personSimplified.json'));
@@ -37,5 +35,29 @@ async function main() {
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+async function validateExamples(outputDir: string, formalizationOptions: FormalizationOptions){
+  const inputDir = path.resolve(process.cwd(), 'examples');
+  const outputDirPath = path.resolve(outputDir);
+
+  for (const inputFilePath of findJsonFiles(inputDir)) {
+    const project = loadProjectFromJson(inputFilePath);
+    generateTptpFileFromProject(project, outputDirPath, {formalizationOptions: formalizationOptions});
+    const result = await validateTptpFromProject(project, {generateOutputFileOfResult: true, outputFileOfResultDirPath: outputDir, formalizationOptions: formalizationOptions});console.log(result);const waitTime = 30000 + Math.floor(Math.random() * 10000); console.log(`Waiting ${waitTime / 1000} seconds...\n\n`); await sleep(waitTime)
+    
+  }
+}
+
+async function generateExamples(outputDir: string, formalizationOptions: FormalizationOptions){
+  const inputDir = path.resolve(process.cwd(), 'examples');
+  const outputDirPath = path.resolve(outputDir);
+
+  for (const inputFilePath of findJsonFiles(inputDir)) {
+    const project = loadProjectFromJson(inputFilePath);
+    generateTptpFileFromProject(project, outputDir, {formalizationOptions: formalizationOptions});
+    
+  }
+}
+
 
 main();

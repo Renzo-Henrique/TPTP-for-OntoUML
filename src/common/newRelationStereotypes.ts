@@ -18,7 +18,7 @@ export enum RelationStereotypeRefactoredStringsForAxioms {
     PARTICIPATION = "ufo_b_type",/// UFO-B
     HISTORICAL_DEPENDENCE = "ufo_b_type",/// UFO-B
     CREATION = "ufo_b_type",/// UFO-B
-    MANIFESTATION = "manifests", /// TODO:: verify?
+    MANIFESTATION = "manifestsType", /// TODO:: verify
     BRINGS_ABOUT = "ufo_b_type",/// UFO-B
     TRIGGERS = "ufo_b_type"/// UFO-B
 }

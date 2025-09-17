@@ -141,6 +141,12 @@ const mediationAxiom = `
 % (47). mediation(U, UR) =def Universal(U) ∧ RelatorUniversal(UR) ∧ ∀x (x::U → ∃r r::UR ∧ m(r,x)) 
 %
 % RT mediates a type T
+fof(ax_mediation_type_taxonomy, axiom, (
+  ![RT, T]: (mediatesType(RT, T) => (
+            relatorType(RT) & type_(T))
+          )
+
+)).
 fof(ax_mediation_type_definition, axiom, (
   ![RT, T]: (mediatesType(RT, T) <=> (
             relatorType(RT) & type_(T)  & ![X, W]: (iof(X, T, W) => ?[R, W]: (iof(R, RT, W) & mediates(R, X)))
@@ -157,6 +163,10 @@ fof(ax_mediation_has_a_relation_type, axiom, (
 
 
 const characterizationAxiom = `
+fof(ax_characterization_taxonomy, axiom, (
+  ![MT, ET]: (characterizes(MT,ET) => (endurantType(ET) & momentType(MT)))
+)).
+
 fof(ax_characterization_has_a_relation_type, axiom, (
   ![MT, ET]: (characterizes(MT,ET) => ?[RelationType]: (connectsTypes(MT, ET, RelationType)))
 )).
@@ -165,8 +175,7 @@ fof(ax_characterization_has_a_relation_type, axiom, (
 
 const instantiationAxiom = `
 fof(ax_instantiation_relation_has_a_relation_type, axiom, (
-  ![T1, T2]: (instantiation(T1,T2) => (type_(T1) & powerType(T2))
-            )
+  ![T1, T2]: (instantiation(T1,T2) => (type_(T1) & powerType(T2)))
 )).
 
 % TODO:: verificar se isso é correto
