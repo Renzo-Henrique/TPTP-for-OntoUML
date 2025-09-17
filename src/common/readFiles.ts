@@ -1,8 +1,9 @@
 import path from 'path';
 import fs from 'fs';
 
-const ufoFormalizationInTPTPPath: string = path.resolve(process.cwd(), "ufoFormalizationInTPTP");
-const axiomsBasePath: string = path.resolve(ufoFormalizationInTPTPPath, 'axioms');
+const ufoFormalizationInTPTPPath: string = path.resolve(process.cwd(), "ufoFormalizationInTPTP/axioms");
+const ufoAxiomsPath: string = path.resolve(ufoFormalizationInTPTPPath, 'ufoModules');
+const additionalsAxiomsPath: string = path.resolve(ufoFormalizationInTPTPPath, 'additionals');
 
 /**
  * Reads the contents of all axiom files in the given base directory.
@@ -10,20 +11,8 @@ const axiomsBasePath: string = path.resolve(ufoFormalizationInTPTPPath, 'axioms'
  * @returns A dictionary where keys are filenames and values are the file contents.
  */
 export async function readAxiomFiles(): Promise<string> {
-    // const filenames = [
-    //     "01_taxonomy_thing.p",
-    //     "02_taxonomy_abstract_individual.p",
-    //     "03_taxonomy_endurant.p",
-    //     "04_taxonomy_endurant_type_nature.p",
-    //     "05_taxonomy_endurant_types_properties.p",
-    //     "06_instantiation.p",
-    //     "07_specialization.p",
-    //     "08_rigidity_and_sortality.p",
-    //     "09_endurant_types_definitions.p",
-    //     "10_ultimate_sortals.p",
-    // ];
-
-    const filenames = [
+    
+    const ufoModulesFileNames = [
         "01_taxonomy_thing.p",
         "02_taxonomy_abstract_individual.p",
         "03_taxonomy_endurant.p",
@@ -46,8 +35,20 @@ export async function readAxiomFiles(): Promise<string> {
     ];
 
     let allContent = "";
-    for (const fname of filenames) {
-        const fpath = path.join(axiomsBasePath, fname);
+    for (const fname of ufoModulesFileNames) {
+        const fpath = path.join(ufoAxiomsPath, fname);
+        const content = fs.readFileSync(fpath, "utf-8");
+        allContent += `%%% ${fname}\n${content}\n\n`; // concatena com comentário do nome do arquivo
+    }
+    allContent += '\n\n%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%% Beginning of included Axioms %%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%\n\n\n';
+
+    const additionalsFileNames = [
+        "baseMltAxioms.p",
+        "baseClassAxioms.p",
+        "baseRelationAxioms.p",
+    ];
+    for (const fname of additionalsFileNames) {
+        const fpath = path.join(additionalsAxiomsPath, fname);
         const content = fs.readFileSync(fpath, "utf-8");
         allContent += `%%% ${fname}\n${content}\n\n`; // concatena com comentário do nome do arquivo
     }

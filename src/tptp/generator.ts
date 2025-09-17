@@ -5,12 +5,9 @@ import {fixProjectNames, resetProjectId } from '../common/utils'
 
 import { resetAxiomId} from './axioms/idGenerator';
 import { relationBetweenClassesAndReifiedClassesMltAxioms, classesEstereotypesStatementsMltAxioms} from './axioms/mltAxioms/classAxioms';
-import { mltBaseAxioms } from './axioms/mltAxioms/baseMltAxioms';
 import { generalizationAllMltAxioms, generalizationSetAllMltAxioms } from './axioms/mltAxioms/generalizationAxioms';
-import { relationBaseAxioms } from './axioms/mltAxioms/baseRelationAxioms';
 import { existenceOfTypesInOntology, reifiedClassesAndRelationsAreDifferentMltAxioms} from './axioms/mltAxioms/worldConstraints';
 import { relationsMltAxioms } from './axioms/mltAxioms/relationAxioms';
-import { classBaseAxioms } from './axioms/mltAxioms/baseClassAxioms';
 import { readAxiomFiles } from '../common/readFiles';
 
 export enum GenerateTptpMode {
@@ -114,7 +111,7 @@ export async function generateTptpFromProject(project: Project, options: Generat
 
     if(generateFullFormalization){
         // Leitura dos includes do MLT + formalização adicional
-        formalizationAxioms = await getBaseFormalizationAxioms();
+        formalizationAxioms = await readAxiomFiles();
     }
 
     const formulasMlt = generateTptpMLTAxiomsFromProject(project, options.formalizationOptions);
@@ -177,19 +174,6 @@ function getStringRelation(rlt: Relation): string{
     return `${rlt.getName()}: ${rlt.getSourceClass().getName()}---${rlt.getTargetClass().getName()}
     `
 }
-
-export async function getBaseFormalizationAxioms(): Promise<string>{
-    var axioms = [];
-    
-    axioms.push(await readAxiomFiles());
-    axioms.push('\n\n%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%% Beginning of included Axioms %%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%');
-    axioms.push(mltBaseAxioms);
-    axioms.push(relationBaseAxioms);
-    axioms.push(classBaseAxioms);
-
-    return axioms.join('\n');
-}
-
 
 
 

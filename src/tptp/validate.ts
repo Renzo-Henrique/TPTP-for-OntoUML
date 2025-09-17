@@ -2,7 +2,7 @@ import { Project } from 'ontouml-js';
 import { tptpClient } from 'tptp';
 import path from 'path';
 import fs from 'fs';
-import { FormalizationOptions, generateTptpFromProject, getBaseFormalizationAxioms } from './generator';
+import { FormalizationOptions, generateTptpFromProject} from './generator';
 import { readAxiomFiles } from '../common/readFiles';
 
 // Caso 1: generateOutputFileOfResult = false ou não definido → não precisa de path

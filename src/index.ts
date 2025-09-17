@@ -54,7 +54,7 @@ async function generateExamples(outputDir: string, formalizationOptions: Formali
 
   for (const inputFilePath of findJsonFiles(inputDir)) {
     const project = loadProjectFromJson(inputFilePath);
-    generateTptpFileFromProject(project, outputDir, {formalizationOptions: formalizationOptions});
+    generateTptpFileFromProject(project, outputDirPath, {formalizationOptions: formalizationOptions});
     
   }
 }
