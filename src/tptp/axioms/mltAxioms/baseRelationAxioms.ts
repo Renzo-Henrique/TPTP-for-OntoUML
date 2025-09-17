@@ -143,13 +143,13 @@ const mediationAxiom = `
 % RT mediates a type T
 fof(ax_mediation_type_taxonomy, axiom, (
   ![RT, T]: (mediatesType(RT, T) => (
-            relatorType(RT) & type_(T))
+            relatorType(RT) & endurantType(T))
           )
 
 )).
 fof(ax_mediation_type_definition, axiom, (
   ![RT, T]: (mediatesType(RT, T) <=> (
-            relatorType(RT) & type_(T)  & ![X, W]: (iof(X, T, W) => ?[R, W]: (iof(R, RT, W) & mediates(R, X)))
+            relatorType(RT) & endurantType(T)  & ![X, W]: (iof(X, T, W) => ?[R, W]: (iof(R, RT, W) & mediates(R, X)))
             )
           )
 

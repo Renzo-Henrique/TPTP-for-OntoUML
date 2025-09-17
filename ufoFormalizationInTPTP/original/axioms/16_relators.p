@@ -26,8 +26,8 @@ fof(ax_uniqueFoundationEvents_a74, axiom, (
 
 fof(ax_dQuaIndividualOf_a75, axiom, (
   ![X,Y]: (quaIndividualOf(X,Y) <=> (![Z]: (overlap(Z,X) <=> (
-    ?[X1, X2]: ((externallyDependsOn(Z,X1) & foundedBy(Z,X2)) & inheresIn(Z,Y) & (![P]: (foundedBy(X,P) => foundedBy(Z,P)))
-  )))))
+    externallyDependentMode(Z) & inheresIn(Z,Y) & (![P]: (foundedBy(X,P) => foundedBy(Z,P)))
+  ))))
 )).
 
 fof(ax_dQuaIndividual_a76, axiom, (
@@ -52,12 +52,4 @@ fof(ax_dRelator_a81, axiom, (
 
 fof(ax_dMediates_a82, axiom, (
   ![R,E]: (mediates(R,E) <=> (relator(R) & endurant(E) & (?[Q]: (quaIndividualOf(Q,E) & partOf(Q,R)))))
-)).
-
-fof(ax_dMediates_a82, axiom, (
-  ![R,E]: (mediates(R,E) => (relator(R) & endurant(E)))
-)).
-
-fof(ax_relator_has_mediates, axiom, (
-  ![R]: (relator(R) => ?[E1,E2]:(E1!=E2 & E1!=R & E2!=R & endurant(E1) & endurant(E2) & mediates(R, E1) & mediates(R, E2)))
 )).

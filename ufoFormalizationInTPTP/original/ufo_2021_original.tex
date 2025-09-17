@@ -1081,8 +1081,8 @@ fof(ax_uniqueFoundationEvents_a74, axiom, (
 
 fof(ax_dQuaIndividualOf_a75, axiom, (
   ![X,Y]: (quaIndividualOf(X,Y) <=> (![Z]: (overlap(Z,X) <=> (
-    ?[X1, X2]: ((externallyDependsOn(Z,X1) & foundedBy(Z,X2)) & inheresIn(Z,Y) & (![P]: (foundedBy(X,P) => foundedBy(Z,P)))
-  )))))
+    externallyDependentMode(Z) & inheresIn(Z,Y) & (![P]: (foundedBy(X,P) => foundedBy(Z,P)))
+  ))))
 )).
 
 % Ax |= "th_thePartsOfAQuaIndividualShareTheFoundationOfTheWhole_t31"; conjecture commented for convenience
@@ -1136,7 +1136,7 @@ fof(ax_dMediates_a82, axiom, (
 fof(ax_endurantTypeCharacterizationByMomentTypes_a83, axiom, (
   ![ET,MT]: (characterizes(MT,ET) => (
     endurantType(ET)
-    & momentType(MT)
+    & momentType(M)
     & (![E,W]: (iof(E,ET,W) => (?[M]: (iof(M,MT,W) & inheresIn(M,E)))))
     & (![M2,W2]: (iof(M2,MT,W2) => (?[E2]: (iof(E2,ET,W2) & inheresIn(M2,E2)))))
   ))
