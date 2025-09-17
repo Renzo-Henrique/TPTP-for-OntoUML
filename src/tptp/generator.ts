@@ -11,6 +11,76 @@ import { relationBaseAxioms } from './axioms/mltAxioms/baseRelationAxioms';
 import { existenceOfTypesInOntology, reifiedClassesAndRelationsAreDifferentMltAxioms} from './axioms/mltAxioms/worldConstraints';
 import { relationsMltAxioms } from './axioms/mltAxioms/relationAxioms';
 import { classBaseAxioms } from './axioms/mltAxioms/baseClassAxioms';
+import { readAxiomFiles } from '../common/readFiles';
+
+export enum GenerateTptpMode {
+  OntologyOnly = 0,
+  FullFormalization = 1,
+  FullFormalizationAndOntologyOnlySeparated = 2,
+}
+
+export interface GenerateTptpFileOptions {
+  generateMode?: GenerateTptpMode;
+}
+
+export interface GenerateTptpOptions {
+  generateFullFormalization?: boolean;
+}
+
+export async function generateTptpFileFromProject(project: Project, outputDirPath: string, options: GenerateTptpFileOptions = {}){
+
+    const {
+        generateMode = GenerateTptpMode.FullFormalizationAndOntologyOnlySeparated
+    } = options;
+
+    function generateTptpFile(content: string, outputFilePath: string){
+        try {
+            fs.writeFileSync(outputFilePath, content, 'utf-8');
+            console.log(`TPTP file successfully generated in: ${outputFilePath}`);
+        } catch (err) {
+            console.error(`Error while trying to save generated TPTP file: ${err}`);
+        }
+    }
+
+    async function generateFullFormalization(){
+        const fileContent = await generateTptpFromProject(project, {generateFullFormalization: true});
+        const projectName = project.name.getText();
+        const fileName = projectName + '.fullFormalization'  + '.p';
+        const outputFilePath = path.join(outputDirPath, fileName);
+
+        generateTptpFile(fileContent, outputFilePath);
+    }
+
+    async function generateOntologyOnly(){
+        const fileContent = await generateTptpFromProject(project, {generateFullFormalization: false});
+        const projectName = project.name.getText();
+        const fileName = projectName  + '.p';
+        const outputFilePath = path.join(outputDirPath, fileName);
+
+        generateTptpFile(fileContent, outputFilePath);
+    }
+
+    
+
+    if (!fs.existsSync(outputDirPath)) {
+        fs.mkdirSync(outputDirPath, { recursive: true });
+    }
+
+    if(generateMode == GenerateTptpMode.FullFormalizationAndOntologyOnlySeparated){
+        generateFullFormalization();
+        generateOntologyOnly();
+    }
+    else if(generateMode == GenerateTptpMode.FullFormalization){
+        generateFullFormalization();
+    }
+    else{
+        generateOntologyOnly();
+    }
+    
+}
+
+
+
 
 /**
  * Generates a TPTP (.p) file representation of a given OntoUML project.
@@ -20,34 +90,28 @@ import { classBaseAxioms } from './axioms/mltAxioms/baseClassAxioms';
  * @param filePath - Path to the input OntoUML JSON file.
  * @param project - The OntoUML project instance parsed with `ontouml-js`.
  */
-export function generateTptpFromProject(project: Project, outputDirPath: string): string {
+export async function generateTptpFromProject(project: Project, options: GenerateTptpOptions = {}): Promise <string> {
+    const {
+        generateFullFormalization = true
+    } = options;
 
-    if (!fs.existsSync(outputDirPath)) {
-        fs.mkdirSync(outputDirPath, { recursive: true });
-    }
     resetAxiomId();
     resetProjectId();
 
     fixProjectNames(project);
-    console.log(project.name.getText())
-    const projectName = project.name.getText();
-    const fileName = projectName  + '.p';
+    //console.log(project.name.getText())
     
+    var formalizationAxioms: string = '';
 
-    const outputFilePath = path.join(outputDirPath, fileName);
-
-    var formulasMlt: string[] =  [];
-    formulasMlt = generateTptpMLTAxiomsFromProject(project);
-    
-    const contentMlt = formulasMlt.join('\n');
-    //----------
-    try {
-        fs.writeFileSync(outputFilePath, contentMlt, 'utf-8');
-        console.log(`TPTP file successfully generated in: ${outputFilePath}`);
-    } catch (err) {
-        console.error(`Error while trying to save generated TPTP file: ${err}`);
+    if(generateFullFormalization){
+        // Leitura dos includes do MLT + formalização adicional
+        formalizationAxioms = await getBaseFormalizationAxioms();
     }
 
+    const formulasMlt = generateTptpMLTAxiomsFromProject(project);
+
+    const contentMlt = formalizationAxioms + '\n' + formulasMlt.join('\n');
+    
     return contentMlt;
 }
 
@@ -58,8 +122,6 @@ export function generateTptpFromProject(project: Project, outputDirPath: string)
  * @returns Array of strings representing TPTP axioms.
  */
 function generateTptpMLTAxiomsFromProject(project: Project): string[]{
-  
-    
     const formulas: string[] = [];
     
     formulas.push('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% ESPECIFIC AXIOM\'S FOR THE ONTOLOGY\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
@@ -96,8 +158,10 @@ function getStringRelation(rlt: Relation): string{
     `
 }
 
-export function getBaseAxioms(): string{
+export async function getBaseFormalizationAxioms(): Promise<string>{
     var axioms = [];
+    
+    axioms.push(await readAxiomFiles());
     axioms.push('\n\n%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%% Beginning of included Axioms %%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%');
     axioms.push(mltBaseAxioms);
     axioms.push(relationBaseAxioms);
