@@ -86,7 +86,7 @@
         "aggregationKind" : "NONE"
       } ]
     }, {
-      "id" : ".7fQlxmA0Bnszw41",
+      "id" : "RB3g6pmA0BnszxxU",
       "name" : "provider",
       "description" : null,
       "type" : "Relation",
@@ -95,7 +95,7 @@
       "isAbstract" : false,
       "isDerived" : false,
       "properties" : [ {
-        "id" : ".7fQlxmA0Bnszw42",
+        "id" : "RB3g6pmA0BnszxxV",
         "name" : null,
         "description" : null,
         "type" : "Property",
@@ -106,14 +106,14 @@
         "isOrdered" : false,
         "cardinality" : "1..*",
         "propertyType" : {
-          "id" : "zddQlxmA0Bnszw21",
+          "id" : "Fn9QlxmA0Bnszw3A",
           "type" : "Class"
         },
         "subsettedProperties" : null,
         "redefinedProperties" : null,
         "aggregationKind" : "NONE"
       }, {
-        "id" : ".7fQlxmA0Bnszw44",
+        "id" : "RB3g6pmA0BnszxxX",
         "name" : null,
         "description" : null,
         "type" : "Property",
@@ -124,7 +124,7 @@
         "isOrdered" : false,
         "cardinality" : "1",
         "propertyType" : {
-          "id" : "Fn9QlxmA0Bnszw3A",
+          "id" : "zddQlxmA0Bnszw21",
           "type" : "Class"
         },
         "subsettedProperties" : null,
@@ -143,6 +143,62 @@
       "type" : "Package"
     },
     "contents" : [ {
+      "id" : "Fn9QlxmA0Bnszw2_",
+      "type" : "ClassView",
+      "modelElement" : {
+        "id" : "Fn9QlxmA0Bnszw3A",
+        "type" : "Class"
+      },
+      "shape" : {
+        "id" : "Fn9QlxmA0Bnszw2__shape",
+        "type" : "Rectangle",
+        "x" : 228,
+        "y" : 202,
+        "width" : 80,
+        "height" : 60
+      }
+    }, {
+      "id" : "iR3g6pmA0BnszxxZ",
+      "type" : "RelationView",
+      "modelElement" : {
+        "id" : "RB3g6pmA0BnszxxU",
+        "type" : "Relation"
+      },
+      "shape" : {
+        "id" : "iR3g6pmA0BnszxxZ_path",
+        "type" : "Path",
+        "points" : [ {
+          "x" : 309,
+          "y" : 256
+        }, {
+          "x" : 513,
+          "y" : 256
+        } ]
+      },
+      "source" : {
+        "id" : "Fn9QlxmA0Bnszw2_",
+        "type" : "ClassView"
+      },
+      "target" : {
+        "id" : "TddQlxmA0Bnszw20",
+        "type" : "ClassView"
+      }
+    }, {
+      "id" : "TddQlxmA0Bnszw20",
+      "type" : "ClassView",
+      "modelElement" : {
+        "id" : "zddQlxmA0Bnszw21",
+        "type" : "Class"
+      },
+      "shape" : {
+        "id" : "TddQlxmA0Bnszw20_shape",
+        "type" : "Rectangle",
+        "x" : 514,
+        "y" : 202,
+        "width" : 80,
+        "height" : 60
+      }
+    }, {
       "id" : "pdTQlxmA0Bnszw3Z",
       "type" : "RelationView",
       "modelElement" : {
@@ -167,62 +223,6 @@
       "target" : {
         "id" : "TddQlxmA0Bnszw20",
         "type" : "ClassView"
-      }
-    }, {
-      "id" : "w8AwlxmA0Bnszw5E",
-      "type" : "RelationView",
-      "modelElement" : {
-        "id" : ".7fQlxmA0Bnszw41",
-        "type" : "Relation"
-      },
-      "shape" : {
-        "id" : "w8AwlxmA0Bnszw5E_path",
-        "type" : "Path",
-        "points" : [ {
-          "x" : 309,
-          "y" : 254
-        }, {
-          "x" : 513,
-          "y" : 254
-        } ]
-      },
-      "source" : {
-        "id" : "Fn9QlxmA0Bnszw2_",
-        "type" : "ClassView"
-      },
-      "target" : {
-        "id" : "TddQlxmA0Bnszw20",
-        "type" : "ClassView"
-      }
-    }, {
-      "id" : "Fn9QlxmA0Bnszw2_",
-      "type" : "ClassView",
-      "modelElement" : {
-        "id" : "Fn9QlxmA0Bnszw3A",
-        "type" : "Class"
-      },
-      "shape" : {
-        "id" : "Fn9QlxmA0Bnszw2__shape",
-        "type" : "Rectangle",
-        "x" : 228,
-        "y" : 202,
-        "width" : 80,
-        "height" : 60
-      }
-    }, {
-      "id" : "TddQlxmA0Bnszw20",
-      "type" : "ClassView",
-      "modelElement" : {
-        "id" : "zddQlxmA0Bnszw21",
-        "type" : "Class"
-      },
-      "shape" : {
-        "id" : "TddQlxmA0Bnszw20_shape",
-        "type" : "Rectangle",
-        "x" : 514,
-        "y" : 202,
-        "width" : 80,
-        "height" : 60
       }
     } ]
   } ]
