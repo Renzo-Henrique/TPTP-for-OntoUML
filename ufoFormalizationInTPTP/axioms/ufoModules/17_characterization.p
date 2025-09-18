@@ -1,5 +1,7 @@
 %%%%%%%%%%%%%%%%%%%% Characterization %%%%%%%%%%%%%%%%%%%%
 
+% CHANGE:
+% momentType(M) to momentType(MT)
 fof(ax_endurantTypeCharacterizationByMomentTypes_a83, axiom, (
   ![ET,MT]: (characterizes(MT,ET) => (
     endurantType(ET)

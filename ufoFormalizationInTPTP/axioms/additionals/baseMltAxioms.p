@@ -11,7 +11,7 @@
 % A class C1 is disjoint with C2 iff they are different and share no instance in any world
 fof(ax_disjointWith, axiom, (
   ![C1, C2]: (disjointWith(C1, C2) <=>
-              ( (C1 != C2) & ~?[X,W]: (iof(X, C1, W) & iof(X, C2, W)))
+              (monadicType(C1) & monadicType(C2)  & (C1 != C2) & ~?[X,W]: (iof(X, C1, W) & iof(X, C2, W)))
   )
 )).
 
@@ -49,7 +49,7 @@ fof(ax_overlapping_symmetry, axiom, (
 
 % Any class overlaps with itself (reflexivity)
 fof(ax_overlapping_reflexivity, axiom, (
-  ![C]: (type_(C) => overlappingWith(C, C))
+  ![C]: (monadicType(C) => overlappingWith(C, C))
 )).
 
 % Disjoint classes cannot overlap

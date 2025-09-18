@@ -8,7 +8,7 @@ fof(ax_constitutedByDifferentKinds_a59, axiom, (
 
 fof(ax_genericConstitutionalDependence_a60, axiom, (
   ![T1,T2]: (genericConstitutionalDependence(T1,T2) <=> (
-    type_(T1) & type_(T2) & ![E1,W]: (iof(E1,T1,W) => (
+    monadicType(T1) & monadicType(T2) & ![E1,W]: (iof(E1,T1,W) => (
       ?[E2]: (constitutedBy(E1,E2,W) & iof(E2,T2,W)
     )))
   ))

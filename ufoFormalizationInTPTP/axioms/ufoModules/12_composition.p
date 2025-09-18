@@ -1,5 +1,5 @@
 fof(ax_function, axiom,  (
-  ![X,Y]: (functionsAs(X,Y) => (endurant(X) & type_(Y)))
+  ![X,Y]: (functionsAs(X,Y) => (endurant(X) & monadicType(Y)))
 )).
 
 fof(ax_genericFunctionalDependence_a55, axiom, (

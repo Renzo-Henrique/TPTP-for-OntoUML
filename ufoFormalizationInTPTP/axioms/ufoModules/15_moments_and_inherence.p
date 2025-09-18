@@ -5,7 +5,7 @@ fof(ax_inherenceImpliesExistentialDependence_a67, axiom, (
 )).
 
 fof(ax_thingsInvolvedInInherence_a68, axiom, (
-  ![M,X]: (inheresIn(M,X) => (moment(M) & (type_(X) | endurant(X))))
+  ![M,X]: (inheresIn(M,X) => (moment(M) & (monadicType(X) | endurant(X))))
 )).
 
 % TODO: add definition (d5) for the "bearer" axiom
