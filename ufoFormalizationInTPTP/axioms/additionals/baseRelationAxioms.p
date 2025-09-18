@@ -136,3 +136,19 @@ fof(ax_derivation_has_a_relation_type, axiom, (
 fof(ax_material_has_a_relation_type, axiom, (
 ![T1, T2]: (comparativeType(T1, T2) => ?[RT]: (connectsTypes(T1, T2, RT)))
 )).
+
+
+%%%%%
+%%%%% Additional axioms
+%%%%%
+fof(ax_momentType_must_have_a_relation_with_endurantType, axiom, (
+    ![T1]: (momentType(T1) => 
+        ?[T2, R]:(T1 != T2 & endurantType(T2) & (connectsType(T1, T2, R) | connectsType(T2, T1, R)))
+        )
+)).
+
+fof(ax_perdurantType_must_have_a_relation_with_monadicType, axiom, (
+    ![T1]: (perdurantType(T1) => 
+        ?[T2, R]:(T1 != T2 & monadicType(T2) & (connectsType(T1, T2, R) | connectsType(T2, T1, R)))
+        )
+)).

@@ -13,7 +13,7 @@ async function main() {
 
     
     generateExamples(outputDir, formalizationOptions);
-    //validateExamples(outputDir, formalizationOptions);
+    validateExamples(outputDir, formalizationOptions);
 
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/wrongs/specializationFromDisjoints/specializationFromDisjoints.json'));
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/wrongs/companyService/companyService.json'));
