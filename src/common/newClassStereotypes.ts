@@ -1,4 +1,4 @@
-import {ClassStereotype } from 'ontouml-js';
+import {ClassStereotype, stereotypeUtils } from 'ontouml-js';
 
 
 export enum ClassStereotypeRefactoredStringsForAxioms {
@@ -56,12 +56,13 @@ export const ClassStereotypesAvailableInAxioms: ClassStereotype[] = Object.value
     value !== ClassStereotype.ABSTRACT
 );
 
-export const ClassStereotypesThatCanBeObjectType: ClassStereotype[] = Object.values(ClassStereotype).filter(
-  value =>
-    value == ClassStereotype.ENUMERATION ||
-    value == ClassStereotype.DATATYPE ||
-    value == ClassStereotype.ABSTRACT
-);
+export const ClassStereotypesThatCanBeObjectType: ClassStereotype[] = [
+            ClassStereotype.KIND,
+            ClassStereotype.SUBKIND,
+            ClassStereotype.ROLE,
+            ClassStereotype.PHASE,
+            ClassStereotype.CATEGORY
+            ]
 
 // ///
 // /// Functions
@@ -75,3 +76,8 @@ export const ClassStereotypesThatCanBeObjectType: ClassStereotype[] = Object.val
 export function isClassStereotypeAvailableInAxioms(stereotype: ClassStereotype): boolean {
   return ClassStereotypesAvailableInAxioms.includes(stereotype);
 }
+
+export function isClassStereotypeThatCanBeObjectType(stereotype: ClassStereotype): boolean {
+  return ClassStereotypesThatCanBeObjectType.includes(stereotype);
+}
+

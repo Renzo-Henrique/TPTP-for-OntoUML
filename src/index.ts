@@ -2,6 +2,7 @@ import path from 'path';
 import { loadProjectFromJson, findJsonFiles, outpurDirName } from './common/utils';
 import { generateTptpFileFromProject, generateTptpFromProject, GenerateTptpOptions, GenerateTptpFileOptions, FormalizationOptions } from './tptp/generator';
 import { validateTptpFromProject, ValidateTptpOptions } from './tptp/validate';
+import { ClassStereotypesThatCanBeObjectType } from './common/newClassStereotypes';
 
 async function main() {
   try {
@@ -15,6 +16,7 @@ async function main() {
     const inputDir = path.resolve(process.cwd(), 'examples');
     const outputDir = path.resolve(inputDir, outpurDirName);
 
+    console.log(ClassStereotypesThatCanBeObjectType);
     
     generateExamples(outputDir, formalizationOptions);
     validateExamples(outputDir, formalizationOptions);
@@ -26,9 +28,9 @@ async function main() {
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/providerRelation/providerRelation.json'));
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/iofExample/iofExample.json'));
     
-    const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/relationsInSubclasses/relationsInSubclasses.json'));
+    //const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/relationsInSubclasses/relationsInSubclasses.json'));
     
-    generateTptpFileFromProject(project, outputDir, {formalizationOptions: formalizationOptions});
+    //generateTptpFileFromProject(project, outputDir, {formalizationOptions: formalizationOptions});
     //const result = await validateTptpFromProject(project, {generateOutputFileOfResult: true, outputFileOfResultDirPath: outpurDirName, formalizationOptions: formalizationOptions});console.log(result);
 
   } catch (err) {
