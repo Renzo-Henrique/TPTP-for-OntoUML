@@ -6,7 +6,11 @@ import { validateTptpFromProject, ValidateTptpOptions } from './tptp/validate';
 async function main() {
   try {
 
-    const formalizationOptions: FormalizationOptions = {closedWorldOfTypes: true, withRelations: true}
+    const formalizationOptions: FormalizationOptions = {
+      closedWorldOfTypes: true, 
+      withOntologyRelations: true, 
+      withNecessityOfRelations: true
+    }
 
     const inputDir = path.resolve(process.cwd(), 'examples');
     const outputDir = path.resolve(inputDir, outpurDirName);

@@ -38,7 +38,7 @@ fof(ax_disjointWith_irreflexivity, axiom, (
 % Two classes overlap iff there exists an individual that is instance of both in some world
 fof(ax_overlappingWith, axiom, (
   ![C1, C2]: (overlappingWith(C1, C2) <=>
-              ( ?[X,W]: (iof(X, C1, W) & iof(X, C2, W)))
+              ( monadicType(C1) & monadicType(C2) & ?[X,W]: (iof(X, C1, W) & iof(X, C2, W)))
   )
 )).
 

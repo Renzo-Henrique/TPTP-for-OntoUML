@@ -1054,7 +1054,7 @@ fof(ax_noMomentOfCycles, axiom, (
 % External Dependence and Externally Dependent Modes
 
 fof(ax_externallyDependsOn_a71, axiom, (
-  ~?[M,X]: (externallyDependsOn(M,X) <=> (existentiallyDependsOn(M,X) & (![Y]: (inheresIn(M,Y) => existentiallyIndependentOf(X,Y)))))
+  ![M,X]: (externallyDependsOn(M,X) <=> (existentiallyDependsOn(M,X) & (![Y]: (inheresIn(M,Y) => existentiallyIndependentOf(X,Y)))))
 )).
 
 fof(ax_dExternallyDependentMode_a72, axiom, (

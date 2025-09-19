@@ -55,3 +55,11 @@ export async function readAxiomFiles(): Promise<string> {
 
     return allContent.trim() + '\n';
 }
+
+export async function readNecessityOfRelationsAxioms(): Promise<string> {
+    const fname = 'baseNecessityOfRelationsAxioms.p';
+    const fpath = path.join(additionalsAxiomsPath, fname);
+    const content = fs.readFileSync(fpath, "utf-8");
+
+    return content.trim() + '\n';
+}

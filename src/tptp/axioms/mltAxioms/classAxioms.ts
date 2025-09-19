@@ -1,4 +1,4 @@
-import { Project, Class} from 'ontouml-js';
+import { Project, Class, ClassStereotype, stereotypeUtils} from 'ontouml-js';
 import { ClassStereotypesAvailableInAxioms, mapClassStereotypeToRefactored } from '../../../common/newClassStereotypes';
 import { getClassPrefix, getNextAxiomId, getReifiedPrefix } from '../idGenerator';
 import { getPairCombinations } from '../basicFormulas';
@@ -47,16 +47,15 @@ export function relationBetweenClassesAndReifiedClassesMltAxioms(project: Projec
  */ 
 export function classesEstereotypesStatementsMltAxioms(project: Project): string{
     
-    const result = project.getAllClassesByStereotype(ClassStereotypesAvailableInAxioms)
+    var firstAxiom = project.getAllClassesByStereotype(ClassStereotypesAvailableInAxioms)
             .map(content => `${mapClassStereotypeToRefactored(content.stereotype)}(${getReifiedPrefix()}${content.getName()})`)
             .join(' & \n\t\t\t\t');
     
     
-    // Não gera se for vazio
-    if(result){
-        return `fof(${getNextAxiomId()}_ontology_classes_estereotypes, axiom, (
-        ${result}
-    )).`
+    
+    if(firstAxiom){
+        firstAxiom = `fof(${getNextAxiomId()}_ontology_classes_estereotypes, axiom, (
+        ${firstAxiom}\n)).`
     }
     else{
         for(var i = 0; i < 5; i++){  
@@ -64,6 +63,25 @@ export function classesEstereotypesStatementsMltAxioms(project: Project): string
         }
         return '';
     }
+    ClassStereotype
+    // generates the objectType taxonomy
+    // objectType
+    var secondAxiom = project.getAllClassesByStereotype([
+            ...stereotypeUtils.NonSortalStereotypes,
+            ...stereotypeUtils.SortalStereotypes
+            ])
+            .map(content => `objectType(${getReifiedPrefix()}${content.getName()})`)
+            .join(' & \n\t\t\t\t');
+    
+    if(secondAxiom){
+        secondAxiom = `fof(${getNextAxiomId()}_nonSortals_and_sortals_are_objectType, axiom, (
+        ${secondAxiom}\n)).`
+    }
+    else{
+        secondAxiom = '';
+    }
+
+    return firstAxiom + '\n' + secondAxiom;
 }
 
 

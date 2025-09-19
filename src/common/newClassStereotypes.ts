@@ -56,6 +56,13 @@ export const ClassStereotypesAvailableInAxioms: ClassStereotype[] = Object.value
     value !== ClassStereotype.ABSTRACT
 );
 
+export const ClassStereotypesThatCanBeObjectType: ClassStereotype[] = Object.values(ClassStereotype).filter(
+  value =>
+    value == ClassStereotype.ENUMERATION ||
+    value == ClassStereotype.DATATYPE ||
+    value == ClassStereotype.ABSTRACT
+);
+
 // ///
 // /// Functions
 // ///

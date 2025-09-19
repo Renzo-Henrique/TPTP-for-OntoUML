@@ -8,7 +8,7 @@ import { relationBetweenClassesAndReifiedClassesMltAxioms, classesEstereotypesSt
 import { generalizationAllMltAxioms, generalizationSetAllMltAxioms } from './axioms/mltAxioms/generalizationAxioms';
 import { existenceOfTypesInOntology, reifiedClassesAndRelationsAreDifferentMltAxioms} from './axioms/mltAxioms/worldConstraints';
 import { relationsMltAxioms } from './axioms/mltAxioms/relationAxioms';
-import { readAxiomFiles } from '../common/readFiles';
+import { readAxiomFiles, readNecessityOfRelationsAxioms } from '../common/readFiles';
 
 export enum GenerateTptpMode {
   OntologyOnly = 0,
@@ -28,7 +28,8 @@ export interface GenerateTptpOptions {
 
 export interface FormalizationOptions {
     closedWorldOfTypes?: boolean,
-    withRelations?: boolean;
+    withOntologyRelations?: boolean,
+    withNecessityOfRelations?: boolean;
 }
 
 export async function generateTptpFileFromProject(project: Project, outputDirPath: string, options: GenerateTptpFileOptions = {}){
@@ -111,10 +112,10 @@ export async function generateTptpFromProject(project: Project, options: Generat
 
     if(generateFullFormalization){
         // Leitura dos includes do MLT + formalização adicional
-        formalizationAxioms = await readAxiomFiles();
+        formalizationAxioms += await readAxiomFiles();
     }
 
-    const formulasMlt = generateTptpMLTAxiomsFromProject(project, options.formalizationOptions);
+    const formulasMlt = await generateTptpMLTAxiomsFromProject(project, options.formalizationOptions);
 
     const contentMlt = formalizationAxioms + '\n' + formulasMlt.join('\n');
     
@@ -127,15 +128,19 @@ export async function generateTptpFromProject(project: Project, options: Generat
  * @param project - The OntoUML project to be transformed.
  * @returns Array of strings representing TPTP axioms.
  */
-function generateTptpMLTAxiomsFromProject(project: Project, options: FormalizationOptions = {}): string[]{
+async function generateTptpMLTAxiomsFromProject(project: Project, options: FormalizationOptions = {}): Promise<string[]>{
     const {
         closedWorldOfTypes = true,
-        withRelations = true
+        withOntologyRelations = true,
+        withNecessityOfRelations = true
     } = options;
 
     //console.log(options)
 
     const formulas: string[] = [];
+    if(withNecessityOfRelations){
+        formulas.push(await readNecessityOfRelationsAxioms());
+    }
     
     formulas.push('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% ESPECIFIC AXIOM\'S FOR THE ONTOLOGY\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
     formulas.push('%%%%%%%%%%%%%%%%%%% WORLD CONSTRAINTS\n%%%%%%%%%%%%%%%%%');
@@ -156,7 +161,7 @@ function generateTptpMLTAxiomsFromProject(project: Project, options: Formalizati
     formulas.push(`%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%\n%%% Generalization Sets\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`);
     formulas.push(generalizationSetAllMltAxioms(project));
 
-    if(withRelations){  
+    if(withOntologyRelations){  
         formulas.push(`%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%\n%%% Relations\n%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%`);
         formulas.push(relationsMltAxioms(project));
     }

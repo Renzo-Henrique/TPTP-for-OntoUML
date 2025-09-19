@@ -116,3 +116,14 @@ function relationsStereotypesAxioms(project: Project): string{
             + '\n' + relationWithoutStereotype
             + '\n';
 }
+
+
+/*
+
+`connectsTypes(${getReifiedPrefix()}${content.getSourceClass().getName()}, 
+                ${getReifiedPrefix()}${content.getTargetClass().getName()}, 
+                ${getReifiedPrefix()}${content.getName()})
+                )
+            
+
+*/
