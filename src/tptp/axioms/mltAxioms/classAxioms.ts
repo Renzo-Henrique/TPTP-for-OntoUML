@@ -70,11 +70,11 @@ export function classesEstereotypesStatementsMltAxioms(project: Project): string
             ...stereotypeUtils.NonSortalStereotypes,
             ...stereotypeUtils.SortalStereotypes
             ])
-            .map(content => `objectType(${getReifiedPrefix()}${content.getName()})`)
+            .map(content => `possibleObjectType(${getReifiedPrefix()}${content.getName()})`)
             .join(' & \n\t\t\t\t');
     
     if(secondAxiom){
-        secondAxiom = `fof(${getNextAxiomId()}_nonSortals_and_sortals_are_objectType, axiom, (
+        secondAxiom = `fof(${getNextAxiomId()}_nonSortals_and_sortals_are_possibly_objectTypes, axiom, (
         ${secondAxiom}\n)).`
     }
     else{

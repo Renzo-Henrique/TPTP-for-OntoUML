@@ -102,7 +102,6 @@ export async function generateTptpFromProject(project: Project, options: Generat
         generateFullFormalization = true
     } = options;
 
-    resetAxiomId();
     resetProjectId();
 
     fixProjectNames(project);
@@ -113,6 +112,11 @@ export async function generateTptpFromProject(project: Project, options: Generat
     if(generateFullFormalization){
         // Leitura dos includes do MLT + formalização adicional
         formalizationAxioms += await readAxiomFiles();
+
+        if(options.formalizationOptions.withNecessityOfRelations == true){
+            //TODO:: NOT ready to be formalized
+            //formalizationAxioms += await readNecessityOfRelationsAxioms();
+        }
     }
 
     const formulasMlt = await generateTptpMLTAxiomsFromProject(project, options.formalizationOptions);
@@ -134,13 +138,12 @@ async function generateTptpMLTAxiomsFromProject(project: Project, options: Forma
         withOntologyRelations = true,
         withNecessityOfRelations = true
     } = options;
+    
+    resetAxiomId();
 
     //console.log(options)
 
     const formulas: string[] = [];
-    if(withNecessityOfRelations){
-        formulas.push(await readNecessityOfRelationsAxioms());
-    }
     
     formulas.push('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% ESPECIFIC AXIOM\'S FOR THE ONTOLOGY\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
     formulas.push('%%%%%%%%%%%%%%%%%%% WORLD CONSTRAINTS\n%%%%%%%%%%%%%%%%%');

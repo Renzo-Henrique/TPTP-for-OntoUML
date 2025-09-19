@@ -10,7 +10,7 @@ fof(ax_specialization_a5, axiom, (
         world(W) => ![E]: (iof(E,T1,W) => iof(E,T2,W))
         ))
     |
-      (relation(T1) & relation(T2) & ![W]: (
+      (relationType(T1) & relationType(T2) & ![W]: (
         world(W) => ![E1,E2]: (connects(E1,E2,T1,W) => connects(E1,E2,T2,W))
         ))
   ))

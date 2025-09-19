@@ -29,11 +29,11 @@ fof(ax_twoLevelConstrained, axiom, (
 %
 % Addition of connects individuals taxonomy
 fof(ax, axiom, (
-  ![X,Y,R,W]: (connects(X,Y,R,W) => (relation(R) & world(W) & concreteIndividual(X) & concreteIndividual(Y)))
+  ![X,Y,R,W]: (connects(X,Y,R,W) => (relationType(R) & world(W) & concreteIndividual(X) & concreteIndividual(Y)))
 )).
 
 % CHANGE:
 % R can only be a relation if it connects 2 individuals
 fof(ax, axiom, (
-  ![R]: (relation(R) <=> ?[X,Y,W]:(connects(X,Y,R,W)))
+  ![R]: (relationType(R) <=> ?[X,Y,W]:(connects(X,Y,R,W)))
 )).

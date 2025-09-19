@@ -26,7 +26,7 @@ async function main() {
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/providerRelation/providerRelation.json'));
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/iofExample/iofExample.json'));
     
-    const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/simplified/relatorSimple2.json'));
+    const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/relationsInSubclasses/relationsInSubclasses.json'));
     
     generateTptpFileFromProject(project, outputDir, {formalizationOptions: formalizationOptions});
     //const result = await validateTptpFromProject(project, {generateOutputFileOfResult: true, outputFileOfResultDirPath: outpurDirName, formalizationOptions: formalizationOptions});console.log(result);

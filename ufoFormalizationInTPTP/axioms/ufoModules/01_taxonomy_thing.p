@@ -9,17 +9,17 @@ fof(ax_thing_partition, axiom, (
 )).
 
 % CHANGE:
-% Inclusion of monadicType and relation
+% Inclusion of monadicType and relationType
 % monadicType(X) only applies to individuals throught instantiation in a world
-% relation(X) only applies to connect individuals in a world
+% relationType(X)(X) only applies to connect individuals in a world
 fof(ax_type_taxonomy, axiom, (
-  ![X]: ((monadicType(X) | relation(X)) <=> (type_(X)))
+  ![X]: ((monadicType(X) | relationType(X)) <=> (type_(X)))
 )).
 
 % CHANGE:
 % nothing can be a monadicType an relation at the same time
 fof(ax_type_partition, axiom, (
-  ~?[X]: (monadicType(X) & relation(X))
+  ~?[X]: (monadicType(X) & relationType(X))
 )).
 
 
