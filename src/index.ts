@@ -9,14 +9,12 @@ async function main() {
 
     const formalizationOptions: FormalizationOptions = {
       closedWorldOfTypes: true, 
-      withOntologyRelations: true, 
-      withNecessityOfRelations: true
+      withOntologyRelations: true
     }
 
     const inputDir = path.resolve(process.cwd(), 'examples');
     const outputDir = path.resolve(inputDir, outpurDirName);
 
-    console.log(ClassStereotypesThatCanBeObjectType);
     
     generateExamples(outputDir, formalizationOptions);
     validateExamples(outputDir, formalizationOptions);

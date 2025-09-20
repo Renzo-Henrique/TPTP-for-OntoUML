@@ -7,7 +7,9 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "clean": "rm -rf ./node_modules",
-    "execute_index": "node dist/index.js"
+    "execute_index": "node dist/index.js",
+    "complete_build": "npm run generate_static && npm run build",
+    "generate_static": "tsc src/scripts/generateStaticContents.ts --outDir dist/scripts && node dist/scripts/generateStaticContents.js"
   },
   "repository": {
     "type": "git",

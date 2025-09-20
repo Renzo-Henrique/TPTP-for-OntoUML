@@ -9,6 +9,7 @@ import { generalizationAllMltAxioms, generalizationSetAllMltAxioms } from './axi
 import { existenceOfTypesInOntology, reifiedClassesAndRelationsAreDifferentMltAxioms} from './axioms/mltAxioms/worldConstraints';
 import { relationsMltAxioms } from './axioms/mltAxioms/relationAxioms';
 import { readAxiomFiles, readNecessityOfRelationsAxioms } from '../common/readFiles';
+import { baseClassAxioms, baseMltAxioms, baseRelationAxioms, ufoModules } from '../scripts/staticContents';
 
 export enum GenerateTptpMode {
   OntologyOnly = 0,
@@ -111,7 +112,9 @@ export async function generateTptpFromProject(project: Project, options: Generat
 
     if(generateFullFormalization){
         // Leitura dos includes do MLT + formalização adicional
-        formalizationAxioms += await readAxiomFiles();
+        //formalizationAxioms += await readAxiomFiles();
+
+        formalizationAxioms += ufoModules + baseClassAxioms + baseMltAxioms + baseRelationAxioms;
 
         if(options.formalizationOptions.withNecessityOfRelations == true){
             //TODO:: NOT ready to be formalized
