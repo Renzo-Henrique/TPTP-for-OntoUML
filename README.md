@@ -4,7 +4,7 @@ A TypeScript library and CLI tool to transform OntoUML JSON models into logical 
 
 ---
 
-## 🧠 About This Project
+## About This Project
 
 TPTP‑for‑OntoUML automates the formalization of conceptual models defined in OntoUML (via `ontouml-js`) into TPTP axioms. It supports:
 - Ontology refactoring (class naming consistency),
@@ -14,12 +14,11 @@ TPTP‑for‑OntoUML automates the formalization of conceptual models defined in
 
 ---
 
-## ⚙️ Built With
+## Built With
 
 - **TypeScript**
-- [`ontouml-js`](https://github.com/OntoUML/ontouml-js) for model parsing  
-- [`lodash`](https://lodash.com/) for string utilities  
-- Node.js built-in modules (`fs`, `path`)
+- [`ontouml-js`](https://github.com/OntoUML/ontouml-js) for model parsing
+- [`tptp`](https://www.npmjs.com/package/tptp) for model validation via TPTP online services
 
 ---
 

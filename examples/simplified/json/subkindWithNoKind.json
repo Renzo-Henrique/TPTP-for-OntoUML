@@ -1,11 +1,11 @@
 {
   "id" : "xMXF.pmA0Bnszwmp",
-  "name" : "subkindWithNoKind",
+  "name" : "characterizationBetweenKinds",
   "description" : null,
   "type" : "Project",
   "model" : {
     "id" : "xMXF.pmA0Bnszwmp_root",
-    "name" : "subkindWithNoKind",
+    "name" : "characterizationBetweenKinds",
     "description" : null,
     "type" : "Package",
     "propertyAssignments" : null,
