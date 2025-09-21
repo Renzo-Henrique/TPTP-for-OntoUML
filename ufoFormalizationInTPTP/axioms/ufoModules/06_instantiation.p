@@ -17,23 +17,23 @@ fof(ax_dIndividual, axiom, (
 )).
 
 fof(ax_multiLevel, axiom, (
-  ![X,Y,W]: (iof(X,Y,W) => (type_(X) | individual(X)))
+  ![X,Y,W]: (iof(X,Y,W) => (monadicType(X) | individual(X)))
 )).
 
 fof(ax_twoLevelConstrained, axiom, (
-  ~?[X,Y,Z,W]: (type_(X) & iof(X,Y,W) & iof(Y,Z,W))
+  ~?[X,Y,Z,W]: (monadicType(X) & iof(X,Y,W) & iof(Y,Z,W))
 )).
 
 % CHANGE:
 % X and Y are connected trought R in a world W
 %
 % Addition of connects individuals taxonomy
-fof(ax, axiom, (
+fof(ax_relationType_taxonomy, axiom, (
   ![X,Y,R,W]: (connects(X,Y,R,W) => (relationType(R) & world(W) & concreteIndividual(X) & concreteIndividual(Y)))
 )).
 
 % CHANGE:
 % R can only be a relation if it connects 2 individuals
-fof(ax, axiom, (
+fof(ax_relationType_must_connect_individuals, axiom, (
   ![R]: (relationType(R) <=> ?[X,Y,W]:(connects(X,Y,R,W)))
 )).

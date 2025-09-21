@@ -28,11 +28,13 @@ fof(ax_connection_of_types, axiom, (
 */
 
 % X1 is connected to X2 through R in a world W
-fof(ax_connection_of_individuals, axiom, (
-  ![X1, X2, R, W]: (connects(X1, X2, R, W) =>
-                      (individual(X1) & individual(X2) & relationType(R) & world(W))
-                  )
-)).
+
+% Already introduced
+% fof(ax_connection_of_individuals, axiom, (
+%   ![X1, X2, R, W]: (connects(X1, X2, R, W) =>
+%                       (individual(X1) & individual(X2) & relationType(R) & world(W))
+%                   )
+% )).
 
 /**
 * Cardinality X..* to X..*
@@ -52,7 +54,7 @@ fof(ax_connection_of_individuals, axiom, (
 %     wich are instances of the types
 fof(ax_connects_in_types_and_instances_cardinality, axiom, (
   ![T1, T2, RT]: (connectsType(T1, T2, RT) =>
-                      (?[W, X1, X2, RT]: (iof(X1, T1, W) & iof(X2, T2, W) &
+                      (?[W, X1, X2]: (iof(X1, T1, W) & iof(X2, T2, W) &
                                             connects(X1, X2, RT, W) )
                       )
                   )
