@@ -18,7 +18,7 @@ async function main() {
     
     generateExamples(outputDir, formalizationOptions);
     //validateExamples(outputDir, formalizationOptions);
-    validateSimpleWrongExamples(outputDir, formalizationOptions);
+    //validateSimpleWrongExamples(outputDir, formalizationOptions);
 
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/wrongs/specializationFromDisjoints/specializationFromDisjoints.json'));
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/wrongs/companyService/companyService.json'));
@@ -31,8 +31,8 @@ async function main() {
     
     // var result = await validateTptpFromProject(project, {generateOutputFileOfResult: true, outputFileOfResultDirPath: outpurDirName, formalizationOptions: formalizationOptions});console.log(result);
 
-    // var project = loadProjectFromJson(path.resolve(process.cwd(),'examples/simplified/json/characterizationBetweenKinds.json'));
-    // var result = await validateTptpFromProject(project, {generateOutputFileOfResult: true, outputFileOfResultDirPath: outpurDirName, formalizationOptions: formalizationOptions});console.log(result);
+     var project = loadProjectFromJson(path.resolve(process.cwd(),'examples/simplified/json/characterizationBetweenKinds.json'));
+     var result = await validateTptpFromProject(project, {generateOutputFileOfResult: true, outputFileOfResultDirPath: outpurDirName, formalizationOptions: formalizationOptions});console.log(result);
 
 
   } catch (err) {
