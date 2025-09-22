@@ -8,7 +8,7 @@ async function main() {
   try {
 
     const formalizationOptions: FormalizationOptions = {
-      closedWorldOfTypes: true, 
+      closedWorldOfTypes: false, 
       withOntologyRelations: true
     }
 

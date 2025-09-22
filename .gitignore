@@ -32,7 +32,7 @@ temp/
 # MacOS Trash
 .Trashes
 
-/examples/generated
+#/examples/generated
 
 /examples/*.Identifier
 /examples/**/*.Identifier

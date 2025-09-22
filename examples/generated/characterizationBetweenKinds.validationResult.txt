@@ -1,0 +1,214 @@
+Running first-order theorem proving
+Running: /home/tptp/Systems/E---3.3.0/eprover --delete-bad-limit=2000000000 --definitional-cnf=24 -s --print-statistics -R --print-version --proof-object --auto-schedule=8 --cpu-limit=60 /tmp/bClz8tJ_lv/SOT_Cf47rm
+# Version: 3.0.0
+# Preprocessing class: FSLMSMSSSSSNFFN.
+# Scheduled 4 strats onto 8 cores with 60 seconds (480 total)
+# Starting G-E--_208_B07_F1_S5PRR_SE_CS_SP_PS_S0Y with 180s (3) cores
+# Starting new_bool_3 with 120s (2) cores
+# Starting new_bool_1 with 120s (2) cores
+# Starting sh5l with 60s (1) cores
+# new_bool_3 with pid 3693486 completed with status 9
+# new_bool_1 with pid 3693487 completed with status 9
+# sh5l with pid 3693488 completed with status 9
+# G-E--_208_B07_F1_S5PRR_SE_CS_SP_PS_S0Y with pid 3693485 completed with status 0
+# Result found by G-E--_208_B07_F1_S5PRR_SE_CS_SP_PS_S0Y
+# Preprocessing class: FSLMSMSSSSSNFFN.
+# Scheduled 4 strats onto 8 cores with 60 seconds (480 total)
+# Starting G-E--_208_B07_F1_S5PRR_SE_CS_SP_PS_S0Y with 180s (3) cores
+# No SInE strategy applied
+# Search class: FGHSF-FSLM31-SFFFFFNN
+# Scheduled 6 strats onto 3 cores with 180 seconds (180 total)
+# Starting G-E--_208_C18C--_F1_SE_CS_SP_PS_S5PRR_RG_S04AN with 80s (1) cores
+# Starting G-E--_208_B07_F1_S5PRR_SE_CS_SP_PS_S0Y with 19s (1) cores
+# Starting new_bool_3 with 24s (1) cores
+# G-E--_208_B07_F1_S5PRR_SE_CS_SP_PS_S0Y with pid 3693513 completed with status 0
+# Result found by G-E--_208_B07_F1_S5PRR_SE_CS_SP_PS_S0Y
+# Preprocessing class: FSLMSMSSSSSNFFN.
+# Scheduled 4 strats onto 8 cores with 60 seconds (480 total)
+# Starting G-E--_208_B07_F1_S5PRR_SE_CS_SP_PS_S0Y with 180s (3) cores
+# No SInE strategy applied
+# Search class: FGHSF-FSLM31-SFFFFFNN
+# Scheduled 6 strats onto 3 cores with 180 seconds (180 total)
+# Starting G-E--_208_C18C--_F1_SE_CS_SP_PS_S5PRR_RG_S04AN with 80s (1) cores
+# Starting G-E--_208_B07_F1_S5PRR_SE_CS_SP_PS_S0Y with 19s (1) cores
+# Preprocessing time       : 0.006 s
+# Presaturation interreduction done
+# Proof found!
+# SZS status Unsatisfiable
+# SZS output start CNFRefutation
+fof(ax_modeTypeDefinition_a44, axiom, ![X12]:((modeType(X12)<=>(monadicType(X12)&![X8, X3]:(((world(X3)&iof(X8,X12,X3))=>mode(X8)))))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_modeTypeDefinition_a44)).
+fof(ax_dIof, axiom, ![X1, X2, X3]:((iof(X1,X2,X3)=>(monadicType(X2)&world(X3)))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_dIof)).
+fof(ax_dType, axiom, ![X1]:((monadicType(X1)<=>?[X2, X3]:(iof(X2,X1,X3)))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_dType)).
+fof(ax_perdurantTypeDefinition_a44, axiom, ![X12]:((perdurantType(X12)<=>(monadicType(X12)&![X18, X3]:(((world(X3)&iof(X18,X12,X3))=>perdurant(X18)))))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_perdurantTypeDefinition_a44)).
+fof(ax_disjointWith, axiom, ![X29, X30]:((disjointWith(X29,X30)<=>(((monadicType(X29)&monadicType(X30))&X29!=X30)&~(?[X1, X3]:((iof(X1,X29,X3)&iof(X1,X30,X3))))))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_disjointWith)).
+fof(ax_intrinsicMoment_taxonomy, axiom, ![X1]:(((quality(X1)|mode(X1))<=>intrinsicMoment(X1))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_intrinsicMoment_taxonomy)).
+fof(ax_type_taxonomy_001, axiom, ![X1]:(((endurantType(X1)|perdurantType(X1))=>monadicType(X1))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_type_taxonomy_001)).
+fof(ax_endurantTypeDefinition_a44, axiom, ![X12]:((endurantType(X12)<=>(monadicType(X12)&![X8, X3]:(((world(X3)&iof(X8,X12,X3))=>endurant(X8)))))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_endurantTypeDefinition_a44)).
+fof(ax_moment_taxonomy, axiom, ![X1]:(((intrinsicMoment(X1)|relator(X1))<=>moment(X1))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_moment_taxonomy)).
+fof(ax_concreteIndividual_partition, axiom, ~(?[X1]:((endurant(X1)&perdurant(X1)))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_concreteIndividual_partition)).
+fof(ax_endurant_taxonomy, axiom, ![X1]:(((substantial(X1)|moment(X1))<=>endurant(X1))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_endurant_taxonomy)).
+fof(ax_sortal_taxonomy, axiom, ![X1]:(((rigidSortal(X1)|antiRigidSortal(X1))<=>sortal(X1))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_sortal_taxonomy)).
+fof(ax_rigidSortal_taxonomy, axiom, ![X1]:(((kind(X1)|subkind(X1))<=>rigidSortal(X1))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_rigidSortal_taxonomy)).
+fof(ax_endurantsKind_a21, axiom, ![X8]:((endurant(X8)=>?[X15]:((kind(X15)&![X3]:((world(X3)=>iof(X8,X15,X3))))))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_endurantsKind_a21)).
+fof(ax_endurantType_taxonomy_properties, axiom, ![X1]:(((sortal(X1)|nonSortal(X1))<=>endurantType(X1))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_endurantType_taxonomy_properties)).
+fof(ax_specialization_a5, axiom, ![X6, X7]:((specializes(X6,X7)<=>(((monadicType(X6)&monadicType(X7))&![X3]:((world(X3)=>![X8]:((iof(X8,X6,X3)=>iof(X8,X7,X3))))))|((relationType(X6)&relationType(X7))&![X3]:((world(X3)=>![X9, X10]:((connects(X9,X10,X6,X3)=>connects(X9,X10,X7,X3))))))))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_specialization_a5)).
+fof(ax_properSpecializes_d1, axiom, ![X1, X2]:((properSpecializes(X1,X2)<=>(specializes(X1,X2)&~(specializes(X2,X1))))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_properSpecializes_d1)).
+fof(id_1_ax__ontology_classes_estereotypes, axiom, (((perdurantType(rf_Class6)&subkind(rf_Class7))&category(rf_Class8))&objectType(rf_Class8)), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', id_1_ax__ontology_classes_estereotypes)).
+fof(ax_type_partition_002, axiom, ~(?[X1]:((endurantType(X1)&perdurantType(X1)))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_type_partition_002)).
+fof(id_2_ax_proper_especialization_of_created_class_Class6_generalizing_Class7, axiom, properSpecializes(rf_Class6,rf_Class7), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', id_2_ax_proper_especialization_of_created_class_Class6_generalizing_Class7)).
+fof(ax_type_partition, axiom, ~(?[X1]:((monadicType(X1)&relationType(X1)))), file('/tmp/bClz8tJ_lv/SOT_Cf47rm', ax_type_partition)).
+fof(c_0_21, plain, ![X246, X247, X248, X249]:((((monadicType(X246)|~modeType(X246))&(~world(X248)|~iof(X247,X246,X248)|mode(X247)|~modeType(X246)))&(((world(esk47_1(X249))|~monadicType(X249)|modeType(X249))&(iof(esk46_1(X249),X249,esk47_1(X249))|~monadicType(X249)|modeType(X249)))&(~mode(esk46_1(X249))|~monadicType(X249)|modeType(X249))))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_modeTypeDefinition_a44])])])])])])])).
+fof(c_0_22, plain, ![X88, X89, X90]:(((monadicType(X89)|~iof(X88,X89,X90))&(world(X90)|~iof(X88,X89,X90)))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_dIof])])])])).
+cnf(c_0_23, plain, (mode(X2)|~world(X1)|~iof(X2,X3,X1)|~modeType(X3)), inference(split_conjunct,[status(thm)],[c_0_21])).
+cnf(c_0_24, plain, (world(X1)|~iof(X2,X3,X1)), inference(split_conjunct,[status(thm)],[c_0_22])).
+fof(c_0_25, plain, ![X91, X94, X95, X96]:(((~monadicType(X91)|iof(esk1_1(X91),X91,esk2_1(X91)))&(~iof(X95,X94,X96)|monadicType(X94)))), inference(fof_nnf,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_dType])])])])])])).
+fof(c_0_26, plain, ![X186, X187, X188, X189]:((((monadicType(X186)|~perdurantType(X186))&(~world(X188)|~iof(X187,X186,X188)|perdurant(X187)|~perdurantType(X186)))&(((world(esk27_1(X189))|~monadicType(X189)|perdurantType(X189))&(iof(esk26_1(X189),X189,esk27_1(X189))|~monadicType(X189)|perdurantType(X189)))&(~perdurant(esk26_1(X189))|~monadicType(X189)|perdurantType(X189))))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_perdurantTypeDefinition_a44])])])])])])])).
+fof(c_0_27, plain, ![X29, X30]:((disjointWith(X29,X30)<=>(((monadicType(X29)&monadicType(X30))&X29!=X30)&~(?[X1, X3]:((iof(X1,X29,X3)&iof(X1,X30,X3))))))), inference(fof_simplification,[status(thm)],[ax_disjointWith])).
+fof(c_0_28, plain, ![X61]:((((~quality(X61)|intrinsicMoment(X61))&(~mode(X61)|intrinsicMoment(X61)))&(~intrinsicMoment(X61)|(quality(X61)|mode(X61))))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_intrinsicMoment_taxonomy])])])])).
+cnf(c_0_29, plain, (mode(X1)|~iof(X1,X2,X3)|~modeType(X2)), inference(csr,[status(thm)],[c_0_23, c_0_24])).
+cnf(c_0_30, plain, (iof(esk1_1(X1),X1,esk2_1(X1))|~monadicType(X1)), inference(split_conjunct,[status(thm)],[c_0_25])).
+cnf(c_0_31, plain, (monadicType(X1)|~modeType(X1)), inference(split_conjunct,[status(thm)],[c_0_21])).
+cnf(c_0_32, plain, (perdurant(X2)|~world(X1)|~iof(X2,X3,X1)|~perdurantType(X3)), inference(split_conjunct,[status(thm)],[c_0_26])).
+fof(c_0_33, plain, ![X411, X412, X413, X414, X415, X416]:((((((monadicType(X411)|~disjointWith(X411,X412))&(monadicType(X412)|~disjointWith(X411,X412)))&(X411!=X412|~disjointWith(X411,X412)))&(~iof(X413,X411,X414)|~iof(X413,X412,X414)|~disjointWith(X411,X412)))&((iof(esk66_2(X415,X416),X415,esk67_2(X415,X416))|(~monadicType(X415)|~monadicType(X416)|X415=X416)|disjointWith(X415,X416))&(iof(esk66_2(X415,X416),X416,esk67_2(X415,X416))|(~monadicType(X415)|~monadicType(X416)|X415=X416)|disjointWith(X415,X416))))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(fof_nnf,[status(thm)],[c_0_27])])])])])])])).
+fof(c_0_34, plain, ![X46]:(((~endurantType(X46)|monadicType(X46))&(~perdurantType(X46)|monadicType(X46)))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_type_taxonomy_001])])])])).
+fof(c_0_35, plain, ![X192, X193, X194, X195]:((((monadicType(X192)|~endurantType(X192))&(~world(X194)|~iof(X193,X192,X194)|endurant(X193)|~endurantType(X192)))&(((world(esk29_1(X195))|~monadicType(X195)|endurantType(X195))&(iof(esk28_1(X195),X195,esk29_1(X195))|~monadicType(X195)|endurantType(X195)))&(~endurant(esk28_1(X195))|~monadicType(X195)|endurantType(X195))))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_endurantTypeDefinition_a44])])])])])])])).
+fof(c_0_36, plain, ![X59]:((((~intrinsicMoment(X59)|moment(X59))&(~relator(X59)|moment(X59)))&(~moment(X59)|(intrinsicMoment(X59)|relator(X59))))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_moment_taxonomy])])])])).
+cnf(c_0_37, plain, (intrinsicMoment(X1)|~mode(X1)), inference(split_conjunct,[status(thm)],[c_0_28])).
+cnf(c_0_38, plain, (mode(esk1_1(X1))|~modeType(X1)), inference(csr,[status(thm)],[inference(spm,[status(thm)],[c_0_29, c_0_30]), c_0_31])).
+fof(c_0_39, plain, ![X45]:((~endurant(X45)|~perdurant(X45))), inference(fof_nnf,[status(thm)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_concreteIndividual_partition])])])).
+cnf(c_0_40, plain, (perdurant(X1)|~iof(X1,X2,X3)|~perdurantType(X2)), inference(csr,[status(thm)],[c_0_32, c_0_24])).
+cnf(c_0_41, plain, (iof(esk66_2(X1,X2),X2,esk67_2(X1,X2))|X1=X2|disjointWith(X1,X2)|~monadicType(X1)|~monadicType(X2)), inference(split_conjunct,[status(thm)],[c_0_33])).
+cnf(c_0_42, plain, (monadicType(X1)|~perdurantType(X1)), inference(split_conjunct,[status(thm)],[c_0_34])).
+cnf(c_0_43, plain, (endurant(X2)|~world(X1)|~iof(X2,X3,X1)|~endurantType(X3)), inference(split_conjunct,[status(thm)],[c_0_35])).
+fof(c_0_44, plain, ![X55]:((((~substantial(X55)|endurant(X55))&(~moment(X55)|endurant(X55)))&(~endurant(X55)|(substantial(X55)|moment(X55))))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_endurant_taxonomy])])])])).
+cnf(c_0_45, plain, (moment(X1)|~intrinsicMoment(X1)), inference(split_conjunct,[status(thm)],[c_0_36])).
+cnf(c_0_46, plain, (intrinsicMoment(esk1_1(X1))|~modeType(X1)), inference(spm,[status(thm)],[c_0_37, c_0_38])).
+fof(c_0_47, plain, ![X76]:((((~rigidSortal(X76)|sortal(X76))&(~antiRigidSortal(X76)|sortal(X76)))&(~sortal(X76)|(rigidSortal(X76)|antiRigidSortal(X76))))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_sortal_taxonomy])])])])).
+fof(c_0_48, plain, ![X78]:((((~kind(X78)|rigidSortal(X78))&(~subkind(X78)|rigidSortal(X78)))&(~rigidSortal(X78)|(kind(X78)|subkind(X78))))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_rigidSortal_taxonomy])])])])).
+fof(c_0_49, plain, ![X169, X171]:(((kind(esk24_1(X169))|~endurant(X169))&(~world(X171)|iof(X169,esk24_1(X169),X171)|~endurant(X169)))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_endurantsKind_a21])])])])])])).
+cnf(c_0_50, plain, (~endurant(X1)|~perdurant(X1)), inference(split_conjunct,[status(thm)],[c_0_39])).
+cnf(c_0_51, plain, (X1=X2|disjointWith(X1,X2)|perdurant(esk66_2(X1,X2))|~perdurantType(X2)|~monadicType(X1)), inference(csr,[status(thm)],[inference(spm,[status(thm)],[c_0_40, c_0_41]), c_0_42])).
+cnf(c_0_52, plain, (endurant(X1)|~iof(X1,X2,X3)|~endurantType(X2)), inference(csr,[status(thm)],[c_0_43, c_0_24])).
+cnf(c_0_53, plain, (iof(esk66_2(X1,X2),X1,esk67_2(X1,X2))|X1=X2|disjointWith(X1,X2)|~monadicType(X1)|~monadicType(X2)), inference(split_conjunct,[status(thm)],[c_0_33])).
+cnf(c_0_54, plain, (monadicType(X1)|~endurantType(X1)), inference(split_conjunct,[status(thm)],[c_0_34])).
+cnf(c_0_55, plain, (perdurant(esk1_1(X1))|~perdurantType(X1)), inference(csr,[status(thm)],[inference(spm,[status(thm)],[c_0_40, c_0_30]), c_0_42])).
+cnf(c_0_56, plain, (endurant(X1)|~moment(X1)), inference(split_conjunct,[status(thm)],[c_0_44])).
+cnf(c_0_57, plain, (moment(esk1_1(X1))|~modeType(X1)), inference(spm,[status(thm)],[c_0_45, c_0_46])).
+fof(c_0_58, plain, ![X74]:((((~sortal(X74)|endurantType(X74))&(~nonSortal(X74)|endurantType(X74)))&(~endurantType(X74)|(sortal(X74)|nonSortal(X74))))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_endurantType_taxonomy_properties])])])])).
+cnf(c_0_59, plain, (sortal(X1)|~rigidSortal(X1)), inference(split_conjunct,[status(thm)],[c_0_47])).
+cnf(c_0_60, plain, (rigidSortal(X1)|~kind(X1)), inference(split_conjunct,[status(thm)],[c_0_48])).
+fof(c_0_61, plain, ![X130, X131, X132, X133, X134, X135, X136, X137, X138]:(((((((relationType(X130)|monadicType(X130)|~specializes(X130,X131))&(relationType(X131)|monadicType(X130)|~specializes(X130,X131)))&(~world(X134)|(~connects(X135,X136,X130,X134)|connects(X135,X136,X131,X134))|monadicType(X130)|~specializes(X130,X131)))&(((relationType(X130)|monadicType(X131)|~specializes(X130,X131))&(relationType(X131)|monadicType(X131)|~specializes(X130,X131)))&(~world(X134)|(~connects(X135,X136,X130,X134)|connects(X135,X136,X131,X134))|monadicType(X131)|~specializes(X130,X131))))&(((relationType(X130)|(~world(X132)|(~iof(X133,X130,X132)|iof(X133,X131,X132)))|~specializes(X130,X131))&(relationType(X131)|(~world(X132)|(~iof(X133,X130,X132)|iof(X133,X131,X132)))|~specializes(X130,X131)))&(~world(X134)|(~connects(X135,X136,X130,X134)|connects(X135,X136,X131,X134))|(~world(X132)|(~iof(X133,X130,X132)|iof(X133,X131,X132)))|~specializes(X130,X131))))&(((world(esk11_2(X137,X138))|(~monadicType(X137)|~monadicType(X138))|specializes(X137,X138))&((iof(esk12_2(X137,X138),X137,esk11_2(X137,X138))|(~monadicType(X137)|~monadicType(X138))|specializes(X137,X138))&(~iof(esk12_2(X137,X138),X138,esk11_2(X137,X138))|(~monadicType(X137)|~monadicType(X138))|specializes(X137,X138))))&((world(esk13_2(X137,X138))|(~relationType(X137)|~relationType(X138))|specializes(X137,X138))&((connects(esk14_2(X137,X138),esk15_2(X137,X138),X137,esk13_2(X137,X138))|(~relationType(X137)|~relationType(X138))|specializes(X137,X138))&(~connects(esk14_2(X137,X138),esk15_2(X137,X138),X138,esk13_2(X137,X138))|(~relationType(X137)|~relationType(X138))|specializes(X137,X138))))))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(skolemize,[status(esa)],[inference(variable_rename,[status(thm)],[inference(shift_quantors,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_specialization_a5])])])])])])])).
+fof(c_0_62, plain, ![X1, X2]:((properSpecializes(X1,X2)<=>(specializes(X1,X2)&~specializes(X2,X1)))), inference(fof_simplification,[status(thm)],[ax_properSpecializes_d1])).
+cnf(c_0_63, plain, (~iof(X1,X2,X3)|~iof(X1,X4,X3)|~disjointWith(X2,X4)), inference(split_conjunct,[status(thm)],[c_0_33])).
+cnf(c_0_64, plain, (iof(esk46_1(X1),X1,esk47_1(X1))|modeType(X1)|~monadicType(X1)), inference(split_conjunct,[status(thm)],[c_0_21])).
+cnf(c_0_65, plain, (monadicType(X1)|~disjointWith(X2,X1)), inference(split_conjunct,[status(thm)],[c_0_33])).
+cnf(c_0_66, plain, (iof(X2,esk24_1(X2),X1)|~world(X1)|~endurant(X2)), inference(split_conjunct,[status(thm)],[c_0_49])).
+cnf(c_0_67, plain, (world(esk47_1(X1))|modeType(X1)|~monadicType(X1)), inference(split_conjunct,[status(thm)],[c_0_21])).
+cnf(c_0_68, plain, (X1=X2|disjointWith(X1,X2)|~perdurantType(X2)|~endurant(esk66_2(X1,X2))|~monadicType(X1)), inference(spm,[status(thm)],[c_0_50, c_0_51])).
+cnf(c_0_69, plain, (X1=X2|disjointWith(X1,X2)|endurant(esk66_2(X1,X2))|~endurantType(X1)|~monadicType(X2)), inference(csr,[status(thm)],[inference(spm,[status(thm)],[c_0_52, c_0_53]), c_0_54])).
+cnf(c_0_70, plain, (~perdurantType(X1)|~endurant(esk1_1(X1))), inference(spm,[status(thm)],[c_0_50, c_0_55])).
+cnf(c_0_71, plain, (endurant(esk1_1(X1))|~modeType(X1)), inference(spm,[status(thm)],[c_0_56, c_0_57])).
+cnf(c_0_72, plain, (endurantType(X1)|~sortal(X1)), inference(split_conjunct,[status(thm)],[c_0_58])).
+cnf(c_0_73, plain, (sortal(X1)|~kind(X1)), inference(spm,[status(thm)],[c_0_59, c_0_60])).
+cnf(c_0_74, plain, (relationType(X1)|iof(X3,X4,X2)|~world(X2)|~iof(X3,X1,X2)|~specializes(X1,X4)), inference(split_conjunct,[status(thm)],[c_0_61])).
+fof(c_0_75, plain, ![X144, X145]:((((specializes(X144,X145)|~properSpecializes(X144,X145))&(~specializes(X145,X144)|~properSpecializes(X144,X145)))&(~specializes(X144,X145)|specializes(X145,X144)|properSpecializes(X144,X145)))), inference(distribute,[status(thm)],[inference(fof_nnf,[status(thm)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[c_0_62])])])])).
+cnf(c_0_76, plain, (rigidSortal(X1)|~subkind(X1)), inference(split_conjunct,[status(thm)],[c_0_48])).
+cnf(c_0_77, plain, (subkind(rf_Class7)), inference(split_conjunct,[status(thm)],[id_1_ax__ontology_classes_estereotypes])).
+cnf(c_0_78, plain, (modeType(X1)|~disjointWith(X2,X1)|~iof(esk46_1(X1),X2,esk47_1(X1))), inference(csr,[status(thm)],[inference(spm,[status(thm)],[c_0_63, c_0_64]), c_0_65])).
+cnf(c_0_79, plain, (iof(X1,esk24_1(X1),esk47_1(X2))|modeType(X2)|~endurant(X1)|~monadicType(X2)), inference(spm,[status(thm)],[c_0_66, c_0_67])).
+cnf(c_0_80, plain, (X1=X2|disjointWith(X1,X2)|~perdurantType(X2)|~endurantType(X1)), inference(csr,[status(thm)],[inference(csr,[status(thm)],[inference(spm,[status(thm)],[c_0_68, c_0_69]), c_0_42]), c_0_54])).
+cnf(c_0_81, plain, (perdurantType(rf_Class6)), inference(split_conjunct,[status(thm)],[id_1_ax__ontology_classes_estereotypes])).
+cnf(c_0_82, plain, (~modeType(X1)|~perdurantType(X1)), inference(spm,[status(thm)],[c_0_70, c_0_71])).
+cnf(c_0_83, plain, (endurantType(X1)|~kind(X1)), inference(spm,[status(thm)],[c_0_72, c_0_73])).
+cnf(c_0_84, plain, (kind(esk24_1(X1))|~endurant(X1)), inference(split_conjunct,[status(thm)],[c_0_49])).
+fof(c_0_85, plain, ![X47]:((~endurantType(X47)|~perdurantType(X47))), inference(fof_nnf,[status(thm)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_type_partition_002])])])).
+cnf(c_0_86, plain, (iof(X1,X2,X3)|relationType(X4)|~specializes(X4,X2)|~iof(X1,X4,X3)), inference(csr,[status(thm)],[c_0_74, c_0_24])).
+cnf(c_0_87, plain, (relationType(X1)|monadicType(X1)|~specializes(X1,X2)), inference(split_conjunct,[status(thm)],[c_0_61])).
+cnf(c_0_88, plain, (specializes(X1,X2)|~properSpecializes(X1,X2)), inference(split_conjunct,[status(thm)],[c_0_75])).
+cnf(c_0_89, plain, (properSpecializes(rf_Class6,rf_Class7)), inference(split_conjunct,[status(thm)],[id_2_ax_proper_especialization_of_created_class_Class6_generalizing_Class7])).
+cnf(c_0_90, plain, (rigidSortal(rf_Class7)), inference(spm,[status(thm)],[c_0_76, c_0_77])).
+cnf(c_0_91, plain, (modeType(X1)|~disjointWith(esk24_1(esk46_1(X1)),X1)|~endurant(esk46_1(X1))), inference(csr,[status(thm)],[inference(spm,[status(thm)],[c_0_78, c_0_79]), c_0_65])).
+cnf(c_0_92, plain, (X1=rf_Class6|disjointWith(X1,rf_Class6)|~endurantType(X1)), inference(spm,[status(thm)],[c_0_80, c_0_81])).
+cnf(c_0_93, plain, (~modeType(rf_Class6)), inference(spm,[status(thm)],[c_0_82, c_0_81])).
+cnf(c_0_94, plain, (endurantType(esk24_1(X1))|~endurant(X1)), inference(spm,[status(thm)],[c_0_83, c_0_84])).
+cnf(c_0_95, plain, (~endurantType(X1)|~perdurantType(X1)), inference(split_conjunct,[status(thm)],[c_0_85])).
+cnf(c_0_96, plain, (iof(esk46_1(X1),X2,esk47_1(X1))|modeType(X1)|relationType(X1)|~specializes(X1,X2)), inference(csr,[status(thm)],[inference(spm,[status(thm)],[c_0_86, c_0_64]), c_0_87])).
+cnf(c_0_97, plain, (specializes(rf_Class6,rf_Class7)), inference(spm,[status(thm)],[c_0_88, c_0_89])).
+cnf(c_0_98, plain, (sortal(rf_Class7)), inference(spm,[status(thm)],[c_0_59, c_0_90])).
+cnf(c_0_99, plain, (esk24_1(esk46_1(rf_Class6))=rf_Class6|~endurant(esk46_1(rf_Class6))), inference(csr,[status(thm)],[inference(sr,[status(thm)],[inference(spm,[status(thm)],[c_0_91, c_0_92]), c_0_93]), c_0_94])).
+cnf(c_0_100, plain, (~endurantType(rf_Class6)), inference(spm,[status(thm)],[c_0_95, c_0_81])).
+fof(c_0_101, plain, ![X41]:((~monadicType(X41)|~relationType(X41))), inference(fof_nnf,[status(thm)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[ax_type_partition])])])).
+cnf(c_0_102, plain, (iof(esk46_1(rf_Class6),rf_Class7,esk47_1(rf_Class6))|relationType(rf_Class6)), inference(sr,[status(thm)],[inference(spm,[status(thm)],[c_0_96, c_0_97]), c_0_93])).
+cnf(c_0_103, plain, (endurantType(rf_Class7)), inference(spm,[status(thm)],[c_0_72, c_0_98])).
+cnf(c_0_104, plain, (~endurant(esk46_1(rf_Class6))), inference(sr,[status(thm)],[inference(spm,[status(thm)],[c_0_94, c_0_99]), c_0_100])).
+cnf(c_0_105, plain, (~monadicType(X1)|~relationType(X1)), inference(split_conjunct,[status(thm)],[c_0_101])).
+cnf(c_0_106, plain, (relationType(rf_Class6)), inference(sr,[status(thm)],[inference(cn,[status(thm)],[inference(rw,[status(thm)],[inference(spm,[status(thm)],[c_0_52, c_0_102]), c_0_103])]), c_0_104])).
+cnf(c_0_107, plain, (monadicType(rf_Class6)), inference(spm,[status(thm)],[c_0_42, c_0_81])).
+cnf(c_0_108, plain, ($false), inference(cn,[status(thm)],[inference(rw,[status(thm)],[inference(spm,[status(thm)],[c_0_105, c_0_106]), c_0_107])]), ['proof']).
+# SZS output end CNFRefutation
+# Parsed axioms                        : 156
+# Removed by relevancy pruning/SinE    : 0
+# Initial clauses                      : 426
+# Removed in clause preprocessing      : 0
+# Initial clauses in saturation        : 426
+# Processed clauses                    : 8368
+# ...of these trivial                  : 2
+# ...subsumed                          : 3887
+# ...remaining for further processing  : 4479
+# Other redundant clauses eliminated   : 4
+# Clauses deleted for lack of memory   : 0
+# Backward-subsumed                    : 228
+# Backward-rewritten                   : 1
+# Generated clauses                    : 19543
+# ...of the previous two non-redundant : 19066
+# ...aggressively subsumed             : 0
+# Contextual simplify-reflections      : 760
+# Paramodulations                      : 19539
+# Factorizations                       : 0
+# NegExts                              : 0
+# Equation resolutions                 : 4
+# Disequality decompositions           : 0
+# Total rewrite steps                  : 176
+# ...of those cached                   : 161
+# Propositional unsat checks           : 0
+#    Propositional check models        : 0
+#    Propositional check unsatisfiable : 0
+#    Propositional clauses             : 0
+#    Propositional clauses after purity: 0
+#    Propositional unsat core size     : 0
+#    Propositional preprocessing time  : 0.000
+#    Propositional encoding time       : 0.000
+#    Propositional solver time         : 0.000
+#    Success case prop preproc time    : 0.000
+#    Success case prop encoding time   : 0.000
+#    Success case prop solver time     : 0.000
+# Current number of processed clauses  : 3839
+#    Positive orientable unit clauses  : 26
+#    Positive unorientable unit clauses: 0
+#    Negative unit clauses             : 49
+#    Non-unit-clauses                  : 3764
+# Current number of unprocessed clauses: 8848
+# ...number of literals in the above   : 53844
+# Current number of archived formulas  : 0
+# Current number of archived clauses   : 637
+# Clause-clause subsumption calls (NU) : 5910620
+# Rec. Clause-clause subsumption calls : 2077319
+# Non-unit clause-clause subsumptions  : 4665
+# Unit Clause-clause subsumption calls : 33122
+# Rewrite failures with RHS unbound    : 0
+# BW rewrite match attempts            : 5
+# BW rewrite match successes           : 1
+# Condensation attempts                : 0
+# Condensation successes               : 0
+# Termbank termtop insertions          : 310511
+# Search garbage collected termcells   : 6323
+# -------------------------------------------------
+# User time                : 1.007 s
+# System time              : 0.027 s
+# Total time               : 1.034 s
+# Maximum resident set size: 4576 pages
+# -------------------------------------------------
+# User time                : 3.064 s
+# System time              : 0.141 s
+# Total time               : 3.206 s
+# Maximum resident set size: 4992 pages
