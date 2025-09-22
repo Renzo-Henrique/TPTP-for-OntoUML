@@ -1022,7 +1022,7 @@ fof(ax_material_has_a_relation_type, axiom, (
 ![T1, T2]: (comparativeType(T1, T2) => ?[RT]: (connectsType(T1, T2, RT)))
 )).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% ESPECIFIC AXIOM'S FOR THE ONTOLOGY
+%%%% ESPECIFIC FOR THE ONTOLOGY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%% WORLD CONSTRAINTS
 %%%%%%%%%%%%%%%%%

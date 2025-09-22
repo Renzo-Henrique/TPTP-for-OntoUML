@@ -148,7 +148,7 @@ async function generateTptpMLTAxiomsFromProject(project: Project, options: Forma
 
     const formulas: string[] = [];
     
-    formulas.push('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% ESPECIFIC AXIOM\'S FOR THE ONTOLOGY\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+    formulas.push('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%% ESPECIFIC FOR THE ONTOLOGY\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
     formulas.push('%%%%%%%%%%%%%%%%%%% WORLD CONSTRAINTS\n%%%%%%%%%%%%%%%%%');
     if(closedWorldOfTypes){  
         formulas.push(existenceOfTypesInOntology(project));

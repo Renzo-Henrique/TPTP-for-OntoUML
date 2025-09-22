@@ -17,8 +17,8 @@ async function main() {
 
     
     generateExamples(outputDir, formalizationOptions);
-    validateExamples(outputDir, formalizationOptions);
-    //validateSimpleWrongExamples(outputDir, formalizationOptions);
+    //validateExamples(outputDir, formalizationOptions);
+    validateSimpleWrongExamples(outputDir, formalizationOptions);
 
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/wrongs/specializationFromDisjoints/specializationFromDisjoints.json'));
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/wrongs/companyService/companyService.json'));
@@ -27,10 +27,13 @@ async function main() {
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/providerRelation/providerRelation.json'));
     // const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/iofExample/iofExample.json'));
     
-    //const project = loadProjectFromJson(path.resolve(process.cwd(),'examples/notWrongs/relationsInSubclasses/relationsInSubclasses.json'));
+    // var project = loadProjectFromJson(path.resolve(process.cwd(),'examples/simplified/json/subkindWithNoKind.json'));
     
-    //generateTptpFileFromProject(project, outputDir, {formalizationOptions: formalizationOptions});
-    //const result = await validateTptpFromProject(project, {generateOutputFileOfResult: true, outputFileOfResultDirPath: outpurDirName, formalizationOptions: formalizationOptions});console.log(result);
+    // var result = await validateTptpFromProject(project, {generateOutputFileOfResult: true, outputFileOfResultDirPath: outpurDirName, formalizationOptions: formalizationOptions});console.log(result);
+
+    // var project = loadProjectFromJson(path.resolve(process.cwd(),'examples/simplified/json/characterizationBetweenKinds.json'));
+    // var result = await validateTptpFromProject(project, {generateOutputFileOfResult: true, outputFileOfResultDirPath: outpurDirName, formalizationOptions: formalizationOptions});console.log(result);
+
 
   } catch (err) {
     console.error('Error while trying to load ontouml-js projects:', err);

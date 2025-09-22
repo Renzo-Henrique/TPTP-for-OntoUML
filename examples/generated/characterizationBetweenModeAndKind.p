@@ -1,6 +1,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% ESPECIFIC AXIOM'S FOR THE ONTOLOGY
+%%%% ESPECIFIC FOR THE ONTOLOGY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%% WORLD CONSTRAINTS
 %%%%%%%%%%%%%%%%%

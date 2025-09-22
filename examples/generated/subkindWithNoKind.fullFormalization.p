@@ -271,24 +271,24 @@ fof(ax_dIndividual, axiom, (
 )).
 
 fof(ax_multiLevel, axiom, (
-  ![X,Y,W]: (iof(X,Y,W) => (type_(X) | individual(X)))
+  ![X,Y,W]: (iof(X,Y,W) => (monadicType(X) | individual(X)))
 )).
 
 fof(ax_twoLevelConstrained, axiom, (
-  ~?[X,Y,Z,W]: (type_(X) & iof(X,Y,W) & iof(Y,Z,W))
+  ~?[X,Y,Z,W]: (monadicType(X) & iof(X,Y,W) & iof(Y,Z,W))
 )).
 
 % CHANGE:
 % X and Y are connected trought R in a world W
 %
 % Addition of connects individuals taxonomy
-fof(ax, axiom, (
+fof(ax_relationType_taxonomy, axiom, (
   ![X,Y,R,W]: (connects(X,Y,R,W) => (relationType(R) & world(W) & concreteIndividual(X) & concreteIndividual(Y)))
 )).
 
 % CHANGE:
 % R can only be a relation if it connects 2 individuals
-fof(ax, axiom, (
+fof(ax_relationType_must_connect_individuals, axiom, (
   ![R]: (relationType(R) <=> ?[X,Y,W]:(connects(X,Y,R,W)))
 )).
 
@@ -755,21 +755,21 @@ fof(ax_meetsInvolvedThings_a106, axiom, (
   ![P1,P2]: (meets(P1,P2) => (perdurant(P1) & perdurant(P2)))
 )).
 
-fof(ax_powerType_estereotype, axiom, (
-    ![T]: (powerType(T) => (monadicType(T)))
-)).
-fof(ax_powerType_specializes, axiom, (
-    ![T1, T2]: ((powerType(T1) & specializes(T1, T2) ) => (powerType(T2)))
-)).
+% fof(ax_powerType_estereotype, axiom, (
+%     ![T]: (powerType(T) => (monadicType(T)))
+% )).
+% fof(ax_powerType_specializes, axiom, (
+%     ![T1, T2]: ((powerType(T1) & specializes(T1, T2) ) => (powerType(T2)))
+% )).
 
-fof(ax_subkind_specializes_exactly_one_kind, axiom,
-    ![T1]: (subkind(T1) => (![T2,T3]: (
-                (kind(T2) & kind(T3) & specializes(T1,T2) & specializes(T1,T3))
-                   => T2 = T3
-                )
-           )
-    )
-).
+% fof(ax_subkind_specializes_exactly_one_kind, axiom,
+%     ![T1]: (subkind(T1) => (![T2,T3]: (
+%                 (kind(T2) & kind(T3) & specializes(T1,T2) & specializes(T1,T3))
+%                    => T2 = T3
+%                 )
+%            )
+%     )
+% ).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Disjointness
@@ -860,11 +860,13 @@ fof(ax_connection_of_types, axiom, (
 */
 
 % X1 is connected to X2 through R in a world W
-fof(ax_connection_of_individuals, axiom, (
-  ![X1, X2, R, W]: (connects(X1, X2, R, W) =>
-                      (individual(X1) & individual(X2) & relationType(R) & world(W))
-                  )
-)).
+
+% Already introduced
+% fof(ax_connection_of_individuals, axiom, (
+%   ![X1, X2, R, W]: (connects(X1, X2, R, W) =>
+%                       (individual(X1) & individual(X2) & relationType(R) & world(W))
+%                   )
+% )).
 
 /**
 * Cardinality X..* to X..*
@@ -884,7 +886,7 @@ fof(ax_connection_of_individuals, axiom, (
 %     wich are instances of the types
 fof(ax_connects_in_types_and_instances_cardinality, axiom, (
   ![T1, T2, RT]: (connectsType(T1, T2, RT) =>
-                      (?[W, X1, X2, RT]: (iof(X1, T1, W) & iof(X2, T2, W) &
+                      (?[W, X1, X2]: (iof(X1, T1, W) & iof(X2, T2, W) &
                                             connects(X1, X2, RT, W) )
                       )
                   )
@@ -1020,16 +1022,11 @@ fof(ax_material_has_a_relation_type, axiom, (
 ![T1, T2]: (comparativeType(T1, T2) => ?[RT]: (connectsType(T1, T2, RT)))
 )).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% ESPECIFIC AXIOM'S FOR THE ONTOLOGY
+%%%% ESPECIFIC FOR THE ONTOLOGY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%% WORLD CONSTRAINTS
 %%%%%%%%%%%%%%%%%
-fof(id_0_ax__ontology_classes_are_types, axiom, (
-    ![T]: (type_(T) <=> (T = rf_Class6 | 
-				T = rf_Class7 | 
-				T = rf_Class8)) 
-)).
-fof(id_1_ax__reified_classes_are_different, axiom,
+fof(id_0_ax__reified_classes_are_different, axiom,
   (rf_Class6 != rf_Class7 &
 			rf_Class6 != rf_Class8 &
 			rf_Class7 != rf_Class8)
@@ -1037,7 +1034,7 @@ fof(id_1_ax__reified_classes_are_different, axiom,
 %%%%%%%%%%%%%%%
 %%%%Classes Statements
 %%%%%%%%%%%%%%%
-fof(id_2_ax__ontology_classes_estereotypes, axiom, (
+fof(id_1_ax__ontology_classes_estereotypes, axiom, (
         perdurantType(rf_Class6) & 
 				subkind(rf_Class7) & 
 				category(rf_Class8)& objectType(rf_Class8)
@@ -1049,10 +1046,10 @@ fof(id_2_ax__ontology_classes_estereotypes, axiom, (
 %%%%%%%%%%%%%%%
 %%%%Generalizations
 %%%%%%%%%%%%%%%
-fof(id_3_ax_proper_especialization_of_created_class_Class6_generalizing_Class7, axiom, (
+fof(id_2_ax_proper_especialization_of_created_class_Class6_generalizing_Class7, axiom, (
     properSpecializes(rf_Class6, rf_Class7)
   )).
-fof(id_4_ax_proper_especialization_of_created_class_Class7_generalizing_Class8, axiom, (
+fof(id_3_ax_proper_especialization_of_created_class_Class7_generalizing_Class8, axiom, (
     properSpecializes(rf_Class7, rf_Class8)
   )).
 %%%%%%%%%%%%%%%%%%
